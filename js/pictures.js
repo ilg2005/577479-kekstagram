@@ -12,6 +12,7 @@ var COMMENTS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
+
 var SENTENCES = [
   'Тестим новую камеру!',
   'Затусили с друзьями на море',
@@ -33,14 +34,24 @@ var getRandomValue = function (array) {
   return array[Math.round(Math.random() * (array.length - 1))];
 };
 
-var picture = {
-  url: 'photos/' + getRandomValue(createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM)) + '.jpg',
-  likes: getRandomValue(createArrayFromRange(MIN_LIKES_NUM, MAX_LIKES_NUM)),
-  comments: getRandomValue(COMMENTS),
-  description: getRandomValue(SENTENCES)
+var createPicture = function () {
+  var picture = {
+    url: 'photos/' + getRandomValue(createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM)) + '.jpg',
+    likes: getRandomValue(createArrayFromRange(MIN_LIKES_NUM, MAX_LIKES_NUM)),
+    comments: getRandomValue(COMMENTS),
+    description: getRandomValue(SENTENCES)
+  };
+  return picture;
 };
 
-console.log(picture.url);
-console.log(picture.likes);
-console.log(picture.comments);
-console.log(picture.description);
+var createPicturesArray = function (picturesNum) {
+  var pictures = [];
+  for (var i = 0; i < picturesNum; i++) {
+    pictures.push(createPicture());
+  }
+  return pictures
+
+};
+
+console.log(createPicturesArray(MAX_PICTURE_NUM));
+
