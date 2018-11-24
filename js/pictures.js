@@ -111,7 +111,8 @@ var generateBigPictureData = function (picture) {
   bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
   bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
-
+  hideElement(bigPictureElement.querySelector('.social__comment-count'));
+  hideElement(bigPictureElement.querySelector('.comments-loader'));
 };
 
 var init = function () {
