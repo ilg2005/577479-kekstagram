@@ -22,6 +22,7 @@ var SENTENCES = [
 ];
 
 var pictureTemplateElement = document.querySelector('#picture').content;
+var picturesElement = document.querySelector('.pictures');
 
 var createArrayFromRange = function (min, max) {
   var numbers = [];
@@ -85,6 +86,14 @@ var renderPicture = function (picture) {
   pictureElement.querySelector('.picture__stat--comments').textContent = picture.comments.length;
 
   return pictureElement;
+};
+
+var renderPictures = function (pictures) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < pictures.length; i++) {
+    fragment.appendChild(renderPicture(pictures[i]));
+  }
+  picturesElement.appendChild(fragment);
 };
 
 var init = function () {
