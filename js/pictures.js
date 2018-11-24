@@ -78,7 +78,7 @@ var generateCommentsForPicture = function (commentsArray) {
 var createPicture = function () {
   var picture = {
     url: 'photos/' + getUniqueRandomValue(pictureNumbers) + '.jpg',
-    likes: getRandomValue(createArrayFromRange(MIN_LIKES_NUM, MAX_LIKES_NUM)),
+    likes: getRandomInRange(MIN_LIKES_NUM, MAX_LIKES_NUM),
     comments: generateCommentsForPicture(COMMENTS),
     description: getRandomValue(SENTENCES)
   };
