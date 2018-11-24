@@ -29,6 +29,10 @@ var showElement = function (element) {
   element.classList.remove('hidden');
 };
 
+var hideElement = function (element) {
+  element.classList.add('visually-hidden');
+};
+
 var createArrayFromRange = function (min, max) {
   var numbers = [];
   for (var i = min; i <= max; i++) {
@@ -106,6 +110,8 @@ var generateBigPictureData = function (picture) {
   bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
   bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
   bigPictureElement.querySelector('.social__caption').textContent = picture.description;
+
+
 };
 
 var init = function () {
