@@ -93,7 +93,7 @@ var renderPicture = function (picture) {
   return pictureElement;
 };
 
-var renderPictures = function (pictures) {
+var renderSimilarPictures = function (pictures) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < pictures.length; i++) {
     fragment.appendChild(renderPicture(pictures[i]));
@@ -102,8 +102,11 @@ var renderPictures = function (pictures) {
 };
 
 var init = function () {
-  showElement(bigPictureElement);
+  var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
+  renderSimilarPictures(similarPictures);
+ // showElement(setupSimilarWizardsElement);
   console.log(createPicturesArray(MAX_PICTURE_NUM));
+  //showElement(bigPictureElement);
 };
 
 init();
