@@ -2,6 +2,8 @@
 
 var MIN_PICTURE_NUM = 1;
 var MAX_PICTURE_NUM = 25;
+var MIN_AVATAR_NUM = 1;
+var MAX_AVATAR_NUM = 6;
 var MIN_LIKES_NUM = 15;
 var MAX_LIKES_NUM = 200;
 var COMMENTS = [
@@ -39,6 +41,10 @@ var createArrayFromRange = function (min, max) {
     numbers.push(i);
   }
   return numbers;
+};
+
+var getRandomInRange = function (min, max) {
+  return Math.floor(Math.random() * (max + 1 - min) + min);
 };
 
 var getRandomIndex = function (array) {
@@ -105,11 +111,39 @@ var renderSimilarPictures = function (pictures) {
   picturesElement.appendChild(fragment);
 };
 
+var generateCommentsFragment = function (comments) {
+  var commentsFragment = document.createDocumentFragment();
+
+  comments.forEach(function (comment) {
+    var newLi = document.createElement('li');
+    newLi.classList.add('social__comment');
+
+    var newImg = document.createElement('img');
+    newImg.classList.add('social__picture');
+    newImg.src = 'img/avatar-' + getRandomInRange(MIN_AVATAR_NUM, MAX_AVATAR_NUM) + '.svg';
+    newImg.alt = 'Аватар комментатора фотографии';
+    newImg.width = '35';
+    newImg.height = '35';
+    newLi.appendChild(newImg);
+
+    var newP = document.createElement('p');
+    newP.classList.add('social__text');
+    newP.textContent = comment;
+    newLi.appendChild(newP);
+
+    commentsFragment.appendChild(newLi);
+  });
+  return commentsFragment;
+};
+
 var generateBigPictureData = function (picture) {
   bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
   bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
   bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
   bigPictureElement.querySelector('.social__caption').textContent = picture.description;
+
+  bigPictureElement.querySelector('.social__comments').innerHTML = '';
+  bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
 
   hideElement(bigPictureElement.querySelector('.social__comment-count'));
   hideElement(bigPictureElement.querySelector('.comments-loader'));
