@@ -43,16 +43,17 @@ var createArrayFromRange = function (min, max) {
   return numbers;
 };
 
-var getRandomInRange = function (min, max) {
-  return Math.floor(Math.random() * (max + 1 - min) + min);
-};
-
 var getRandomIndex = function (array) {
   return Math.round(Math.random() * (array.length - 1));
 };
 
 var getRandomValue = function (array) {
   return array[getRandomIndex(array)];
+};
+
+var getRandomInRange = function (min, max) {
+  var array = createArrayFromRange(min, max);
+  return getRandomValue(array);
 };
 
 var pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
