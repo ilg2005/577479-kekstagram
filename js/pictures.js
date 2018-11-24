@@ -12,7 +12,6 @@ var COMMENTS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-
 var SENTENCES = [
   'Тестим новую камеру!',
   'Затусили с друзьями на море',
@@ -21,6 +20,8 @@ var SENTENCES = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
+
+var pictureTemplateElement = document.querySelector('#picture').content;
 
 var createArrayFromRange = function (min, max) {
   var numbers = [];
@@ -76,8 +77,19 @@ var createPicturesArray = function (picturesNum) {
   return pictures;
 };
 
+var renderPicture = function (picture) {
+  var pictureElement = pictureTemplateElement.cloneNode(true);
+
+  pictureElement.querySelector('.picture__img').src = picture.url;
+  pictureElement.querySelector('.picture__likes').textContent = picture.likes;
+  pictureElement.querySelector('.picture__stat--comments').textContent = picture.comments.length;
+
+  return pictureElement;
+};
+
 var init = function () {
   console.log(createPicturesArray(MAX_PICTURE_NUM));
 };
+
 init();
 
