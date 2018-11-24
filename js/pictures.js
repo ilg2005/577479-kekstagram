@@ -23,6 +23,11 @@ var SENTENCES = [
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
+var bigPictureElement = document.querySelector('.big-picture');
+
+var showElement = function (element) {
+  element.classList.remove('hidden');
+};
 
 var createArrayFromRange = function (min, max) {
   var numbers = [];
@@ -97,6 +102,7 @@ var renderPictures = function (pictures) {
 };
 
 var init = function () {
+  showElement(bigPictureElement);
   console.log(createPicturesArray(MAX_PICTURE_NUM));
 };
 
