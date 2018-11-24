@@ -101,12 +101,18 @@ var renderSimilarPictures = function (pictures) {
   picturesElement.appendChild(fragment);
 };
 
+var generateBigPictureData = function (picture) {
+  bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
+  bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
+  bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
+  bigPictureElement.querySelector('.social__caption').textContent = picture.description;
+};
+
 var init = function () {
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
- // showElement(setupSimilarWizardsElement);
-  console.log(createPicturesArray(MAX_PICTURE_NUM));
-  //showElement(bigPictureElement);
+  generateBigPictureData(similarPictures[0]);
+  showElement(bigPictureElement);
 };
 
 init();
