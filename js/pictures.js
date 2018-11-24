@@ -30,15 +30,39 @@ var createArrayFromRange = function (min, max) {
   return numbers;
 };
 
+var getRandomIndex = function (array) {
+  return Math.round(Math.random() * (array.length - 1));
+};
+
 var getRandomValue = function (array) {
-  return array[Math.round(Math.random() * (array.length - 1))];
+  return array[getRandomIndex(array)];
+};
+
+var pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
+
+var getUniqueRandomValue = function (array) {
+  var uniqueRandomValue = getRandomValue(array);
+  array.splice(array.indexOf(uniqueRandomValue), 1);
+  return uniqueRandomValue;
+};
+
+var generateCommentsForPicture = function (commentsArray) {
+  var commentsClone = commentsArray.slice();
+  var commentsNumber = getRandomIndex(commentsClone);
+  var commentsForPicture = [];
+  if (commentsNumber !== 0) {
+    for (var i = 0; i <= commentsNumber; i++) {
+      commentsForPicture.push(getUniqueRandomValue(commentsClone));
+    }
+  }
+  return commentsForPicture;
 };
 
 var createPicture = function () {
   var picture = {
-    url: 'photos/' + getRandomValue(createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM)) + '.jpg',
+    url: 'photos/' + getUniqueRandomValue(pictureNumbers) + '.jpg',
     likes: getRandomValue(createArrayFromRange(MIN_LIKES_NUM, MAX_LIKES_NUM)),
-    comments: getRandomValue(COMMENTS),
+    comments: generateCommentsForPicture(COMMENTS),
     description: getRandomValue(SENTENCES)
   };
   return picture;
@@ -49,9 +73,11 @@ var createPicturesArray = function (picturesNum) {
   for (var i = 0; i < picturesNum; i++) {
     pictures.push(createPicture());
   }
-  return pictures
-
+  return pictures;
 };
 
-console.log(createPicturesArray(MAX_PICTURE_NUM));
+var init = function () {
+  console.log(createPicturesArray(MAX_PICTURE_NUM));
+};
+init();
 
