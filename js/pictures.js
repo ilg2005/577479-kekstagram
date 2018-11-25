@@ -27,6 +27,8 @@ var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
 var bigPictureElement = document.querySelector('.big-picture');
 
+var pictureNumbers;
+
 var showElement = function (element) {
   element.classList.remove('hidden');
 };
@@ -149,7 +151,7 @@ var generateBigPictureData = function (picture) {
 };
 
 var init = function () {
-  window.pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
+  pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
   generateBigPictureData(similarPictures[0]);
