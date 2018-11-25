@@ -56,8 +56,6 @@ var getRandomInRange = function (min, max) {
   return getRandomValue(array);
 };
 
-var pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
-
 var getUniqueRandomValue = function (array) {
   var uniqueRandomValue = getRandomValue(array);
   array.splice(array.indexOf(uniqueRandomValue), 1);
@@ -151,6 +149,7 @@ var generateBigPictureData = function (picture) {
 };
 
 var init = function () {
+  window.pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
   generateBigPictureData(similarPictures[0]);
