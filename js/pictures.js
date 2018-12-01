@@ -30,6 +30,9 @@ var bigPictureElement = document.querySelector('.big-picture');
 var uploadFileElement = document.querySelector('#upload-file');
 var pictureEditingElement = document.querySelector('.img-upload__overlay');
 var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
+var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview img');
+var effectsElement = pictureEditingElement.querySelector('.effects');
+var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
 
 var pictureNumbers;
 
@@ -167,15 +170,31 @@ var cancelEditingElementKeydownEscHandler = function (evt) {
     uploadFileElement.value = '';
   }
 };
+var sliderPinElementMouseupHandler = function () {
+
+};
+
+var changeEffect = function (effect) {
+  var effectClass = 'effects__preview--' + effect;
+  imgPreviewElement.classList.add(effectClass);
+};
+
+var effectsElementClickHandler = function (evt) {
+  var effectName = evt.target.id.replace('effect-', '');
+  changeEffect(effectName);
+};
 
 var uploadFileElementChangeHandler = function () {
   showElement(pictureEditingElement);
   cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
   document.addEventListener('keydown', cancelEditingElementKeydownEscHandler);
+  effectsElement.addEventListener('click', effectsElementClickHandler);
+  sliderPinElement.addEventListener('mouseup', sliderPinElementMouseupHandler);
 };
 
 var init = function () {
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
+
   pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
