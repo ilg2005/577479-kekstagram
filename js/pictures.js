@@ -22,10 +22,14 @@ var SENTENCES = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
+var ESC_KEYCODE = 27;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
 var bigPictureElement = document.querySelector('.big-picture');
+var uploadFileElement = document.querySelector('#upload-file');
+var pictureEditingElement = document.querySelector('.img-upload__overlay');
+var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
 
 var pictureNumbers;
 
@@ -150,12 +154,33 @@ var generateBigPictureData = function (picture) {
   hideElement(bigPictureElement.querySelector('.comments-loader'));
 };
 
+var cancelEditingElementClickHandler = function () {
+  hideElement(pictureEditingElement);
+  document.removeEventListener('keydown', cancelEditingElementKeydownEscHandler);
+  uploadFileElement.value = '';
+};
+
+var cancelEditingElementKeydownEscHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    hideElement(pictureEditingElement);
+    document.removeEventListener('keydown', cancelEditingElementKeydownEscHandler);
+    uploadFileElement.value = '';
+  }
+};
+
+var uploadFileElementChangeHandler = function () {
+  showElement(pictureEditingElement);
+  cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
+  document.addEventListener('keydown', cancelEditingElementKeydownEscHandler);
+};
+
 var init = function () {
+  uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
   pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
   generateBigPictureData(similarPictures[0]);
-  showElement(bigPictureElement);
+  // showElement(bigPictureElement);
 };
 
 init();
