@@ -175,6 +175,7 @@ var sliderPinElementMouseupHandler = function () {
 };
 
 var changeEffect = function (effect) {
+  imgPreviewElement.className = '';
   var effectClass = 'effects__preview--' + effect;
   imgPreviewElement.classList.add(effectClass);
 };
