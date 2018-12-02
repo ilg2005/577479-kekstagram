@@ -37,8 +37,10 @@ var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__previe
 var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--smaller');
 var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
 var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
-var effectsElement = pictureEditingElement.querySelector('.effects');
+var effectsListElement = pictureEditingElement.querySelector('.effects__list');
 var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
+var sliderLineElement = pictureEditingElement.querySelector('.effect-level__depth');
+
 
 var pictureNumbers;
 
@@ -205,9 +207,6 @@ var scaleBiggerElementClickHandler = function () {
   imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
 };
 
-scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
-scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
-
 var sliderPinElementMouseupHandler = function () {
 
 };
@@ -219,7 +218,7 @@ var changeEffect = function (effect) {
   img.classList.add(effectClass);
 };
 
-var effectsElementClickHandler = function (evt) {
+var effectsListElementClickHandler = function (evt) {
   var effectName = evt.target.id.replace('effect-', '');
   changeEffect(effectName);
 };
@@ -228,7 +227,9 @@ var uploadFileElementChangeHandler = function () {
   showElement(pictureEditingElement);
   cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
   document.addEventListener('keydown', documentKeydownEscHandler);
-  effectsElement.addEventListener('click', effectsElementClickHandler);
+  scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
+  scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
+  effectsListElement.addEventListener('click', effectsListElementClickHandler);
   sliderPinElement.addEventListener('mouseup', sliderPinElementMouseupHandler);
 };
 
