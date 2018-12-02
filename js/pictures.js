@@ -22,7 +22,6 @@ var SENTENCES = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
-var DEFAULT_SCALE_VALUE = '100%';
 var MIN_SCALE_VALUE = '25%';
 var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
@@ -34,7 +33,7 @@ var bigPictureElement = document.querySelector('.big-picture');
 var uploadFileElement = document.querySelector('#upload-file');
 var pictureEditingElement = document.querySelector('.img-upload__overlay');
 var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
-var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview img');
+var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview');
 var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--smaller');
 var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
 var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
@@ -184,6 +183,7 @@ var increaseScaleValue = function () {
     var newScaleValue = parseInt(currentScaleValue, 10) + parseInt(SCALE_STEP, 10);
     scaleValueElement.value = newScaleValue + '%';
   }
+  return newScaleValue / 100;
 };
 
 var decreaseScaleValue = function () {
@@ -192,25 +192,31 @@ var decreaseScaleValue = function () {
     var newScaleValue = parseInt(currentScaleValue, 10) - parseInt(SCALE_STEP, 10);
     scaleValueElement.value = newScaleValue + '%';
   }
+  return newScaleValue / 100;
 };
 
 var scaleSmallerElementClickHandler = function () {
-  decreaseScaleValue();
-  //imgPreviewElement.style.transform = scale(0.75);
+  var decimalValueOfPercent = decreaseScaleValue();
+  imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+};
 
+var scaleBiggerElementClickHandler = function () {
+  var decimalValueOfPercent = increaseScaleValue();
+  imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
 };
 
 scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
-//scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
+scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
 
 var sliderPinElementMouseupHandler = function () {
 
 };
 
 var changeEffect = function (effect) {
-  imgPreviewElement.className = '';
+  var img = imgPreviewElement.querySelector('img');
+  img.className = '';
   var effectClass = 'effects__preview--' + effect;
-  imgPreviewElement.classList.add(effectClass);
+  img.classList.add(effectClass);
 };
 
 var effectsElementClickHandler = function (evt) {
