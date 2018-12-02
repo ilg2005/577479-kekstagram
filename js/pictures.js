@@ -166,7 +166,7 @@ var generateBigPictureData = function (picture) {
 
 var cancelEditingElementClickHandler = function () {
   hideElement(pictureEditingElement);
-  document.removeEventListener('keydown', cancelEditingElementKeydownEscHandler);
+  document.removeEventListener('keydown', documentKeydownEscHandler);
   uploadFileElement.value = '';
 };
 
@@ -177,6 +177,15 @@ var documentKeydownEscHandler = function (evt) {
     uploadFileElement.value = '';
   }
 };
+
+var increaseScaleValue = function () {
+  var currentScaleValue = scaleValueElement.value;
+  if (currentScaleValue !== MAX_SCALE_VALUE) {
+    var newScaleValue = parseInt(currentScaleValue, 10) + parseInt(SCALE_STEP, 10);
+    scaleValueElement.value = newScaleValue + '%';
+  }
+};
+
 var sliderPinElementMouseupHandler = function () {
 
 };
