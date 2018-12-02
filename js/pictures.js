@@ -23,31 +23,31 @@ var SENTENCES = [
   'Вот это тачка!'
 ];
 var EFFECT_CHROME = {
-  filter: 'greyscale',
+  filterType: 'greyscale',
   min: 0,
   max: 1,
   unit: ''
 };
 var EFFECT_SEPIA = {
-  filter: 'sepia',
+  filterType: 'sepia',
   min: 0,
   max: 1,
   unit: ''
 };
 var EFFECT_MARVIN = {
-  filter: 'invert',
+  filterType: 'invert',
   min: 0,
   max: 100,
   unit: '%'
 };
-var EFFECT_FOBOS = {
-  filter: 'blur',
+var EFFECT_PHOBOS = {
+  filterType: 'blur',
   min: 0,
   max: 3,
   unit: 'px'
 };
 var EFFECT_HEAT = {
-  filter: 'brightness',
+  filterType: 'brightness',
   min: 1,
   max: 3,
   unit: ''
@@ -63,7 +63,7 @@ var bigPictureElement = document.querySelector('.big-picture');
 var uploadFileElement = document.querySelector('#upload-file');
 var pictureEditingElement = document.querySelector('.img-upload__overlay');
 var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
-var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview');
+var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview'); //TODO: добавить отдельную переменную для img
 var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--smaller');
 var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
 var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
@@ -74,7 +74,7 @@ var sliderLineElement = pictureEditingElement.querySelector('.effect-level__dept
 var sliderEffectLevelValueElement = pictureEditingElement.querySelector('.effect-level__value');
 
 var pictureNumbers;
-var currentEffect = {};
+var currentEffect;
 
 var showElement = function (element) {
   element.classList.remove('hidden');
@@ -239,27 +239,39 @@ var scaleBiggerElementClickHandler = function () {
   imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
 };
 
-var changeEffectLevel = function (effectFilter, level, unit) {
+var changeEffectLevel = function (type, level, unit) {
   var img = imgPreviewElement.querySelector('img');
-  img.style.filter = effectFilter + '(' + level + unit + ')';
-  console.log(img.style.filter);
+  img.style.filter = type + '(' + level + unit + ')';
 };
 
 var sliderPinElementMouseupHandler = function () {
-  changeEffectLevel(currentEffect.filter, 20, currentEffect.unit);
+  console.log(currentEffect);
+  changeEffectLevel(currentEffect.filterType, 20, currentEffect.unit);
 };
 
-var changeEffectType = function (effect) {
+var resetSliderSettings = function () {
   var img = imgPreviewElement.querySelector('img');
   img.className = '';
   sliderPinElement.style.left = '100%';
   sliderLineElement.style.width = '100%';
+  img.style.filter = '';
+};
+
+var changeEffectType = function (effect) {
+  var img = imgPreviewElement.querySelector('img');
+  resetSliderSettings();
   if (effect !== 'none') {
     showElement(effectLevelElement);
   } else {
     hideElement(effectLevelElement);
   }
-  switch (effect) {
+  var effectClass = 'effects__preview--' + effect;
+  img.classList.add(effectClass);
+};
+
+var effectsListElementClickHandler = function (evt) {
+  var effectTypeName = evt.target.value;
+  switch (effectTypeName) {
     case 'chrome':
       currentEffect = EFFECT_CHROME;
       break;
@@ -269,15 +281,12 @@ var changeEffectType = function (effect) {
     case 'marvin':
       currentEffect = EFFECT_MARVIN;
       break;
+    case 'phobos':
+      currentEffect = EFFECT_PHOBOS;
+      break;
     case 'heat':
       currentEffect = EFFECT_HEAT;
-  };
-  var effectClass = 'effects__preview--' + effect;
-  img.classList.add(effectClass);
-};
-
-var effectsListElementClickHandler = function (evt) {
-  var effectTypeName = evt.target.value;
+  }
   changeEffectType(effectTypeName);
 };
 
@@ -294,7 +303,6 @@ var uploadFileElementChangeHandler = function () {
 
 var init = function () {
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
-
   pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
