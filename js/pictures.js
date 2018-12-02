@@ -31,6 +31,9 @@ var uploadFileElement = document.querySelector('#upload-file');
 var pictureEditingElement = document.querySelector('.img-upload__overlay');
 var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
 var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview img');
+var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--smaller');
+var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
+var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
 var effectsElement = pictureEditingElement.querySelector('.effects');
 var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
 
@@ -163,10 +166,10 @@ var cancelEditingElementClickHandler = function () {
   uploadFileElement.value = '';
 };
 
-var cancelEditingElementKeydownEscHandler = function (evt) {
+var documentKeydownEscHandler = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     hideElement(pictureEditingElement);
-    document.removeEventListener('keydown', cancelEditingElementKeydownEscHandler);
+    document.removeEventListener('keydown', documentKeydownEscHandler);
     uploadFileElement.value = '';
   }
 };
@@ -188,7 +191,7 @@ var effectsElementClickHandler = function (evt) {
 var uploadFileElementChangeHandler = function () {
   showElement(pictureEditingElement);
   cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
-  document.addEventListener('keydown', cancelEditingElementKeydownEscHandler);
+  document.addEventListener('keydown', documentKeydownEscHandler);
   effectsElement.addEventListener('click', effectsElementClickHandler);
   sliderPinElement.addEventListener('mouseup', sliderPinElementMouseupHandler);
 };
