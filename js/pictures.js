@@ -22,6 +22,36 @@ var SENTENCES = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
+var EFFECT_CHROME = {
+  filter: 'greyscale',
+  min: 0,
+  max: 1,
+  unit: ''
+};
+var EFFECT_SEPIA = {
+  filter: 'sepia',
+  min: 0,
+  max: 1,
+  unit: ''
+};
+var EFFECT_MARVIN = {
+  filter: 'invert',
+  min: 0,
+  max: 100,
+  unit: '%'
+};
+var EFFECT_FOBOS = {
+  filter: 'blur',
+  min: 0,
+  max: 3,
+  unit: 'px'
+};
+var EFFECT_HEAT = {
+  filter: 'brightness',
+  min: 1,
+  max: 3,
+  unit: ''
+};
 var MIN_SCALE_VALUE = '25%';
 var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
@@ -38,11 +68,13 @@ var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--
 var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
 var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
 var effectsListElement = pictureEditingElement.querySelector('.effects__list');
+var effectLevelElement = pictureEditingElement.querySelector('.effect-level');
 var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
 var sliderLineElement = pictureEditingElement.querySelector('.effect-level__depth');
-
+var sliderEffectLevelValueElement = pictureEditingElement.querySelector('.effect-level__value');
 
 var pictureNumbers;
+var currentEffect = {};
 
 var showElement = function (element) {
   element.classList.remove('hidden');
@@ -207,24 +239,51 @@ var scaleBiggerElementClickHandler = function () {
   imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
 };
 
-var sliderPinElementMouseupHandler = function () {
-
+var changeEffectLevel = function (effectFilter, level, unit) {
+  var img = imgPreviewElement.querySelector('img');
+  img.style.filter = effectFilter + '(' + level + unit + ')';
+  console.log(img.style.filter);
 };
 
-var changeEffect = function (effect) {
+var sliderPinElementMouseupHandler = function () {
+  changeEffectLevel(currentEffect.filter, 20, currentEffect.unit);
+};
+
+var changeEffectType = function (effect) {
   var img = imgPreviewElement.querySelector('img');
   img.className = '';
+  sliderPinElement.style.left = '100%';
+  sliderLineElement.style.width = '100%';
+  if (effect !== 'none') {
+    showElement(effectLevelElement);
+  } else {
+    hideElement(effectLevelElement);
+  }
+  switch (effect) {
+    case 'chrome':
+      currentEffect = EFFECT_CHROME;
+      break;
+    case 'sepia':
+      currentEffect = EFFECT_SEPIA;
+      break;
+    case 'marvin':
+      currentEffect = EFFECT_MARVIN;
+      break;
+    case 'heat':
+      currentEffect = EFFECT_HEAT;
+  };
   var effectClass = 'effects__preview--' + effect;
   img.classList.add(effectClass);
 };
 
 var effectsListElementClickHandler = function (evt) {
-  var effectName = evt.target.id.replace('effect-', '');
-  changeEffect(effectName);
+  var effectTypeName = evt.target.value;
+  changeEffectType(effectTypeName);
 };
 
 var uploadFileElementChangeHandler = function () {
   showElement(pictureEditingElement);
+  hideElement(effectLevelElement);
   cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
   document.addEventListener('keydown', documentKeydownEscHandler);
   scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
