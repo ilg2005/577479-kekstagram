@@ -245,9 +245,9 @@ var changeEffectLevel = function (type, level, unit) {
 };
 
 var convertPinPositionToEffectLevel = function () {
-  sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left);
+  sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left, 10);
   var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / 100) + currentEffect.min;
-  return  effectLevel;
+  return effectLevel;
 };
 
 var sliderPinElementMouseupHandler = function () {
