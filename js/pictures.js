@@ -22,6 +22,10 @@ var SENTENCES = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
+var DEFAULT_SCALE_VALUE = '100%';
+var MIN_SCALE_VALUE = '25%';
+var MAX_SCALE_VALUE = '100%';
+var SCALE_STEP = '25%';
 var ESC_KEYCODE = 27;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
