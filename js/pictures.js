@@ -48,7 +48,7 @@ var showElement = function (element) {
 };
 
 var hideElement = function (element) {
-  element.classList.add('visually-hidden');
+  element.classList.add('hidden');
 };
 
 var createArrayFromRange = function (min, max) {
@@ -193,6 +193,15 @@ var decreaseScaleValue = function () {
     scaleValueElement.value = newScaleValue + '%';
   }
 };
+
+var scaleSmallerElementClickHandler = function () {
+  decreaseScaleValue();
+  //imgPreviewElement.style.transform = scale(0.75);
+
+};
+
+scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
+//scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
 
 var sliderPinElementMouseupHandler = function () {
 
