@@ -186,6 +186,14 @@ var increaseScaleValue = function () {
   }
 };
 
+var decreaseScaleValue = function () {
+  var currentScaleValue = scaleValueElement.value;
+  if (currentScaleValue !== MIN_SCALE_VALUE) {
+    var newScaleValue = parseInt(currentScaleValue, 10) - parseInt(SCALE_STEP, 10);
+    scaleValueElement.value = newScaleValue + '%';
+  }
+};
+
 var sliderPinElementMouseupHandler = function () {
 
 };
