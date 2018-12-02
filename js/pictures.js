@@ -23,7 +23,7 @@ var SENTENCES = [
   'Вот это тачка!'
 ];
 var EFFECT_CHROME = {
-  filterType: 'greyscale',
+  filterType: 'grayscale',
   min: 0,
   max: 1,
   unit: ''
@@ -63,7 +63,8 @@ var bigPictureElement = document.querySelector('.big-picture');
 var uploadFileElement = document.querySelector('#upload-file');
 var pictureEditingElement = document.querySelector('.img-upload__overlay');
 var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
-var imgPreviewElement = pictureEditingElement.querySelector('.img-upload__preview'); //TODO: добавить отдельную переменную для img
+var uploadPreviewElement = pictureEditingElement.querySelector('.img-upload__preview');
+var imgPreviewElement = uploadPreviewElement.querySelector('img');
 var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--smaller');
 var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
 var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
@@ -231,34 +232,37 @@ var decreaseScaleValue = function () {
 
 var scaleSmallerElementClickHandler = function () {
   var decimalValueOfPercent = decreaseScaleValue();
-  imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+  uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
 };
 
 var scaleBiggerElementClickHandler = function () {
   var decimalValueOfPercent = increaseScaleValue();
-  imgPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+  uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
 };
 
 var changeEffectLevel = function (type, level, unit) {
-  var img = imgPreviewElement.querySelector('img');
-  img.style.filter = type + '(' + level + unit + ')';
+  imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+};
+
+var convertPinPositionToEffectLevel = function () {
+  sliderPinElement.style.left = '20%';
+  sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left);
+  var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / 100) + currentEffect.min;
+  return  effectLevel;
 };
 
 var sliderPinElementMouseupHandler = function () {
-  console.log(currentEffect);
-  changeEffectLevel(currentEffect.filterType, 20, currentEffect.unit);
+  changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
 };
 
 var resetSliderSettings = function () {
-  var img = imgPreviewElement.querySelector('img');
-  img.className = '';
+  imgPreviewElement.className = '';
   sliderPinElement.style.left = '100%';
   sliderLineElement.style.width = '100%';
-  img.style.filter = '';
+  imgPreviewElement.style.filter = '';
 };
 
 var changeEffectType = function (effect) {
-  var img = imgPreviewElement.querySelector('img');
   resetSliderSettings();
   if (effect !== 'none') {
     showElement(effectLevelElement);
@@ -266,7 +270,7 @@ var changeEffectType = function (effect) {
     hideElement(effectLevelElement);
   }
   var effectClass = 'effects__preview--' + effect;
-  img.classList.add(effectClass);
+  imgPreviewElement.classList.add(effectClass);
 };
 
 var effectsListElementClickHandler = function (evt) {
