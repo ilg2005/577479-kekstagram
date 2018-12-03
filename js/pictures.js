@@ -75,6 +75,8 @@ var effectLevelElement = pictureEditingElement.querySelector('.effect-level');
 var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
 var sliderLineElement = pictureEditingElement.querySelector('.effect-level__depth');
 var sliderEffectLevelValueElement = pictureEditingElement.querySelector('.effect-level__value');
+var hashtagsElement = pictureEditingElement.querySelector('.text__hashtags');
+var commentsElement = pictureEditingElement.querySelector('.text__description');
 
 var pictureNumbers;
 var currentEffect;
@@ -211,7 +213,7 @@ var cancelEditingElementClickHandler = function () {
 };
 
 var documentKeydownEscHandler = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== hashtagsElement && evt.target !== commentsElement) {
     cancelImageEditing();
   }
 };
