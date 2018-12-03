@@ -22,19 +22,71 @@ var SENTENCES = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
+var EFFECT_CHROME = {
+  filterType: 'grayscale',
+  min: 0,
+  max: 1,
+  unit: ''
+};
+var EFFECT_SEPIA = {
+  filterType: 'sepia',
+  min: 0,
+  max: 1,
+  unit: ''
+};
+var EFFECT_MARVIN = {
+  filterType: 'invert',
+  min: 0,
+  max: 100,
+  unit: '%'
+};
+var EFFECT_PHOBOS = {
+  filterType: 'blur',
+  min: 0,
+  max: 3,
+  unit: 'px'
+};
+var EFFECT_HEAT = {
+  filterType: 'brightness',
+  min: 1,
+  max: 3,
+  unit: ''
+};
+var DIVIDER_TO_DECIMAL = 100;
+var MIN_SCALE_VALUE = '25%';
+var MAX_SCALE_VALUE = '100%';
+var SCALE_STEP = '25%';
+var DEFAULT_EFFECT_LEVEL = '100%';
+var ESC_KEYCODE = 27;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
 var bigPictureElement = document.querySelector('.big-picture');
+var uploadFileElement = document.querySelector('#upload-file');
+var pictureEditingElement = document.querySelector('.img-upload__overlay');
+var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
+var uploadPreviewElement = pictureEditingElement.querySelector('.img-upload__preview');
+var imgPreviewElement = uploadPreviewElement.querySelector('img');
+var scaleSmallerElement = pictureEditingElement.querySelector('.scale__control--smaller');
+var scaleBiggerElement = pictureEditingElement.querySelector('.scale__control--bigger');
+var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
+var effectsListElement = pictureEditingElement.querySelector('.effects__list');
+var effectLevelElement = pictureEditingElement.querySelector('.effect-level');
+var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
+var sliderLineElement = pictureEditingElement.querySelector('.effect-level__depth');
+var sliderEffectLevelValueElement = pictureEditingElement.querySelector('.effect-level__value');
+var hashtagsElement = pictureEditingElement.querySelector('.text__hashtags');
+var commentsElement = pictureEditingElement.querySelector('.text__description');
 
 var pictureNumbers;
+var currentEffect;
 
 var showElement = function (element) {
   element.classList.remove('hidden');
 };
 
 var hideElement = function (element) {
-  element.classList.add('visually-hidden');
+  element.classList.add('hidden');
 };
 
 var createArrayFromRange = function (min, max) {
@@ -150,12 +202,123 @@ var generateBigPictureData = function (picture) {
   hideElement(bigPictureElement.querySelector('.comments-loader'));
 };
 
+var cancelImageEditing = function () {
+  hideElement(pictureEditingElement);
+  document.removeEventListener('keydown', documentKeydownEscHandler);
+  uploadFileElement.value = '';
+};
+
+var cancelEditingElementClickHandler = function () {
+  cancelImageEditing();
+};
+
+var documentKeydownEscHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== hashtagsElement && evt.target !== commentsElement) {
+    cancelImageEditing();
+  }
+};
+
+var increaseScaleValue = function () {
+  var currentScaleValue = scaleValueElement.value;
+  if (currentScaleValue !== MAX_SCALE_VALUE) {
+    var newScaleValue = parseInt(currentScaleValue, 10) + parseInt(SCALE_STEP, 10);
+    scaleValueElement.value = newScaleValue + '%';
+  }
+  return newScaleValue / DIVIDER_TO_DECIMAL;
+};
+
+var decreaseScaleValue = function () {
+  var currentScaleValue = scaleValueElement.value;
+  if (currentScaleValue !== MIN_SCALE_VALUE) {
+    var newScaleValue = parseInt(currentScaleValue, 10) - parseInt(SCALE_STEP, 10);
+    scaleValueElement.value = newScaleValue + '%';
+  }
+  return newScaleValue / DIVIDER_TO_DECIMAL;
+};
+
+var scaleSmallerElementClickHandler = function () {
+  var decimalValueOfPercent = decreaseScaleValue();
+  uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+};
+
+var scaleBiggerElementClickHandler = function () {
+  var decimalValueOfPercent = increaseScaleValue();
+  uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+};
+
+var changeEffectLevel = function (type, level, unit) {
+  imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+};
+
+var convertPinPositionToEffectLevel = function () {
+  sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left, 10);
+  var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / DIVIDER_TO_DECIMAL) + currentEffect.min;
+  return effectLevel;
+};
+
+var sliderPinElementMouseupHandler = function () {
+  changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+};
+
+var resetSliderSettingsToDefault = function () {
+  imgPreviewElement.className = '';
+  sliderPinElement.style.left = DEFAULT_EFFECT_LEVEL;
+  sliderLineElement.style.width = DEFAULT_EFFECT_LEVEL;
+  imgPreviewElement.style.filter = '';
+};
+
+var changeEffectType = function (effect) {
+  resetSliderSettingsToDefault();
+  if (effect !== 'none') {
+    showElement(effectLevelElement);
+  }
+  var effectClass = 'effects__preview--' + effect;
+  imgPreviewElement.classList.add(effectClass);
+};
+
+var effectsListElementClickHandler = function (evt) {
+  var effectTypeName = evt.target.value;
+  switch (effectTypeName) {
+    case 'chrome':
+      currentEffect = EFFECT_CHROME;
+      break;
+    case 'sepia':
+      currentEffect = EFFECT_SEPIA;
+      break;
+    case 'marvin':
+      currentEffect = EFFECT_MARVIN;
+      break;
+    case 'phobos':
+      currentEffect = EFFECT_PHOBOS;
+      break;
+    case 'heat':
+      currentEffect = EFFECT_HEAT;
+      break;
+    case 'none':
+      hideElement(effectLevelElement);
+      break;
+  }
+  changeEffectType(effectTypeName);
+};
+
+var uploadFileElementChangeHandler = function () {
+  showElement(pictureEditingElement);
+  hideElement(effectLevelElement);
+  cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
+  document.addEventListener('keydown', documentKeydownEscHandler);
+  scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
+  scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
+  effectsListElement.addEventListener('click', effectsListElementClickHandler);
+  sliderPinElement.addEventListener('mouseup', sliderPinElementMouseupHandler);
+};
+
 var init = function () {
+  uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
   pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
   generateBigPictureData(similarPictures[0]);
-  showElement(bigPictureElement);
+  // showElement(bigPictureElement);
 };
 
 init();
