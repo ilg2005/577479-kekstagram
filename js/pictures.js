@@ -269,8 +269,6 @@ var changeEffectType = function (effect) {
   resetSliderSettingsToDefault();
   if (effect !== 'none') {
     showElement(effectLevelElement);
-  } else {
-    hideElement(effectLevelElement);
   }
   var effectClass = 'effects__preview--' + effect;
   imgPreviewElement.classList.add(effectClass);
@@ -293,6 +291,9 @@ var effectsListElementClickHandler = function (evt) {
       break;
     case 'heat':
       currentEffect = EFFECT_HEAT;
+      break;
+    case 'none':
+      hideElement(effectLevelElement);
   }
   changeEffectType(effectTypeName);
 };
