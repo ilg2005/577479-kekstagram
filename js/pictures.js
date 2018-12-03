@@ -296,6 +296,7 @@ var effectsListElementClickHandler = function (evt) {
       break;
     case 'none':
       hideElement(effectLevelElement);
+      break;
   }
   changeEffectType(effectTypeName);
 };
