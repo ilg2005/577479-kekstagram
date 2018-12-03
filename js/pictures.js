@@ -56,6 +56,7 @@ var DIVIDER_TO_DECIMAL = 100;
 var MIN_SCALE_VALUE = '25%';
 var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
+var DEFAULT_EFFECT_LEVEL = '100%';
 var ESC_KEYCODE = 27;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
@@ -259,8 +260,8 @@ var sliderPinElementMouseupHandler = function () {
 
 var resetSliderSettingsToDefault = function () {
   imgPreviewElement.className = '';
-  sliderPinElement.style.left = '100%';
-  sliderLineElement.style.width = '100%';
+  sliderPinElement.style.left = DEFAULT_EFFECT_LEVEL;
+  sliderLineElement.style.width = DEFAULT_EFFECT_LEVEL;
   imgPreviewElement.style.filter = '';
 };
 
