@@ -198,17 +198,19 @@ var generateBigPictureData = function (picture) {
   hideElement(bigPictureElement.querySelector('.comments-loader'));
 };
 
-var cancelEditingElementClickHandler = function () {
+var cancelImageEditing = function () {
   hideElement(pictureEditingElement);
   document.removeEventListener('keydown', documentKeydownEscHandler);
   uploadFileElement.value = '';
 };
 
+var cancelEditingElementClickHandler = function () {
+  cancelImageEditing();
+};
+
 var documentKeydownEscHandler = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    hideElement(pictureEditingElement);
-    document.removeEventListener('keydown', documentKeydownEscHandler);
-    uploadFileElement.value = '';
+    cancelImageEditing();
   }
 };
 
