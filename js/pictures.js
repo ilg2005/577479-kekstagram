@@ -58,6 +58,7 @@ var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
 var DEFAULT_EFFECT_LEVEL = '100%';
 var ESC_KEYCODE = 27;
+var SLIDER_PIN_WIDTH = 18;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
@@ -259,9 +260,8 @@ var convertPinPositionToEffectLevel = function () {
 var sliderPinElementMouseDownHandler = function (evtMouseDown) {
   evtMouseDown.preventDefault();
   var sliderLineWidth = sliderLineElement.offsetWidth;
-  var initialPinPosition = sliderPinElement.offsetLeft;
+  var initialPinPosition = sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
   var startMouseX = evtMouseDown.clientX;
-  var dragged = false;
 
   var documentMouseMoveHandler = function (evtMouseMove) {
     evtMouseMove.preventDefault();
@@ -269,7 +269,7 @@ var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     startMouseX = evtMouseMove.clientX;
     var newPinPosition = initialPinPosition - shift;
     initialPinPosition = newPinPosition;
-    var newPinPositionInPercent = newPinPosition * MULTIPLICAND / sliderLineWidth;
+    var newPinPositionInPercent = Math.round(newPinPosition * MULTIPLICAND / sliderLineWidth);
 
     if (newPinPositionInPercent <= MULTIPLICAND && newPinPositionInPercent >= 0) {
       sliderPinElement.style.left = newPinPositionInPercent + '%';
