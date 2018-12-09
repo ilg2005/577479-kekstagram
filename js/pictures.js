@@ -52,7 +52,7 @@ var EFFECT_HEAT = {
   max: 3,
   unit: ''
 };
-var DIVIDER_TO_DECIMAL = 100;
+var MULTIPLICAND = 100;
 var MIN_SCALE_VALUE = '25%';
 var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
@@ -225,7 +225,7 @@ var increaseScaleValue = function () {
     var newScaleValue = parseInt(currentScaleValue, 10) + parseInt(SCALE_STEP, 10);
     scaleValueElement.value = newScaleValue + '%';
   }
-  return newScaleValue / DIVIDER_TO_DECIMAL;
+  return newScaleValue / MULTIPLICAND;
 };
 
 var decreaseScaleValue = function () {
@@ -234,7 +234,7 @@ var decreaseScaleValue = function () {
     var newScaleValue = parseInt(currentScaleValue, 10) - parseInt(SCALE_STEP, 10);
     scaleValueElement.value = newScaleValue + '%';
   }
-  return newScaleValue / DIVIDER_TO_DECIMAL;
+  return newScaleValue / MULTIPLICAND;
 };
 
 var scaleSmallerElementClickHandler = function () {
@@ -253,7 +253,7 @@ var changeEffectLevel = function (type, level, unit) {
 
 var convertPinPositionToEffectLevel = function () {
   sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left, 10);
-  var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / DIVIDER_TO_DECIMAL) + currentEffect.min;
+  var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / MULTIPLICAND) + currentEffect.min;
   return effectLevel;
 };
 
@@ -270,7 +270,7 @@ var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     startMouseX = evtMouseMove.clientX;
     var newPinPosition = initialPinPosition - shift;
     initialPinPosition = newPinPosition;
-    var newPinPositionInPercent = newPinPosition * 100 / effectLevelLineWidth;
+    var newPinPositionInPercent = newPinPosition * MULTIPLICAND / effectLevelLineWidth;
 
     sliderPinElement.style.left = newPinPositionInPercent + '%';
     changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
