@@ -260,27 +260,29 @@ var convertPinPositionToEffectLevel = function () {
 var sliderPinElementMouseDownHandler = function (evtMouseDown) {
   evtMouseDown.preventDefault();
   var effectLevelLineWidth = effectLevelElement.offsetWidth;
-  var initialPinOffset = sliderPinElement.offsetLeft;
+  var initialPinPosition = sliderPinElement.offsetLeft;
   var startMouseX = evtMouseDown.clientX;
   var dragged = false;
 
   var documentMouseMoveHandler = function (evtMouseMove) {
     dragged = true;
-    var shift = evtMouseMove.clientX - startMouseX;
+    var shift = startMouseX - evtMouseMove.clientX;
     startMouseX = evtMouseMove.clientX;
-    var newPinPosition = initialPinOffset - shift;
+    var newPinPosition = initialPinPosition - shift;
+    initialPinPosition = newPinPosition;
     var newPinPositionInPercent = newPinPosition * 100 / effectLevelLineWidth;
 
     sliderPinElement.style.left = newPinPositionInPercent + '%';
+    changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
   };
 
   var documentMouseUpHandler = function () {
     document.removeEventListener('mousemove', documentMouseMoveHandler);
     document.removeEventListener('mouseup', documentMouseUpHandler);
 
-    if (dragged === true) {
-      changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
-    }
+    // if (dragged === true) {
+    //   changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+    // }
   };
 
   document.addEventListener('mousemove', documentMouseMoveHandler);
