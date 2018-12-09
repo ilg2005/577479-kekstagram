@@ -260,7 +260,7 @@ var convertPinPositionToEffectLevel = function () {
 var sliderPinElementMouseDownHandler = function (evtMouseDown) {
   evtMouseDown.preventDefault();
   var effectLevelLineWidth = effectLevelElement.offsetWidth;
-  var initialPinPosition = sliderPinElement.offsetLeft;
+  var initialPinPosition = sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
   var startMouseX = evtMouseDown.clientX;
   var dragged = false;
 
@@ -272,7 +272,7 @@ var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     initialPinPosition = newPinPosition;
     var newPinPositionInPercent = newPinPosition * MULTIPLICAND / effectLevelLineWidth;
 
-    if (newPinPositionInPercent < MULTIPLICAND && newPinPositionInPercent && newPinPositionInPercent >= 0) {
+    if (newPinPositionInPercent <= MULTIPLICAND && newPinPositionInPercent >= 0) {
       sliderPinElement.style.left = newPinPositionInPercent + '%';
       changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
     }
