@@ -58,7 +58,6 @@ var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
 var DEFAULT_EFFECT_LEVEL = '100%';
 var ESC_KEYCODE = 27;
-var SLIDER_PIN_WIDTH = 18;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
@@ -259,18 +258,18 @@ var convertPinPositionToEffectLevel = function () {
 
 var sliderPinElementMouseDownHandler = function (evtMouseDown) {
   evtMouseDown.preventDefault();
-  var effectLevelLineWidth = effectLevelElement.offsetWidth;
-  var initialPinPosition = sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
+  var sliderLineWidth = sliderLineElement.offsetWidth;
+  var initialPinPosition = sliderPinElement.offsetLeft;
   var startMouseX = evtMouseDown.clientX;
   var dragged = false;
 
   var documentMouseMoveHandler = function (evtMouseMove) {
-    dragged = true;
+    evtMouseMove.preventDefault();
     var shift = startMouseX - evtMouseMove.clientX;
     startMouseX = evtMouseMove.clientX;
     var newPinPosition = initialPinPosition - shift;
     initialPinPosition = newPinPosition;
-    var newPinPositionInPercent = newPinPosition * MULTIPLICAND / effectLevelLineWidth;
+    var newPinPositionInPercent = newPinPosition * MULTIPLICAND / sliderLineWidth;
 
     if (newPinPositionInPercent <= MULTIPLICAND && newPinPositionInPercent >= 0) {
       sliderPinElement.style.left = newPinPositionInPercent + '%';
@@ -278,14 +277,10 @@ var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     }
   };
 
-  var documentMouseUpHandler = function () {
-
+  var documentMouseUpHandler = function (evtMouseUp) {
+    evtMouseUp.preventDefault();
     document.removeEventListener('mousemove', documentMouseMoveHandler);
     document.removeEventListener('mouseup', documentMouseUpHandler);
-
-    // if (dragged === true) {
-    //   changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
-    // }
   };
 
   document.addEventListener('mousemove', documentMouseMoveHandler);
@@ -342,7 +337,6 @@ var uploadFileElementChangeHandler = function () {
   scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
   sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
-  // sliderPinElement.addEventListener('mouseup', sliderPinElementMouseUpHandler);
 };
 
 var init = function () {
