@@ -58,6 +58,7 @@ var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
 var DEFAULT_EFFECT_LEVEL = '100%';
 var ESC_KEYCODE = 27;
+var SLIDER_PIN_WIDTH = 18;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
@@ -256,8 +257,34 @@ var convertPinPositionToEffectLevel = function () {
   return effectLevel;
 };
 
-var sliderPinElementMouseupHandler = function () {
-  changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+var sliderPinElementMouseDownHandler = function (evtMouseDown) {
+  evtMouseDown.preventDefault();
+  var effectLevelLineWidth = effectLevelElement.offsetWidth;
+  var initialPinOffset = sliderPinElement.offsetLeft;
+  var startMouseX = evtMouseDown.clientX;
+  var dragged = false;
+
+  var documentMouseMoveHandler = function (evtMouseMove) {
+    dragged = true;
+    var shift = evtMouseMove.clientX - startMouseX;
+    startMouseX = evtMouseMove.clientX;
+    var newPinPosition = initialPinOffset - shift;
+    var newPinPositionInPercent = newPinPosition * 100 / effectLevelLineWidth;
+
+    sliderPinElement.style.left = newPinPositionInPercent + '%';
+  };
+
+  var documentMouseUpHandler = function () {
+    document.removeEventListener('mousemove', documentMouseMoveHandler);
+    document.removeEventListener('mouseup', documentMouseUpHandler);
+
+    if (dragged === true) {
+      changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+    }
+  };
+
+  document.addEventListener('mousemove', documentMouseMoveHandler);
+  document.addEventListener('mouseup', documentMouseUpHandler);
 };
 
 var resetSliderSettingsToDefault = function () {
@@ -309,7 +336,8 @@ var uploadFileElementChangeHandler = function () {
   scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
   scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
-  sliderPinElement.addEventListener('mouseup', sliderPinElementMouseupHandler);
+  sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
+  // sliderPinElement.addEventListener('mouseup', sliderPinElementMouseUpHandler);
 };
 
 var init = function () {
