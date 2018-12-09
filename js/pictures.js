@@ -272,11 +272,14 @@ var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     initialPinPosition = newPinPosition;
     var newPinPositionInPercent = newPinPosition * MULTIPLICAND / effectLevelLineWidth;
 
-    sliderPinElement.style.left = newPinPositionInPercent + '%';
-    changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+    if (newPinPositionInPercent < MULTIPLICAND && newPinPositionInPercent && newPinPositionInPercent >= 0) {
+      sliderPinElement.style.left = newPinPositionInPercent + '%';
+      changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+    }
   };
 
   var documentMouseUpHandler = function () {
+
     document.removeEventListener('mousemove', documentMouseMoveHandler);
     document.removeEventListener('mouseup', documentMouseUpHandler);
 
