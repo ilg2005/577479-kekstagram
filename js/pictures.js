@@ -52,12 +52,13 @@ var EFFECT_HEAT = {
   max: 3,
   unit: ''
 };
-var DIVIDER_TO_DECIMAL = 100;
+var MULTIPLICAND = 100;
 var MIN_SCALE_VALUE = '25%';
 var MAX_SCALE_VALUE = '100%';
 var SCALE_STEP = '25%';
 var DEFAULT_EFFECT_LEVEL = '100%';
 var ESC_KEYCODE = 27;
+var SLIDER_PIN_WIDTH = 18;
 
 var pictureTemplateElement = document.querySelector('#picture').content;
 var picturesElement = document.querySelector('.pictures');
@@ -224,7 +225,7 @@ var increaseScaleValue = function () {
     var newScaleValue = parseInt(currentScaleValue, 10) + parseInt(SCALE_STEP, 10);
     scaleValueElement.value = newScaleValue + '%';
   }
-  return newScaleValue / DIVIDER_TO_DECIMAL;
+  return newScaleValue / MULTIPLICAND;
 };
 
 var decreaseScaleValue = function () {
@@ -233,7 +234,7 @@ var decreaseScaleValue = function () {
     var newScaleValue = parseInt(currentScaleValue, 10) - parseInt(SCALE_STEP, 10);
     scaleValueElement.value = newScaleValue + '%';
   }
-  return newScaleValue / DIVIDER_TO_DECIMAL;
+  return newScaleValue / MULTIPLICAND;
 };
 
 var scaleSmallerElementClickHandler = function () {
@@ -252,12 +253,38 @@ var changeEffectLevel = function (type, level, unit) {
 
 var convertPinPositionToEffectLevel = function () {
   sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left, 10);
-  var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / DIVIDER_TO_DECIMAL) + currentEffect.min;
+  var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / MULTIPLICAND) + currentEffect.min;
   return effectLevel;
 };
 
-var sliderPinElementMouseupHandler = function () {
-  changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+var sliderPinElementMouseDownHandler = function (evtMouseDown) {
+  evtMouseDown.preventDefault();
+  var sliderLineWidth = sliderLineElement.offsetWidth;
+  var initialPinPosition = sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
+  var startMouseX = evtMouseDown.clientX;
+
+  var documentMouseMoveHandler = function (evtMouseMove) {
+    evtMouseMove.preventDefault();
+    var shift = startMouseX - evtMouseMove.clientX;
+    startMouseX = evtMouseMove.clientX;
+    var newPinPosition = initialPinPosition - shift;
+    initialPinPosition = newPinPosition;
+    var newPinPositionInPercent = Math.round(newPinPosition * MULTIPLICAND / sliderLineWidth);
+
+    if (newPinPositionInPercent <= MULTIPLICAND && newPinPositionInPercent >= 0) {
+      sliderPinElement.style.left = newPinPositionInPercent + '%';
+      changeEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
+    }
+  };
+
+  var documentMouseUpHandler = function (evtMouseUp) {
+    evtMouseUp.preventDefault();
+    document.removeEventListener('mousemove', documentMouseMoveHandler);
+    document.removeEventListener('mouseup', documentMouseUpHandler);
+  };
+
+  document.addEventListener('mousemove', documentMouseMoveHandler);
+  document.addEventListener('mouseup', documentMouseUpHandler);
 };
 
 var resetSliderSettingsToDefault = function () {
@@ -309,7 +336,7 @@ var uploadFileElementChangeHandler = function () {
   scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
   scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
-  sliderPinElement.addEventListener('mouseup', sliderPinElementMouseupHandler);
+  sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
 };
 
 var init = function () {
