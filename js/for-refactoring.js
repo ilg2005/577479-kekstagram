@@ -78,14 +78,14 @@ var sliderLineElement = pictureEditingElement.querySelector('.effect-level__dept
 var sliderEffectLevelValueElement = pictureEditingElement.querySelector('.effect-level__value');
 var hashtagsElement = pictureEditingElement.querySelector('.text__hashtags');
 var commentsElement = pictureEditingElement.querySelector('.text__description');
-
+//Similar pictures:
 var pictureNumbers;
 var currentEffect;
-
+//Загрузка картинки:
 var showElement = function (element) {
   element.classList.remove('hidden');
 };
-
+//Загрузка картинки:
 var hideElement = function (element) {
   element.classList.add('hidden');
 };
@@ -128,7 +128,7 @@ var generateCommentsForPicture = function (commentsArray) {
   }
   return commentsForPicture;
 };
-
+//Similar pictures:
 var createPicture = function () {
   var picture = {
     url: 'photos/' + getUniqueRandomValue(pictureNumbers) + '.jpg',
@@ -327,12 +327,14 @@ var effectsListElementClickHandler = function (evt) {
   }
   changeEffectType(effectTypeName);
 };
-
+//Загрузка картинки:
 var uploadFileElementChangeHandler = function () {
   showElement(pictureEditingElement);
   hideElement(effectLevelElement);
   cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
   document.addEventListener('keydown', documentKeydownEscHandler);
+
+
   scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
   scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
@@ -340,12 +342,14 @@ var uploadFileElementChangeHandler = function () {
 };
 
 var init = function () {
+  //Загрузка картинки:
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
+  //Similar pictures:
   pictureNumbers = createArrayFromRange(MIN_PICTURE_NUM, MAX_PICTURE_NUM);
   var similarPictures = createPicturesArray(MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
   generateBigPictureData(similarPictures[0]);
-  // showElement(bigPictureElement);
+  //showElement(bigPictureElement);
 };
 
 init();
