@@ -3,6 +3,27 @@
 (function () {
   var bigPictureElement = document.querySelector('.big-picture');
 
+  var createArrayFromRange = function (min, max) {
+    var numbers = [];
+    for (var i = min; i <= max; i++) {
+      numbers.push(i);
+    }
+    return numbers;
+  };
+
+  var getRandomIndex = function (array) {
+    return Math.round(Math.random() * (array.length - 1));
+  };
+
+  var getRandomValue = function (array) {
+    return array[getRandomIndex(array)];
+  };
+
+  var getRandomInRange = function (min, max) {
+    var array = createArrayFromRange(min, max);
+    return getRandomValue(array);
+  };
+
   var generateCommentsFragment = function (comments) {
     var commentsFragment = document.createDocumentFragment();
 
@@ -12,7 +33,7 @@
 
       var newImg = document.createElement('img');
       newImg.classList.add('social__picture');
-      newImg.src = 'img/avatar-' + getRandomInRange(MIN_AVATAR_NUM, MAX_AVATAR_NUM) + '.svg';
+      newImg.src = 'img/avatar-' + getRandomInRange(window.consts.MIN_AVATAR_NUM, window.consts.MAX_AVATAR_NUM) + '.svg';
       newImg.alt = 'Аватар комментатора фотографии';
       newImg.width = '35';
       newImg.height = '35';
@@ -37,11 +58,13 @@
     bigPictureElement.querySelector('.social__comments').innerHTML = '';
     bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
 
-    hideElement(bigPictureElement.querySelector('.social__comment-count'));
-    hideElement(bigPictureElement.querySelector('.comments-loader'));
+    window.utilities.hideElement(bigPictureElement.querySelector('.social__comment-count'));
+    window.utilities.hideElement(bigPictureElement.querySelector('.comments-loader'));
   };
 
-  generateBigPictureData(window.gallery[0]);
-  showElement(bigPictureElement);
-
+  var init = function() {
+    generateBigPictureData(window.gallery[0]);
+    window.utilities.showElement(bigPictureElement);
+  };
+  init();
 })();
