@@ -2,6 +2,7 @@
 
 (function () {
   window.utilities = {
+    MULTIPLICAND: 100,
     showElement: function (element) {
       element.classList.remove('hidden');
     },
