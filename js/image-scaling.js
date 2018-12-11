@@ -7,7 +7,7 @@
 
   window.imageScaling = {
     scaleValueElement: window.uploadImage.pictureEditingElement.querySelector('.scale__control--value')
-};
+  };
 
   var scaleSmallerElement = window.uploadImage.pictureEditingElement.querySelector('.scale__control--smaller');
   var scaleBiggerElement = window.uploadImage.pictureEditingElement.querySelector('.scale__control--bigger');
