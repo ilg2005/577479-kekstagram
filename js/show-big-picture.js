@@ -62,9 +62,9 @@
     window.utilities.hideElement(bigPictureElement.querySelector('.comments-loader'));
   };
 
-  var init = function() {
+  var init = function () {
     generateBigPictureData(window.gallery[0]);
-    window.utilities.showElement(bigPictureElement);
+    // window.utilities.showElement(bigPictureElement);
   };
   init();
 })();
