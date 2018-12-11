@@ -14,16 +14,18 @@
   var hashtagsElement = document.querySelector('.text__hashtags');
   var commentsElement = document.querySelector('.text__description');
 
-  var restoreDefaultScale = function (defaultValue) {
+  var restoreDefault = function () {
     window.imageScaling.scaleValueElement.value = DEFAULT_SCALE_VALUE;
-    var decimalValueOfPercent = parseInt(defaultValue, 10) / window.utilities.MULTIPLICAND;
+    var decimalValueOfPercent = parseInt(DEFAULT_SCALE_VALUE, 10) / window.utilities.MULTIPLICAND;
     window.uploadImage.uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+    window.imageEffects.imgPreviewElement.className = '';
+    window.imageEffects.imgPreviewElement.style.filter = '';
   };
 
   var documentKeydownEscHandler = function (evt) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== hashtagsElement && evt.target !== commentsElement) {
       cancelImageEditing();
-      restoreDefaultScale(DEFAULT_SCALE_VALUE);
+      restoreDefault();
     }
   };
 
@@ -31,7 +33,7 @@
     window.utilities.hideElement(window.uploadImage.pictureEditingElement);
     document.removeEventListener('keydown', documentKeydownEscHandler);
     uploadFileElement.value = '';
-    restoreDefaultScale(DEFAULT_SCALE_VALUE);
+    restoreDefault();
   };
 
   var cancelEditingElementClickHandler = function () {
