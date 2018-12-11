@@ -81,7 +81,10 @@
     picturesElement.appendChild(fragment);
   };
 
-  pictureNumbers = createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
-  var similarPictures = createPicturesArray(window.consts.MAX_PICTURE_NUM);
-  renderSimilarPictures(similarPictures);
+  var init = function () {
+    pictureNumbers = createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
+    var similarPictures = createPicturesArray(window.consts.MAX_PICTURE_NUM);
+    renderSimilarPictures(similarPictures);
+  };
+  init();
 })();
