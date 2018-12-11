@@ -5,37 +5,15 @@
   var pictureTemplateElement = document.querySelector('#picture').content;
   var picturesElement = document.querySelector('.pictures');
 
-
-  var createArrayFromRange = function (min, max) {
-    var numbers = [];
-    for (var i = min; i <= max; i++) {
-      numbers.push(i);
-    }
-    return numbers;
-  };
-
-  var getRandomIndex = function (array) {
-    return Math.round(Math.random() * (array.length - 1));
-  };
-
-  var getRandomValue = function (array) {
-    return array[getRandomIndex(array)];
-  };
-
-  var getRandomInRange = function (min, max) {
-    var array = createArrayFromRange(min, max);
-    return getRandomValue(array);
-  };
-
   var getUniqueRandomValue = function (array) {
-    var uniqueRandomValue = getRandomValue(array);
+    var uniqueRandomValue = window.utilities.getRandomValue(array);
     array.splice(array.indexOf(uniqueRandomValue), 1);
     return uniqueRandomValue;
   };
 
   var generateCommentsForPicture = function (commentsArray) {
     var commentsClone = commentsArray.slice();
-    var commentsNumber = getRandomIndex(commentsClone);
+    var commentsNumber = window.utilities.getRandomIndex(commentsClone);
     var commentsForPicture = [];
     if (commentsNumber !== 0) {
       for (var i = 0; i <= commentsNumber; i++) {
@@ -48,9 +26,9 @@
   var createPicture = function () {
     var picture = {
       url: 'photos/' + getUniqueRandomValue(pictureNumbers) + '.jpg',
-      likes: getRandomInRange(window.consts.MIN_LIKES_NUM, window.consts.MAX_LIKES_NUM),
+      likes: window.utilities.getRandomInRange(window.consts.MIN_LIKES_NUM, window.consts.MAX_LIKES_NUM),
       comments: generateCommentsForPicture(window.consts.COMMENTS),
-      description: getRandomValue(window.consts.SENTENCES)
+      description: window.utilities.getRandomValue(window.consts.SENTENCES)
     };
     return picture;
   };
@@ -82,7 +60,7 @@
   };
 
   var init = function () {
-    pictureNumbers = createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
+    pictureNumbers = window.utilities.createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
     window.gallery = createPicturesArray(window.consts.MAX_PICTURE_NUM);
     renderGallery(window.gallery);
   };

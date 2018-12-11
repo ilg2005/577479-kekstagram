@@ -3,27 +3,26 @@
 (function () {
   var SLIDER_PIN_WIDTH = 18;
 
-  var pictureEditingElement = document.querySelector('.img-upload__overlay');
-  var uploadPreviewElement = pictureEditingElement.querySelector('.img-upload__preview');
-  var imgPreviewElement = uploadPreviewElement.querySelector('img');
-  var sliderPinElement = pictureEditingElement.querySelector('.effect-level__pin');
-  var sliderLineElement = pictureEditingElement.querySelector('.effect-level__depth');
-  var sliderEffectLevelValueElement = pictureEditingElement.querySelector('.effect-level__value');
-
-  var changeEffectLevel = function (type, level, unit) {
-    imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+  window.slider = {
+    sliderPinElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__pin'),
+    sliderLineElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__depth'),
+    sliderEffectLevelValueElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__value')
   };
 
   var convertPinPositionToEffectLevel = function () {
-    sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left, 10);
-    var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
+    window.slider.sliderEffectLevelValueElement.value = parseInt(window.slider.sliderPinElement.style.left, 10);
+    var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * window.slider.sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
     return effectLevel;
+  };
+
+  var changeEffectLevel = function (type, level, unit) {
+    window.imageEffects.imgPreviewElement.style.filter = type + '(' + level + unit + ')';
   };
 
   var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     evtMouseDown.preventDefault();
-    var sliderLineWidth = sliderLineElement.offsetWidth;
-    var initialPinPosition = sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
+    var sliderLineWidth = window.slider.sliderLineElement.offsetWidth;
+    var initialPinPosition = window.slider.sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
     var startMouseX = evtMouseDown.clientX;
 
     var documentMouseMoveHandler = function (evtMouseMove) {
@@ -35,7 +34,7 @@
       var newPinPositionInPercent = Math.round(newPinPosition * window.utilities.MULTIPLICAND / sliderLineWidth);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
-        sliderPinElement.style.left = newPinPositionInPercent + '%';
+        window.slider.sliderPinElement.style.left = newPinPositionInPercent + '%';
         changeEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
       }
     };
@@ -50,5 +49,5 @@
     document.addEventListener('mouseup', documentMouseUpHandler);
   };
 
-  sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
+  window.slider.sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
 })();

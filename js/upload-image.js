@@ -5,22 +5,19 @@
   var DEFAULT_SCALE_VALUE = '100%';
 
   window.uploadImage = {
-
+    pictureEditingElement: document.querySelector('.img-upload__overlay'),
+    uploadPreviewElement: document.querySelector('.img-upload__preview')
   };
 
   var uploadFileElement = document.querySelector('#upload-file');
-  var pictureEditingElement = document.querySelector('.img-upload__overlay'); // общие переменные
-  var uploadPreviewElement = pictureEditingElement.querySelector('.img-upload__preview'); // общие переменные
-  var cancelEditingElement = pictureEditingElement.querySelector('#upload-cancel');
-  var scaleValueElement = pictureEditingElement.querySelector('.scale__control--value');
-  var effectLevelElement = pictureEditingElement.querySelector('.effect-level');
-  var hashtagsElement = pictureEditingElement.querySelector('.text__hashtags');
-  var commentsElement = pictureEditingElement.querySelector('.text__description');
+  var cancelEditingElement = document.querySelector('#upload-cancel');
+  var hashtagsElement = document.querySelector('.text__hashtags');
+  var commentsElement = document.querySelector('.text__description');
 
   var restoreDefaultScale = function (defaultValue) {
-    scaleValueElement.value = DEFAULT_SCALE_VALUE;
+    window.imageScaling.scaleValueElement.value = DEFAULT_SCALE_VALUE;
     var decimalValueOfPercent = parseInt(defaultValue, 10) / window.utilities.MULTIPLICAND;
-    uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+    window.uploadImage.uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
   };
 
   var documentKeydownEscHandler = function (evt) {
@@ -31,7 +28,7 @@
   };
 
   var cancelImageEditing = function () {
-    window.utilities.hideElement(pictureEditingElement);
+    window.utilities.hideElement(window.uploadImage.pictureEditingElement);
     document.removeEventListener('keydown', documentKeydownEscHandler);
     uploadFileElement.value = '';
     restoreDefaultScale(DEFAULT_SCALE_VALUE);
@@ -42,8 +39,8 @@
   };
 
   var uploadFileElementChangeHandler = function () {
-    window.utilities.showElement(pictureEditingElement);
-    window.utilities.hideElement(effectLevelElement);
+    window.utilities.showElement(window.uploadImage.pictureEditingElement);
+    window.utilities.hideElement(window.imageEffects.effectLevelElement);
     cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
     document.addEventListener('keydown', documentKeydownEscHandler);
   };
