@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.backend = {
+  window.consts = {
     MIN_PICTURE_NUM: 1,
     MAX_PICTURE_NUM: 25,
     MIN_AVATAR_NUM: 1,

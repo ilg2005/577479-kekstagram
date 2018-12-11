@@ -48,9 +48,9 @@
   var createPicture = function () {
     var picture = {
       url: 'photos/' + getUniqueRandomValue(pictureNumbers) + '.jpg',
-      likes: getRandomInRange(window.backend.MIN_LIKES_NUM, window.backend.MAX_LIKES_NUM),
-      comments: generateCommentsForPicture(window.backend.COMMENTS),
-      description: getRandomValue(window.backend.SENTENCES)
+      likes: getRandomInRange(window.consts.MIN_LIKES_NUM, window.consts.MAX_LIKES_NUM),
+      comments: generateCommentsForPicture(window.consts.COMMENTS),
+      description: getRandomValue(window.consts.SENTENCES)
     };
     return picture;
   };
@@ -81,7 +81,7 @@
     picturesElement.appendChild(fragment);
   };
 
-  pictureNumbers = createArrayFromRange(window.backend.MIN_PICTURE_NUM, window.backend.MAX_PICTURE_NUM);
-  var similarPictures = createPicturesArray(window.backend.MAX_PICTURE_NUM);
+  pictureNumbers = createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
+  var similarPictures = createPicturesArray(window.consts.MAX_PICTURE_NUM);
   renderSimilarPictures(similarPictures);
 })();
