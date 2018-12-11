@@ -45,5 +45,6 @@
     generateBigPictureData(window.gallery[0]);
     // window.utilities.showElement(bigPictureElement);
   };
+
   init();
 })();

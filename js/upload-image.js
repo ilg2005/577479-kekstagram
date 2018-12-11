@@ -22,18 +22,18 @@
     window.imageEffects.imgPreviewElement.style.filter = '';
   };
 
-  var documentKeydownEscHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== hashtagsElement && evt.target !== commentsElement) {
-      cancelImageEditing();
-      restoreDefault();
-    }
-  };
-
   var cancelImageEditing = function () {
     window.utilities.hideElement(window.uploadImage.pictureEditingElement);
     document.removeEventListener('keydown', documentKeydownEscHandler);
     uploadFileElement.value = '';
     restoreDefault();
+  };
+
+  var documentKeydownEscHandler = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE && evt.target !== hashtagsElement && evt.target !== commentsElement) {
+      cancelImageEditing();
+      restoreDefault();
+    }
   };
 
   var cancelEditingElementClickHandler = function () {

@@ -64,5 +64,6 @@
     window.gallery = createPicturesArray(window.consts.MAX_PICTURE_NUM);
     renderGallery(window.gallery);
   };
+
   init();
 })();
