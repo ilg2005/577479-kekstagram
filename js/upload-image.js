@@ -4,6 +4,10 @@
   var ESC_KEYCODE = 27;
   var DEFAULT_SCALE_VALUE = '100%';
 
+  window.uploadImage = {
+
+  };
+
   var uploadFileElement = document.querySelector('#upload-file');
   var pictureEditingElement = document.querySelector('.img-upload__overlay'); // общие переменные
   var uploadPreviewElement = pictureEditingElement.querySelector('.img-upload__preview'); // общие переменные
