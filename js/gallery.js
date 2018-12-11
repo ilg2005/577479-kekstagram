@@ -73,7 +73,7 @@
     return pictureElement;
   };
 
-  var renderSimilarPictures = function (pictures) {
+  var renderGallery = function (pictures) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < pictures.length; i++) {
       fragment.appendChild(renderPicture(pictures[i]));
@@ -83,8 +83,8 @@
 
   var init = function () {
     pictureNumbers = createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
-    var similarPictures = createPicturesArray(window.consts.MAX_PICTURE_NUM);
-    renderSimilarPictures(similarPictures);
+    window.gallery = createPicturesArray(window.consts.MAX_PICTURE_NUM);
+    renderGallery(window.gallery);
   };
   init();
 })();
