@@ -15,7 +15,7 @@
   var increaseScaleValue = function () {
     var currentScaleValue = parseInt(window.imageScaling.scaleValueElement.value, 10);
     if (currentScaleValue !== MAX_SCALE_VALUE) {
-      var newScaleValue = currentScaleValue +  SCALE_STEP;
+      var newScaleValue = currentScaleValue + SCALE_STEP;
       window.imageScaling.scaleValueElement.value = newScaleValue + '%';
     }
     return newScaleValue / window.utilities.MULTIPLICAND;
@@ -24,7 +24,7 @@
   var decreaseScaleValue = function () {
     var currentScaleValue = parseInt(window.imageScaling.scaleValueElement.value, 10);
     if (currentScaleValue !== MIN_SCALE_VALUE) {
-      var newScaleValue = currentScaleValue -  SCALE_STEP;
+      var newScaleValue = currentScaleValue - SCALE_STEP;
       window.imageScaling.scaleValueElement.value = newScaleValue + '%';
     }
     return newScaleValue / window.utilities.MULTIPLICAND;
