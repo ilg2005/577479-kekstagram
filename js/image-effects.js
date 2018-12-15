@@ -2,11 +2,11 @@
 
 (function () {
   var DEFAULT_EFFECT_LEVEL = '100%';
-  var effectsListElement = window.uploadImage.pictureEditingElement.querySelector('.effects__list');
+  var effectsListElement = window.imageUpload.pictureEditingElement.querySelector('.effects__list');
 
   window.imageEffects = {
-    imgPreviewElement: window.uploadImage.uploadPreviewElement.querySelector('img'),
-    effectLevelElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level'),
+    imgPreviewElement: window.imageUpload.uploadPreviewElement.querySelector('img'),
+    effectLevelElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level'),
     currentEffect: {},
     EFFECT_CHROME: {
       filterType: 'grayscale',

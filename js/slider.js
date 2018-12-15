@@ -4,9 +4,9 @@
   var SLIDER_PIN_WIDTH = 18;
 
   window.slider = {
-    sliderPinElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__pin'),
-    sliderLineElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__depth'),
-    sliderEffectLevelValueElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__value')
+    sliderPinElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin'),
+    sliderLineElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__depth'),
+    sliderEffectLevelValueElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__value')
   };
 
   var convertPinPositionToEffectLevel = function () {
