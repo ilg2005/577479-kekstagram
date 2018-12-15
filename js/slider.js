@@ -1,19 +1,24 @@
 'use strict';
 
 (function () {
+  var DEFAULT_PIN_POSITION = '100%';
   var SLIDER_PIN_WIDTH = 18;
 
-  var sliderPinElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin');
-  var sliderLineElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__depth');
-  var sliderEffectLevelValueElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__value');
+  var sliderElement = document.querySelector('.img-upload__effect-level');
+  var sliderPinElement = sliderElement.querySelector('.effect-level__pin');
+  var sliderLineElement = sliderElement.querySelector('.effect-level__depth');
+  var sliderEffectLevelValueElement = sliderElement.querySelector('.effect-level__value');
+
+  var currentPinPositionInPercent = sliderPinElement.style.left;
 
   window.slider = {
-    sliderPinElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin'),
-    sliderLineElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__depth'),
+    // currentPinPositionInPercent: sliderPinElement.style.left,
+    // sliderPinElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin'),
+    sliderLineElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__depth')
   };
 
   var convertPinPositionToEffectLevel = function () {
-    sliderEffectLevelValueElement.value = parseInt(sliderPinElement.style.left, 10);
+    sliderEffectLevelValueElement.value = parseInt(currentPinPositionInPercent, 10);
     var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
     return effectLevel;
   };
@@ -37,7 +42,9 @@
       var newPinPositionInPercent = Math.round(newPinPositionInPx * window.utilities.MULTIPLICAND / sliderLineWidthInPx);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
-        sliderPinElement.style.left = newPinPositionInPercent + '%';
+        currentPinPositionInPercent = newPinPositionInPercent + '%';
+        console.log(currentPinPositionInPercent);
+        window.slider.currentPinPositionInPercent = currentPinPositionInPercent;
         changeEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
       }
     };

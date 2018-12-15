@@ -42,7 +42,7 @@
 
   var resetSliderSettingsToDefault = function () {
     window.imageEffects.imgPreviewElement.className = '';
-    window.slider.sliderPinElement.style.left = DEFAULT_EFFECT_LEVEL;
+    window.slider.currentPinPositionInPercent = DEFAULT_EFFECT_LEVEL;
     window.slider.sliderLineElement.style.width = DEFAULT_EFFECT_LEVEL;
     window.imageEffects.imgPreviewElement.style.filter = '';
   };
