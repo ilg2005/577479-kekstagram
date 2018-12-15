@@ -2,6 +2,7 @@
 
 (function () {
   var SLIDER_PIN_WIDTH = 18;
+  //var sliderPinElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin');
 
   window.slider = {
     sliderPinElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin'),
@@ -21,17 +22,17 @@
 
   var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     evtMouseDown.preventDefault();
-    var sliderLineWidth = window.slider.sliderLineElement.offsetWidth;
-    var initialPinPosition = window.slider.sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
+    var sliderLineWidthInPx = window.slider.sliderLineElement.offsetWidth;
+    var initialPinPositionInPx = window.slider.sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
     var startMouseX = evtMouseDown.clientX;
 
     var documentMouseMoveHandler = function (evtMouseMove) {
       evtMouseMove.preventDefault();
       var shift = startMouseX - evtMouseMove.clientX;
       startMouseX = evtMouseMove.clientX;
-      var newPinPosition = initialPinPosition - shift;
-      initialPinPosition = newPinPosition;
-      var newPinPositionInPercent = Math.round(newPinPosition * window.utilities.MULTIPLICAND / sliderLineWidth);
+      var newPinPositionInPx = initialPinPositionInPx - shift;
+      initialPinPositionInPx = newPinPositionInPx;
+      var newPinPositionInPercent = Math.round(newPinPositionInPx * window.utilities.MULTIPLICAND / sliderLineWidthInPx);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
         window.slider.sliderPinElement.style.left = newPinPositionInPercent + '%';
