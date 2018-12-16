@@ -4,9 +4,12 @@
   var ESC_KEYCODE = 27;
   var DEFAULT_SCALE_VALUE = '100%';
 
+  var pictureEditingElement = document.querySelector('.img-upload__overlay');
+  var uploadPreviewElement = document.querySelector('.img-upload__preview');
+
   window.imageUpload = {
-    pictureEditingElement: document.querySelector('.img-upload__overlay'),
-    uploadPreviewElement: document.querySelector('.img-upload__preview')
+    pictureEditingElement: pictureEditingElement,
+    uploadPreviewElement: uploadPreviewElement
   };
 
   var uploadFileElement = document.querySelector('#upload-file');
@@ -17,13 +20,13 @@
   var restoreDefault = function () {
     window.imageScaling.scaleValueElement.value = DEFAULT_SCALE_VALUE;
     var decimalValueOfPercent = parseInt(DEFAULT_SCALE_VALUE, 10) / window.utilities.MULTIPLICAND;
-    window.imageUpload.uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
+    uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
     window.imageEffects.imgPreviewElement.className = '';
     window.imageEffects.imgPreviewElement.style.filter = '';
   };
 
   var cancelImageEditing = function () {
-    window.utilities.hideElement(window.imageUpload.pictureEditingElement);
+    window.utilities.hideElement(pictureEditingElement);
     document.removeEventListener('keydown', documentKeydownEscHandler);
     uploadFileElement.value = '';
     restoreDefault();
@@ -41,7 +44,7 @@
   };
 
   var uploadFileElementChangeHandler = function () {
-    window.utilities.showElement(window.imageUpload.pictureEditingElement);
+    window.utilities.showElement(pictureEditingElement);
     window.utilities.hideElement(window.imageEffects.effectLevelElement);
     cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
     document.addEventListener('keydown', documentKeydownEscHandler);
