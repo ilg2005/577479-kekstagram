@@ -4,11 +4,12 @@
   var DEFAULT_EFFECT_LEVEL = '100%';
   var effectsListElement = window.imageUpload.pictureEditingElement.querySelector('.effects__list');
   var sliderEffectLevelValueElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__value');
-
+  var imgPreviewElement = window.imageUpload.uploadPreviewElement.querySelector('img');
+  var effectLevelElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level');
 
   window.imageEffects = {
-    imgPreviewElement: window.imageUpload.uploadPreviewElement.querySelector('img'),
-    effectLevelElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level'),
+    imgPreviewElement: imgPreviewElement,
+    effectLevelElement: effectLevelElement,
     currentEffect: {},
     EFFECT_CHROME: {
       filterType: 'grayscale',
@@ -46,19 +47,19 @@
   };
 
   var resetSliderSettingsToDefault = function () {
-    window.imageEffects.imgPreviewElement.className = '';
+    imgPreviewElement.className = '';
     window.slider.PinElement.style.left = DEFAULT_EFFECT_LEVEL;
     window.slider.LineElement.style.width = DEFAULT_EFFECT_LEVEL;
-    window.imageEffects.imgPreviewElement.style.filter = '';
+    imgPreviewElement.style.filter = '';
   };
 
   var changeEffectType = function (effect) {
     resetSliderSettingsToDefault();
     if (effect !== 'none') {
-      window.utilities.showElement(window.imageEffects.effectLevelElement);
+      window.utilities.showElement(effectLevelElement);
     }
     var effectClass = 'effects__preview--' + effect;
-    window.imageEffects.imgPreviewElement.classList.add(effectClass);
+    imgPreviewElement.classList.add(effectClass);
   };
 
   var effectsListElementClickHandler = function (evt) {
@@ -80,7 +81,7 @@
         window.imageEffects.currentEffect = window.imageEffects.EFFECT_HEAT;
         break;
       case 'none':
-        window.utilities.hideElement(window.imageEffects.effectLevelElement);
+        window.utilities.hideElement(effectLevelElement);
         break;
     }
     changeEffectType(effectTypeName);
@@ -93,7 +94,7 @@
   };
 
   var applyEffectLevel = function (type, level, unit) {
-    window.imageEffects.imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+    imgPreviewElement.style.filter = type + '(' + level + unit + ')';
   };
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
