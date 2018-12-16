@@ -28,7 +28,7 @@
     return commentsFragment;
   };
 
-  var generateBigPictureData = function (picture) {
+  /*var generateBigPictureData = function (picture) {
     bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
     bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
     bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
@@ -39,9 +39,9 @@
 
     window.utilities.hideElement(bigPictureElement.querySelector('.social__comment-count'));
     window.utilities.hideElement(bigPictureElement.querySelector('.comments-loader'));
-  };
+  };*/
 
-  var documentClickHandler = function (evt) {
+  var documentClickHandler = function () {
 
   };
 
