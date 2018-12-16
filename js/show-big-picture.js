@@ -53,7 +53,7 @@
     document.addEventListener('keydown', documentKeydownEscHandler);
     if (evt.target === cancelPreviewElement) {
       cancelPreview();
-    };
+    }
   };
 
   var documentKeydownEscHandler = function (evt) {
@@ -65,7 +65,6 @@
 
   var init = function () {
     document.addEventListener('click', documentClickHandler);
-    console.log(window.gallery);
     window.gallery.forEach(function (picture) {
       generateBigPictureData(picture);
     });
