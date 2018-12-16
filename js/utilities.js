@@ -25,6 +25,14 @@
     getRandomInRange: function (min, max) {
       var array = this.createArrayFromRange(min, max);
       return this.getRandomValue(array);
+    },
+    renderErrorMessage: function (message) {
+      var node = document.createElement('p');
+      node.style = 'z-index: 100; width: 1200px; min-height: 60px; margin: 20px auto; padding-top: 20px; text-align: center; background-color: rgb(255, 0, 0);';
+      node.style.fontSize = '20px';
+
+      node.textContent = message;
+      document.querySelector('.page-footer').insertAdjacentElement('beforebegin', node);
     }
   };
 })();

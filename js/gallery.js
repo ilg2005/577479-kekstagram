@@ -27,8 +27,8 @@
     renderGallery(data);
   };
 
-  var onErrorLoad = function () {
-    // console.log('Надо будет сделать обработку ошибок');
+  var onErrorLoad = function (serverResponse) {
+    window.utilities.renderErrorMessage(serverResponse);
   };
 
   window.backend.load(onSuccessLoad, onErrorLoad);

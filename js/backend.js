@@ -14,7 +14,7 @@
       if (xhr.status === SERVER_RESPONSE_OK) {
         onLoad(xhr.response);
       } else {
-        onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('Произошла ошибка: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
