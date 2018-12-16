@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var DEFAULT_PIN_POSITION = '100%';
   var SLIDER_PIN_WIDTH = 18;
 
   var sliderElement = document.querySelector('.img-upload__effect-level');
@@ -9,16 +8,15 @@
   var sliderLineElement = sliderElement.querySelector('.effect-level__depth');
   var sliderEffectLevelValueElement = sliderElement.querySelector('.effect-level__value');
 
-  var currentPinPositionInPercent = sliderPinElement.style.left;
 
   window.slider = {
-    // currentPinPositionInPercent: sliderPinElement.style.left,
-    // sliderPinElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__pin'),
-    sliderLineElement: window.imageUpload.pictureEditingElement.querySelector('.effect-level__depth')
+    PinElement: sliderPinElement,
+    LineElement: sliderLineElement,
+    currentPinPositionInPercent: sliderPinElement.style.left
   };
 
   var convertPinPositionToEffectLevel = function () {
-    sliderEffectLevelValueElement.value = parseInt(currentPinPositionInPercent, 10);
+    sliderEffectLevelValueElement.value = parseInt(window.slider.currentPinPositionInPercent, 10);
     var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
     return effectLevel;
   };
@@ -42,9 +40,8 @@
       var newPinPositionInPercent = Math.round(newPinPositionInPx * window.utilities.MULTIPLICAND / sliderLineWidthInPx);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
-        currentPinPositionInPercent = newPinPositionInPercent + '%';
-        console.log(currentPinPositionInPercent);
-        window.slider.currentPinPositionInPercent = currentPinPositionInPercent;
+        sliderPinElement.style.left = newPinPositionInPercent + '%';
+        window.slider.currentPinPositionInPercent = newPinPositionInPercent + '%';
         changeEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
       }
     };

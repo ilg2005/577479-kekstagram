@@ -42,8 +42,8 @@
 
   var resetSliderSettingsToDefault = function () {
     window.imageEffects.imgPreviewElement.className = '';
-    window.slider.currentPinPositionInPercent = DEFAULT_EFFECT_LEVEL;
-    window.slider.sliderLineElement.style.width = DEFAULT_EFFECT_LEVEL;
+    window.slider.PinElement.style.left = DEFAULT_EFFECT_LEVEL;
+    window.slider.LineElement.style.width = DEFAULT_EFFECT_LEVEL;
     window.imageEffects.imgPreviewElement.style.filter = '';
   };
 
