@@ -1,45 +1,8 @@
 'use strict';
 
 (function () {
-  var pictureNumbers;
   var pictureTemplateElement = document.querySelector('#picture').content;
   var picturesElement = document.querySelector('.pictures');
-
-  var getUniqueRandomValue = function (array) {
-    var uniqueRandomValue = window.utilities.getRandomValue(array);
-    array.splice(array.indexOf(uniqueRandomValue), 1);
-    return uniqueRandomValue;
-  };
-
-  var generateCommentsForPicture = function (commentsArray) {
-    var commentsClone = commentsArray.slice();
-    var commentsNumber = window.utilities.getRandomIndex(commentsClone);
-    var commentsForPicture = [];
-    if (commentsNumber !== 0) {
-      for (var i = 0; i <= commentsNumber; i++) {
-        commentsForPicture.push(getUniqueRandomValue(commentsClone));
-      }
-    }
-    return commentsForPicture;
-  };
-
-  var createPicture = function () {
-    var picture = {
-      url: 'photos/' + getUniqueRandomValue(pictureNumbers) + '.jpg',
-      likes: window.utilities.getRandomInRange(window.consts.MIN_LIKES_NUM, window.consts.MAX_LIKES_NUM),
-      comments: generateCommentsForPicture(window.consts.COMMENTS),
-      description: window.utilities.getRandomValue(window.consts.SENTENCES)
-    };
-    return picture;
-  };
-
-  var createPicturesArray = function (picturesNum) {
-    var pictures = [];
-    for (var i = 0; i < picturesNum; i++) {
-      pictures.push(createPicture());
-    }
-    return pictures;
-  };
 
   var renderPicture = function (picture) {
     var pictureElement = pictureTemplateElement.cloneNode(true);
@@ -59,11 +22,15 @@
     picturesElement.appendChild(fragment);
   };
 
-  var init = function () {
-    pictureNumbers = window.utilities.createArrayFromRange(window.consts.MIN_PICTURE_NUM, window.consts.MAX_PICTURE_NUM);
-    window.gallery = createPicturesArray(window.consts.MAX_PICTURE_NUM);
-    renderGallery(window.gallery);
+  var onSuccessLoad = function (data) {
+    window.gallery = data;
+    console.log(window.gallery);
+    renderGallery(data);
   };
 
-  init();
+  var onErrorLoad = function (serverResponse) {
+    console.log(serverResponse);
+  };
+
+  window.backend.load(onSuccessLoad, onErrorLoad);
 })();
