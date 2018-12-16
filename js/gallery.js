@@ -28,7 +28,7 @@
   };
 
   var onErrorLoad = function () {
-    console.log('Надо будет сделать обработку ошибок');
+    // console.log('Надо будет сделать обработку ошибок');
   };
 
   window.backend.load(onSuccessLoad, onErrorLoad);
