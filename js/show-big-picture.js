@@ -12,7 +12,7 @@
 
       var newImg = document.createElement('img');
       newImg.classList.add('social__picture');
-      newImg.src = 'img/avatar-' + window.utilities.getRandomInRange(window.consts.MIN_AVATAR_NUM, window.consts.MAX_AVATAR_NUM) + '.svg';
+      newImg.src = comment.avatar;
       newImg.alt = 'Аватар комментатора фотографии';
       newImg.width = '35';
       newImg.height = '35';
@@ -20,7 +20,7 @@
 
       var newP = document.createElement('p');
       newP.classList.add('social__text');
-      newP.textContent = comment;
+      newP.textContent = comment.message;
       newLi.appendChild(newP);
 
       commentsFragment.appendChild(newLi);
@@ -41,9 +41,14 @@
     window.utilities.hideElement(bigPictureElement.querySelector('.comments-loader'));
   };
 
+  var documentClickHandler = function (evt) {
+
+  };
+
   var init = function () {
-    generateBigPictureData(window.gallery[0]);
-    // window.utilities.showElement(bigPictureElement);
+    document.addEventListener('click', documentClickHandler);
+    // generateBigPictureData(window.gallery[0]);
+  //  window.utilities.showElement(bigPictureElement);
   };
 
   init();

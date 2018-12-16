@@ -24,7 +24,6 @@
 
   var onSuccessLoad = function (data) {
     window.gallery = data;
-    console.log(window.gallery);
     renderGallery(data);
   };
 
