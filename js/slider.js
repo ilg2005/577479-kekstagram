@@ -4,13 +4,13 @@
   var SLIDER_PIN_WIDTH = 18;
 
   var sliderElement = document.querySelector('.img-upload__effect-level');
-  var sliderPinElement = sliderElement.querySelector('.effect-level__pin');
-  var sliderLineElement = sliderElement.querySelector('.effect-level__depth');
+  var pinElement = sliderElement.querySelector('.effect-level__pin');
+  var lineElement = sliderElement.querySelector('.effect-level__depth');
 
-  var sliderPinElementMouseDownHandler = function (evtMouseDown) {
+  var pinElementMouseDownHandler = function (evtMouseDown) {
     evtMouseDown.preventDefault();
-    var sliderLineWidthInPx = sliderLineElement.offsetWidth;
-    var initialPinPositionInPx = sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
+    var sliderLineWidthInPx = lineElement.offsetWidth;
+    var initialPinPositionInPx = pinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
     var startMouseX = evtMouseDown.clientX;
 
     var documentMouseMoveHandler = function (evtMouseMove) {
@@ -22,7 +22,7 @@
       var newPinPositionInPercent = Math.round(newPinPositionInPx * window.utilities.MULTIPLICAND / sliderLineWidthInPx);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
-        sliderPinElement.style.left = newPinPositionInPercent + '%';
+        pinElement.style.left = newPinPositionInPercent + '%';
         window.slider.currentPinPositionInPercent = newPinPositionInPercent + '%';
         window.imageEffects.changeEffectLevel();
       }
@@ -38,11 +38,11 @@
     document.addEventListener('mouseup', documentMouseUpHandler);
   };
 
-  sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
+  pinElement.addEventListener('mousedown', pinElementMouseDownHandler);
 
   window.slider = {
-    PinElement: sliderPinElement,
-    LineElement: sliderLineElement,
-    currentPinPositionInPercent: sliderPinElement.style.left
+    pinElement: pinElement,
+    lineElement: lineElement,
+    currentPinPositionInPercent: pinElement.style.left
   };
 })();

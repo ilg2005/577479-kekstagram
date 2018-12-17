@@ -9,8 +9,8 @@
 
   var resetSliderSettingsToDefault = function () {
     imgPreviewElement.className = '';
-    window.slider.PinElement.style.left = DEFAULT_EFFECT_LEVEL;
-    window.slider.LineElement.style.width = DEFAULT_EFFECT_LEVEL;
+    window.slider.pinElement.style.left = DEFAULT_EFFECT_LEVEL;
+    window.slider.lineElement.style.width = DEFAULT_EFFECT_LEVEL;
     imgPreviewElement.style.filter = '';
   };
 
