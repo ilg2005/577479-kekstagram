@@ -5,7 +5,7 @@
   var SERVER_RESPONSE_OK = 200;
   var LOADING_TIMEOUT = 10000;
 
-  var request = function (onLoad, onError) {
+  var prepareRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = LOADING_TIMEOUT;
@@ -30,7 +30,7 @@
 
   window.backend = {
     load: function (onLoad, onError) {
-      var xhr = request(onLoad, onError);
+      var xhr = prepareRequest(onLoad, onError);
       xhr.open('GET', URL + '\/data');
       xhr.send();
     }
