@@ -1,6 +1,14 @@
 'use strict';
 
 (function () {
+  var MESSAGE_TIMEOUT = 1000;
+
+  var removeServerMessage = function (element, timeout) {
+    setTimeout(function () {
+      element.remove();
+    }, timeout);
+  };
+
   window.utilities = {
     MULTIPLICAND: 100,
     showElement: function (element) {
@@ -27,12 +35,13 @@
       return this.getRandomValue(array);
     },
     renderErrorMessage: function (message) {
-      var node = document.createElement('p');
-      node.style = 'z-index: 100; width: 1200px; min-height: 60px; margin: 20px auto; padding-top: 20px; text-align: center; background-color: rgb(255, 0, 0);';
-      node.style.fontSize = '20px';
+      var errorMessageElement = document.createElement('p');
+      errorMessageElement.style = 'z-index: 100; width: 1200px; min-height: 60px; margin: 20px auto; padding-top: 20px; text-align: center; background-color: rgb(255, 0, 0);';
+      errorMessageElement.style.fontSize = '20px';
 
-      node.textContent = message;
-      document.querySelector('.page-footer').insertAdjacentElement('beforebegin', node);
+      errorMessageElement.textContent = message;
+      document.querySelector('.page-footer').insertAdjacentElement('beforebegin', errorMessageElement);
+      removeServerMessage(errorMessageElement, MESSAGE_TIMEOUT);
     }
   };
 })();
