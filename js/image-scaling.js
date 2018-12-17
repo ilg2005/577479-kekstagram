@@ -7,10 +7,6 @@
 
   var scaleValueElement = window.imageUpload.pictureEditingElement.querySelector('.scale__control--value');
 
-  window.imageScaling = {
-    scaleValueElement: scaleValueElement
-  };
-
   var scaleSmallerElement = window.imageUpload.pictureEditingElement.querySelector('.scale__control--smaller');
   var scaleBiggerElement = window.imageUpload.pictureEditingElement.querySelector('.scale__control--bigger');
 
@@ -44,4 +40,6 @@
 
   scaleSmallerElement.addEventListener('click', scaleSmallerElementClickHandler);
   scaleBiggerElement.addEventListener('click', scaleBiggerElementClickHandler);
+
+  window.scaleValueElement = scaleValueElement;
 })();

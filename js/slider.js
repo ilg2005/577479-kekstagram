@@ -7,14 +7,6 @@
   var sliderPinElement = sliderElement.querySelector('.effect-level__pin');
   var sliderLineElement = sliderElement.querySelector('.effect-level__depth');
 
-
-  window.slider = {
-    PinElement: sliderPinElement,
-    LineElement: sliderLineElement,
-    currentPinPositionInPercent: sliderPinElement.style.left
-  };
-
-
   var sliderPinElementMouseDownHandler = function (evtMouseDown) {
     evtMouseDown.preventDefault();
     var sliderLineWidthInPx = sliderLineElement.offsetWidth;
@@ -47,4 +39,10 @@
   };
 
   sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
+
+  window.slider = {
+    PinElement: sliderPinElement,
+    LineElement: sliderLineElement,
+    currentPinPositionInPercent: sliderPinElement.style.left
+  };
 })();

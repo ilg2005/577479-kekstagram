@@ -7,18 +7,13 @@
   var pictureEditingElement = document.querySelector('.img-upload__overlay');
   var uploadPreviewElement = document.querySelector('.img-upload__preview');
 
-  window.imageUpload = {
-    pictureEditingElement: pictureEditingElement,
-    uploadPreviewElement: uploadPreviewElement
-  };
-
   var uploadFileElement = document.querySelector('#upload-file');
   var cancelEditingElement = document.querySelector('#upload-cancel');
   var hashtagsElement = document.querySelector('.text__hashtags');
   var commentsElement = document.querySelector('.text__description');
 
   var restoreDefault = function () {
-    window.imageScaling.scaleValueElement.value = DEFAULT_SCALE_VALUE;
+    window.scaleValueElement.value = DEFAULT_SCALE_VALUE;
     var decimalValueOfPercent = parseInt(DEFAULT_SCALE_VALUE, 10) / window.utilities.MULTIPLICAND;
     uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
     window.imageEffects.imgPreviewElement.className = '';
@@ -51,4 +46,9 @@
   };
 
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
+
+  window.imageUpload = {
+    pictureEditingElement: pictureEditingElement,
+    uploadPreviewElement: uploadPreviewElement
+  };
 })();

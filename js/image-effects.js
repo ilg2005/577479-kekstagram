@@ -7,45 +7,6 @@
   var imgPreviewElement = window.imageUpload.uploadPreviewElement.querySelector('img');
   var effectLevelElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level');
 
-  window.imageEffects = {
-    imgPreviewElement: imgPreviewElement,
-    effectLevelElement: effectLevelElement,
-    currentEffect: {},
-    EFFECT_CHROME: {
-      filterType: 'grayscale',
-      min: 0,
-      max: 1,
-      unit: ''
-    },
-    EFFECT_SEPIA: {
-      filterType: 'sepia',
-      min: 0,
-      max: 1,
-      unit: ''
-    },
-    EFFECT_MARVIN: {
-      filterType: 'invert',
-      min: 0,
-      max: 100,
-      unit: '%'
-    },
-    EFFECT_PHOBOS: {
-      filterType: 'blur',
-      min: 0,
-      max: 3,
-      unit: 'px'
-    },
-    EFFECT_HEAT: {
-      filterType: 'brightness',
-      min: 1,
-      max: 3,
-      unit: ''
-    },
-    changeEffectLevel: function () {
-      applyEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
-    }
-  };
-
   var resetSliderSettingsToDefault = function () {
     imgPreviewElement.className = '';
     window.slider.PinElement.style.left = DEFAULT_EFFECT_LEVEL;
@@ -98,4 +59,43 @@
   };
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
+
+  window.imageEffects = {
+    imgPreviewElement: imgPreviewElement,
+    effectLevelElement: effectLevelElement,
+    currentEffect: {},
+    EFFECT_CHROME: {
+      filterType: 'grayscale',
+      min: 0,
+      max: 1,
+      unit: ''
+    },
+    EFFECT_SEPIA: {
+      filterType: 'sepia',
+      min: 0,
+      max: 1,
+      unit: ''
+    },
+    EFFECT_MARVIN: {
+      filterType: 'invert',
+      min: 0,
+      max: 100,
+      unit: '%'
+    },
+    EFFECT_PHOBOS: {
+      filterType: 'blur',
+      min: 0,
+      max: 3,
+      unit: 'px'
+    },
+    EFFECT_HEAT: {
+      filterType: 'brightness',
+      min: 1,
+      max: 3,
+      unit: ''
+    },
+    changeEffectLevel: function () {
+      applyEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
+    }
+  };
 })();
