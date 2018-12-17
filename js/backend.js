@@ -5,32 +5,32 @@
   var SERVER_RESPONSE_OK = 200;
   var LOADING_TIMEOUT = 10000;
 
-  var prepareRequest = function (onLoad, onError) {
+  var prepareRequest = function (loadHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = LOADING_TIMEOUT;
 
     xhr.addEventListener('load', function () {
       if (xhr.status === SERVER_RESPONSE_OK) {
-        onLoad(xhr.response);
+        loadHandler(xhr.response);
       } else {
-        onError('Произошла ошибка: ' + xhr.status + ' ' + xhr.statusText);
+        errorHandler('Произошла ошибка: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      errorHandler('Произошла ошибка соединения');
     });
 
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
+      errorHandler('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
     return xhr;
   };
 
   window.backend = {
-    load: function (onLoad, onError) {
-      var xhr = prepareRequest(onLoad, onError);
+    load: function (loadHandler, errorHandler) {
+      var xhr = prepareRequest(loadHandler, errorHandler);
       xhr.open('GET', URL + '\/data');
       xhr.send();
     }

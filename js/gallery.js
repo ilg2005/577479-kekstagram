@@ -22,14 +22,14 @@
     picturesElement.appendChild(fragment);
   };
 
-  var onSuccessLoad = function (data) {
+  var successLoadHandler = function (data) {
     window.gallery = data;
     renderGallery(data);
   };
 
-  var onErrorLoad = function (serverResponse) {
+  var errorLoadHandler = function (serverResponse) {
     window.utilities.renderErrorMessage(serverResponse);
   };
 
-  window.backend.load(onSuccessLoad, onErrorLoad);
+  window.backend.load(successLoadHandler, errorLoadHandler);
 })();
