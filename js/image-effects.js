@@ -2,11 +2,67 @@
 
 (function () {
   var DEFAULT_EFFECT_LEVEL = '100%';
-  var effectsListElement = window.uploadImage.pictureEditingElement.querySelector('.effects__list');
+  var effectsListElement = window.imageUpload.pictureEditingElement.querySelector('.effects__list');
+  var sliderEffectLevelValueElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__value');
+  var imgPreviewElement = window.imageUpload.uploadPreviewElement.querySelector('img');
+  var effectLevelElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level');
+
+  var resetSliderSettingsToDefault = function () {
+    imgPreviewElement.className = '';
+    window.slider.pinElement.style.left = DEFAULT_EFFECT_LEVEL;
+    window.slider.lineElement.style.width = DEFAULT_EFFECT_LEVEL;
+    imgPreviewElement.style.filter = '';
+  };
+
+  var changeEffectType = function (effect) {
+    resetSliderSettingsToDefault();
+    if (effect !== 'none') {
+      window.utilities.showElement(effectLevelElement);
+    }
+    var effectClass = 'effects__preview--' + effect;
+    imgPreviewElement.classList.add(effectClass);
+  };
+
+  var effectsListElementClickHandler = function (evt) {
+    var effectTypeName = evt.target.value;
+    switch (effectTypeName) {
+      case 'chrome':
+        window.imageEffects.currentEffect = window.imageEffects.EFFECT_CHROME;
+        break;
+      case 'sepia':
+        window.imageEffects.currentEffect = window.imageEffects.EFFECT_SEPIA;
+        break;
+      case 'marvin':
+        window.imageEffects.currentEffect = window.imageEffects.EFFECT_MARVIN;
+        break;
+      case 'phobos':
+        window.imageEffects.currentEffect = window.imageEffects.EFFECT_PHOBOS;
+        break;
+      case 'heat':
+        window.imageEffects.currentEffect = window.imageEffects.EFFECT_HEAT;
+        break;
+      case 'none':
+        window.utilities.hideElement(effectLevelElement);
+        break;
+    }
+    changeEffectType(effectTypeName);
+  };
+
+  var convertPinPositionToEffectLevel = function () {
+    sliderEffectLevelValueElement.value = parseInt(window.slider.currentPinPositionInPercent, 10);
+    var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
+    return effectLevel;
+  };
+
+  var applyEffectLevel = function (type, level, unit) {
+    imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+  };
+
+  effectsListElement.addEventListener('click', effectsListElementClickHandler);
 
   window.imageEffects = {
-    imgPreviewElement: window.uploadImage.uploadPreviewElement.querySelector('img'),
-    effectLevelElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level'),
+    imgPreviewElement: imgPreviewElement,
+    effectLevelElement: effectLevelElement,
     currentEffect: {},
     EFFECT_CHROME: {
       filterType: 'grayscale',
@@ -37,49 +93,9 @@
       min: 1,
       max: 3,
       unit: ''
+    },
+    changeEffectLevel: function () {
+      applyEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
     }
   };
-
-  var resetSliderSettingsToDefault = function () {
-    window.imageEffects.imgPreviewElement.className = '';
-    window.slider.sliderPinElement.style.left = DEFAULT_EFFECT_LEVEL;
-    window.slider.sliderLineElement.style.width = DEFAULT_EFFECT_LEVEL;
-    window.imageEffects.imgPreviewElement.style.filter = '';
-  };
-
-  var changeEffectType = function (effect) {
-    resetSliderSettingsToDefault();
-    if (effect !== 'none') {
-      window.utilities.showElement(window.imageEffects.effectLevelElement);
-    }
-    var effectClass = 'effects__preview--' + effect;
-    window.imageEffects.imgPreviewElement.classList.add(effectClass);
-  };
-
-  var effectsListElementClickHandler = function (evt) {
-    var effectTypeName = evt.target.value;
-    switch (effectTypeName) {
-      case 'chrome':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_CHROME;
-        break;
-      case 'sepia':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_SEPIA;
-        break;
-      case 'marvin':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_MARVIN;
-        break;
-      case 'phobos':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_PHOBOS;
-        break;
-      case 'heat':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_HEAT;
-        break;
-      case 'none':
-        window.utilities.hideElement(window.imageEffects.effectLevelElement);
-        break;
-    }
-    changeEffectType(effectTypeName);
-  };
-
-  effectsListElement.addEventListener('click', effectsListElementClickHandler);
 })();
