@@ -3,39 +3,28 @@
 (function () {
   var SLIDER_PIN_WIDTH = 18;
 
-  window.slider = {
-    sliderPinElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__pin'),
-    sliderLineElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__depth'),
-    sliderEffectLevelValueElement: window.uploadImage.pictureEditingElement.querySelector('.effect-level__value')
-  };
+  var sliderElement = document.querySelector('.img-upload__effect-level');
+  var pinElement = sliderElement.querySelector('.effect-level__pin');
+  var lineElement = sliderElement.querySelector('.effect-level__depth');
 
-  var convertPinPositionToEffectLevel = function () {
-    window.slider.sliderEffectLevelValueElement.value = parseInt(window.slider.sliderPinElement.style.left, 10);
-    var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * window.slider.sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
-    return effectLevel;
-  };
-
-  var changeEffectLevel = function (type, level, unit) {
-    window.imageEffects.imgPreviewElement.style.filter = type + '(' + level + unit + ')';
-  };
-
-  var sliderPinElementMouseDownHandler = function (evtMouseDown) {
+  var pinElementMouseDownHandler = function (evtMouseDown) {
     evtMouseDown.preventDefault();
-    var sliderLineWidth = window.slider.sliderLineElement.offsetWidth;
-    var initialPinPosition = window.slider.sliderPinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
+    var sliderLineWidthInPx = lineElement.offsetWidth;
+    var initialPinPositionInPx = pinElement.offsetLeft - SLIDER_PIN_WIDTH / 2;
     var startMouseX = evtMouseDown.clientX;
 
     var documentMouseMoveHandler = function (evtMouseMove) {
       evtMouseMove.preventDefault();
       var shift = startMouseX - evtMouseMove.clientX;
       startMouseX = evtMouseMove.clientX;
-      var newPinPosition = initialPinPosition - shift;
-      initialPinPosition = newPinPosition;
-      var newPinPositionInPercent = Math.round(newPinPosition * window.utilities.MULTIPLICAND / sliderLineWidth);
+      var newPinPositionInPx = initialPinPositionInPx - shift;
+      initialPinPositionInPx = newPinPositionInPx;
+      var newPinPositionInPercent = Math.round(newPinPositionInPx * window.utilities.MULTIPLICAND / sliderLineWidthInPx);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
-        window.slider.sliderPinElement.style.left = newPinPositionInPercent + '%';
-        changeEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
+        pinElement.style.left = newPinPositionInPercent + '%';
+        window.slider.currentPinPositionInPercent = newPinPositionInPercent + '%';
+        window.imageEffects.changeEffectLevel();
       }
     };
 
@@ -49,5 +38,11 @@
     document.addEventListener('mouseup', documentMouseUpHandler);
   };
 
-  window.slider.sliderPinElement.addEventListener('mousedown', sliderPinElementMouseDownHandler);
+  pinElement.addEventListener('mousedown', pinElementMouseDownHandler);
+
+  window.slider = {
+    pinElement: pinElement,
+    lineElement: lineElement,
+    currentPinPositionInPercent: pinElement.style.left
+  };
 })();
