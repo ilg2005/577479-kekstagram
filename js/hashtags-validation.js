@@ -46,15 +46,16 @@
     }
   };
 
-  /*
-
-
   var checkIfContainsAnotherHashSymbol = function (hashtag) {
-    hashtagsElement.setCustomValidity('');
-    if (hashtag.match(/(^#[^#]+)/) === null) {
+    var hashtagChars = hashtag.split('');
+    if (hashtagChars.indexOf('#', 1) > 0) {
       hashtagsElement.setCustomValidity('Хэш-теги должны разделяться пробелами');
+      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
+
+  /*
+
 
   var checkIfTooLong = function (hashtag) {
     hashtagsElement.setCustomValidity('');
@@ -77,7 +78,10 @@
     hashtags.forEach(function (hashtag) {
       checkIfContainsOtherSymbols(hashtag);
     });
-    // checkIfContainsAnotherHashSymbol(hashtag);
+
+    hashtags.forEach(function (hashtag) {
+      checkIfContainsAnotherHashSymbol(hashtag);
+    });
     // checkIfTooLong(hashtag);
 
   };
