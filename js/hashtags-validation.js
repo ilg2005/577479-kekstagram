@@ -23,10 +23,11 @@
   var checkDoubleOccurrence = function (hashtagsArray) {
     var tempStorage = [];
     hashtagsArray.forEach(function (hashtag) {
+      hashtag = hashtag.toLowerCase();
       if (tempStorage.indexOf(hashtag) === -1) {
         tempStorage.push(hashtag);
       } else {
-        hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+        hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды. #ХэшТег и #хэштег считаются одним и тем же тегом');
         hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
       }
     });
@@ -75,7 +76,6 @@
       checkIfContainsAnotherHashSymbol(hashtag);
       checkIfTooLong(hashtag);
     });
-
   };
 
   var hastagsElementChangeHandler = function () {
