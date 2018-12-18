@@ -19,6 +19,7 @@
     }
   };
 
+  /*
   var checkDoubleOccurrence = function (hashtagsArray) {
     hashtagsElement.setCustomValidity('');
     var tempStorage = [];
@@ -58,11 +59,15 @@
       hashtagsElement.setCustomValidity('Максимальная длина одного хэш-тега должна быть 20 символов, включая решётку');
     }
   };
+*/
 
   var hastagsElementBlurHandler = function () {
     var hashtags = getHashtagsArray();
 
     checkIfTooMuchHashtags(hashtags);
+    hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
+
+    /*
     checkDoubleOccurrence(hashtags);
 
     hashtags.forEach(function (hashtag) {
@@ -71,8 +76,14 @@
       checkIfContainsAnotherHashSymbol(hashtag);
       checkIfTooLong(hashtag);
     });
+*/
 
   };
 
+  var hastagsElementChangeHandler = function () {
+    hashtagsElement.setCustomValidity('');
+  };
+
+  hashtagsElement.addEventListener('change', hastagsElementChangeHandler);
   hashtagsElement.addEventListener('blur', hastagsElementBlurHandler);
 })();
