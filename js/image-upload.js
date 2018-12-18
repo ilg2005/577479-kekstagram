@@ -9,7 +9,6 @@
 
   var uploadFileElement = document.querySelector('#upload-file');
   var cancelEditingElement = document.querySelector('#upload-cancel');
-  var hashtagsElement = document.querySelector('.text__hashtags');
   var commentsElement = document.querySelector('.text__description');
 
   var restoreDefault = function () {
@@ -28,7 +27,7 @@
   };
 
   var documentKeydownEscHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== hashtagsElement && evt.target !== commentsElement) {
+    if (evt.keyCode === ESC_KEYCODE && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
       cancelImageEditing();
       restoreDefault();
     }

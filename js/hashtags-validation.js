@@ -5,6 +5,7 @@
   var MAX_HASHTAGS_LENGTH = 20;
 
   var hashtagsElement = document.querySelector('.text__hashtags');
+  window.hashtagsElement = hashtagsElement;
 
   var getHashtagsArray = function () {
     var hashtagsString = hashtagsElement.value;
@@ -32,7 +33,6 @@
       }
     });
   };
-
 
   var checkIfStartsWithHashSymbol = function (hashtag) {
     if (hashtag.match(/(^#)/) === null) {
