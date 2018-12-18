@@ -39,15 +39,15 @@
     }
   };
 
-  /*
-
-
   var checkIfContainsOtherSymbols = function (hashtag) {
-    hashtagsElement.setCustomValidity('');
-    if (hashtag.match(/(^#.+)/) === null) {
+    if (hashtag === '#') {
       hashtagsElement.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
+      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
+
+  /*
+
 
   var checkIfContainsAnotherHashSymbol = function (hashtag) {
     hashtagsElement.setCustomValidity('');
@@ -72,10 +72,13 @@
 
     hashtags.forEach(function (hashtag) {
       checkIfStartsWithHashSymbol(hashtag);
-      // checkIfContainsOtherSymbols(hashtag);
-      // checkIfContainsAnotherHashSymbol(hashtag);
-      // checkIfTooLong(hashtag);
     });
+
+    hashtags.forEach(function (hashtag) {
+      checkIfContainsOtherSymbols(hashtag);
+    });
+    // checkIfContainsAnotherHashSymbol(hashtag);
+    // checkIfTooLong(hashtag);
 
   };
 
