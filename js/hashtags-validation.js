@@ -55,7 +55,6 @@
   var checkIfTooLong = function (hashtag) {
     hashtagsElement.setCustomValidity('');
     if (hashtag.match(/[^#]{1,19}/) === null) {
-      console.log(hashtag.match(/(^#)[^#]{1,19}/));
       hashtagsElement.setCustomValidity('Максимальная длина одного хэш-тега должна быть 20 символов, включая решётку');
     }
   };
