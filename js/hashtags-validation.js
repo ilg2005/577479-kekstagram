@@ -13,9 +13,9 @@
   };
 
   var checkIfTooMuchHashtags = function (hashtagsArray) {
-    hashtagsElement.setCustomValidity('');
     if (hashtagsArray.length > MAX_HASHTAGS_NUMBER) {
       hashtagsElement.setCustomValidity('Нельзя указывать более пяти хэш-тегов');
+      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
@@ -65,7 +65,6 @@
     var hashtags = getHashtagsArray();
 
     checkIfTooMuchHashtags(hashtags);
-    hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
 
     /*
     checkDoubleOccurrence(hashtags);
@@ -82,6 +81,7 @@
 
   var hastagsElementChangeHandler = function () {
     hashtagsElement.setCustomValidity('');
+    hashtagsElement.addEventListener('blur', hastagsElementBlurHandler);
   };
 
   hashtagsElement.addEventListener('change', hastagsElementChangeHandler);
