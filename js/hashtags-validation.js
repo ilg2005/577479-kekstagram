@@ -19,6 +19,17 @@
     }
   };
 
+  var checkDoubleOccurrence = function (hashtagsArray) {
+    var tempStorage = [];
+    hashtagsArray.forEach(function (hashtag) {
+      if (tempStorage.indexOf(hashtag) === -1) {
+        tempStorage.push(hashtag);
+      } else {
+        hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+      }
+    });
+  };
+
   /*
   var checkDoubleOccurrence = function (hashtagsArray) {
     hashtagsElement.setCustomValidity('');
@@ -65,6 +76,8 @@
     var hashtags = getHashtagsArray();
 
     checkIfTooMuchHashtags(hashtags);
+    checkDoubleOccurrence(hashtags);
+
 
     /*
     checkDoubleOccurrence(hashtags);
