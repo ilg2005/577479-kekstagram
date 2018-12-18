@@ -26,6 +26,7 @@
         tempStorage.push(hashtag);
       } else {
         hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+        hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
       }
     });
   };
@@ -34,6 +35,7 @@
   var checkIfStartsWithHashSymbol = function (hashtag) {
     if (hashtag.match(/(^#)/) === null) {
       hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
+      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
