@@ -30,25 +30,15 @@
     });
   };
 
-  /*
-  var checkDoubleOccurrence = function (hashtagsArray) {
-    hashtagsElement.setCustomValidity('');
-    var tempStorage = [];
-    hashtagsArray.forEach(function (hashtag) {
-      if (tempStorage.indexOf(hashtag) === -1) {
-        tempStorage.push(hashtag);
-      } else {
-        hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
-      }
-    });
-  };
 
   var checkIfStartsWithHashSymbol = function (hashtag) {
-    hashtagsElement.setCustomValidity('');
     if (hashtag.match(/(^#)/) === null) {
       hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
     }
   };
+
+  /*
+
 
   var checkIfContainsOtherSymbols = function (hashtag) {
     hashtagsElement.setCustomValidity('');
@@ -78,17 +68,12 @@
     checkIfTooMuchHashtags(hashtags);
     checkDoubleOccurrence(hashtags);
 
-
-    /*
-    checkDoubleOccurrence(hashtags);
-
     hashtags.forEach(function (hashtag) {
       checkIfStartsWithHashSymbol(hashtag);
-      checkIfContainsOtherSymbols(hashtag);
-      checkIfContainsAnotherHashSymbol(hashtag);
-      checkIfTooLong(hashtag);
+      // checkIfContainsOtherSymbols(hashtag);
+      // checkIfContainsAnotherHashSymbol(hashtag);
+      // checkIfTooLong(hashtag);
     });
-*/
 
   };
 
