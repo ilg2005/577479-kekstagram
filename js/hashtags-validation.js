@@ -71,19 +71,11 @@
 
     hashtags.forEach(function (hashtag) {
       checkIfStartsWithHashSymbol(hashtag);
-    });
-
-    hashtags.forEach(function (hashtag) {
       checkIfContainsOtherSymbols(hashtag);
-    });
-
-    hashtags.forEach(function (hashtag) {
       checkIfContainsAnotherHashSymbol(hashtag);
-    });
-
-    hashtags.forEach(function (hashtag) {
       checkIfTooLong(hashtag);
     });
+
   };
 
   var hastagsElementChangeHandler = function () {
