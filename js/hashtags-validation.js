@@ -2,7 +2,7 @@
 
 (function () {
   var MAX_HASHTAGS_NUMBER = 5;
-  var MAX_HASHTAGS_LENGTH = 20;
+  var MAX_HASHTAG_LENGTH = 20;
 
   var hashtagsElement = document.querySelector('.text__hashtags');
   window.hashtagsElement = hashtagsElement;
@@ -17,7 +17,6 @@
   var checkIfTooMuchHashtags = function (hashtagsArray) {
     if (hashtagsArray.length > MAX_HASHTAGS_NUMBER) {
       hashtagsElement.setCustomValidity('Нельзя указывать более пяти хэш-тегов');
-      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
@@ -29,7 +28,6 @@
         tempStorage.push(hashtag);
       } else {
         hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды. #ХэшТег и #хэштег считаются одним и тем же тегом');
-        hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
       }
     });
   };
@@ -37,14 +35,12 @@
   var checkIfStartsWithHashSymbol = function (hashtag) {
     if (hashtag.match(/(^#)/) === null) {
       hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
-      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
   var checkIfContainsOtherSymbols = function (hashtag) {
     if (hashtag === '#') {
       hashtagsElement.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
-      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
@@ -52,19 +48,17 @@
     var hashtagChars = hashtag.split('');
     if (hashtagChars.indexOf('#', 1) > 0) {
       hashtagsElement.setCustomValidity('Хэш-теги должны разделяться пробелами');
-      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
   var checkIfTooLong = function (hashtag) {
     var hashtagChars = hashtag.split('');
-    if (hashtagChars.length > MAX_HASHTAGS_LENGTH) {
+    if (hashtagChars.length > MAX_HASHTAG_LENGTH) {
       hashtagsElement.setCustomValidity('Максимальная длина одного хэш-тега должна быть 20 символов, включая решётку');
-      hashtagsElement.removeEventListener('blur', hastagsElementBlurHandler);
     }
   };
 
-  var hastagsElementBlurHandler = function () {
+  var hashtagsValidation = function () {
     var hashtags = getHashtagsArray();
 
     checkIfTooMuchHashtags(hashtags);
@@ -80,7 +74,12 @@
 
   var hastagsElementChangeHandler = function () {
     hashtagsElement.setCustomValidity('');
-    hashtagsElement.addEventListener('blur', hastagsElementBlurHandler);
+    hashtagsValidation();
+  };
+
+  var hastagsElementBlurHandler = function () {
+    hashtagsElement.setCustomValidity('');
+    hashtagsValidation();
   };
 
   hashtagsElement.addEventListener('change', hastagsElementChangeHandler);
