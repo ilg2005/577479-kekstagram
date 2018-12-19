@@ -72,9 +72,8 @@
     });
   };
 
-  var hastagsElementChangeHandler = function () {
+  var hastagsElementKeypressHandler = function () {
     hashtagsElement.setCustomValidity('');
-    hashtagsValidation();
   };
 
   var hastagsElementBlurHandler = function () {
@@ -82,6 +81,6 @@
     hashtagsValidation();
   };
 
-  hashtagsElement.addEventListener('change', hastagsElementChangeHandler);
+  hashtagsElement.addEventListener('keypress', hastagsElementKeypressHandler);
   hashtagsElement.addEventListener('blur', hastagsElementBlurHandler);
 })();
