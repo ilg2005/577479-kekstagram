@@ -74,6 +74,7 @@
 
   var hastagsElementChangeHandler = function () {
     hashtagsElement.setCustomValidity('');
+    hashtagsValidation();
   };
 
   var hastagsElementBlurHandler = function () {
