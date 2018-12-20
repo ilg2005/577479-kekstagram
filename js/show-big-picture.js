@@ -65,7 +65,7 @@
 
   var init = function () {
     document.addEventListener('click', documentClickHandler);
-    window.gallery.forEach(function (picture) {
+    window.pictures.forEach(function (picture) {
       generateBigPictureData(picture);
     });
   };

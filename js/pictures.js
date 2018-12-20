@@ -14,17 +14,17 @@
     return pictureElement;
   };
 
-  var renderGallery = function (pictures) {
+  var renderPictures = function (picturesArray) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < pictures.length; i++) {
-      fragment.appendChild(renderPicture(pictures[i]));
+    for (var i = 0; i < picturesArray.length; i++) {
+      fragment.appendChild(renderPicture(picturesArray[i]));
     }
     picturesElement.appendChild(fragment);
   };
 
   var successLoadHandler = function (data) {
-    window.gallery = data;
-    renderGallery(data);
+    window.pictures = data;
+    renderPictures(data);
   };
 
   var errorLoadHandler = function (serverResponse) {
