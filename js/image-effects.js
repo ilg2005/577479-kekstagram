@@ -2,6 +2,44 @@
 
 (function () {
   var DEFAULT_EFFECT_LEVEL = '100%';
+
+  var EFFECT_CHROME = {
+    filterType: 'grayscale',
+    min: 0,
+    max: 1,
+    unit: ''
+  };
+
+  var EFFECT_SEPIA = {
+    filterType: 'sepia',
+    min: 0,
+    max: 1,
+    unit: ''
+  };
+
+  var EFFECT_MARVIN = {
+    filterType: 'invert',
+    min: 0,
+    max: 100,
+    unit: '%'
+  };
+
+  var EFFECT_PHOBOS = {
+    filterType: 'blur',
+    min: 0,
+    max: 3,
+    unit: 'px'
+  };
+
+  var EFFECT_HEAT = {
+    filterType: 'brightness',
+    min: 1,
+    max: 3,
+    unit: ''
+  };
+
+  var currentEffect = {};
+
   var effectsListElement = window.imageUpload.pictureEditingElement.querySelector('.effects__list');
   var sliderEffectLevelValueElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level__value');
   var imgPreviewElement = window.imageUpload.uploadPreviewElement.querySelector('img');
@@ -27,19 +65,19 @@
     var effectTypeName = evt.target.value;
     switch (effectTypeName) {
       case 'chrome':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_CHROME;
+        currentEffect = EFFECT_CHROME;
         break;
       case 'sepia':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_SEPIA;
+        currentEffect = EFFECT_SEPIA;
         break;
       case 'marvin':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_MARVIN;
+        currentEffect = EFFECT_MARVIN;
         break;
       case 'phobos':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_PHOBOS;
+        currentEffect = EFFECT_PHOBOS;
         break;
       case 'heat':
-        window.imageEffects.currentEffect = window.imageEffects.EFFECT_HEAT;
+        currentEffect = EFFECT_HEAT;
         break;
       case 'none':
         window.utilities.hideElement(effectLevelElement);
@@ -50,7 +88,7 @@
 
   var convertPinPositionToEffectLevel = function () {
     sliderEffectLevelValueElement.value = parseInt(window.slider.currentPinPositionInPercent, 10);
-    var effectLevel = ((window.imageEffects.currentEffect.max - window.imageEffects.currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + window.imageEffects.currentEffect.min;
+    var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + currentEffect.min;
     return effectLevel;
   };
 
@@ -63,39 +101,8 @@
   window.imageEffects = {
     imgPreviewElement: imgPreviewElement,
     effectLevelElement: effectLevelElement,
-    currentEffect: {},
-    EFFECT_CHROME: {
-      filterType: 'grayscale',
-      min: 0,
-      max: 1,
-      unit: ''
-    },
-    EFFECT_SEPIA: {
-      filterType: 'sepia',
-      min: 0,
-      max: 1,
-      unit: ''
-    },
-    EFFECT_MARVIN: {
-      filterType: 'invert',
-      min: 0,
-      max: 100,
-      unit: '%'
-    },
-    EFFECT_PHOBOS: {
-      filterType: 'blur',
-      min: 0,
-      max: 3,
-      unit: 'px'
-    },
-    EFFECT_HEAT: {
-      filterType: 'brightness',
-      min: 1,
-      max: 3,
-      unit: ''
-    },
     changeEffectLevel: function () {
-      applyEffectLevel(window.imageEffects.currentEffect.filterType, convertPinPositionToEffectLevel(), window.imageEffects.currentEffect.unit);
+      applyEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
     }
   };
 })();
