@@ -42,6 +42,7 @@
     window.utilities.hideElement(window.imageEffects.effectLevelElement);
     cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
     document.addEventListener('keydown', documentKeydownEscHandler);
+    window.formSubmit.formElement.addEventListener('submit', window.formSubmit.formSubmitHandler);
   };
 
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
