@@ -33,6 +33,11 @@
       var xhr = prepareRequest(loadHandler, errorHandler);
       xhr.open('GET', URL + '\/data');
       xhr.send();
+    },
+    save: function (data, loadHandler, errorHandler) {
+      var xhr = prepareRequest(loadHandler, errorHandler);
+      xhr.open('POST', URL);
+      xhr.send(data);
     }
   };
 })();

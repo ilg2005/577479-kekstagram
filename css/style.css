@@ -765,6 +765,11 @@ main {
   border-radius: 5px;
 }
 
+.text__invalid {
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(255, 0, 0);
+}
 
 /**
  * Кнопка для отправки изображения
