@@ -766,6 +766,7 @@ main {
 }
 
 .text__invalid {
+  outline: none;
   border-width: 2px;
   border-style: solid;
   border-color: rgb(255, 0, 0);

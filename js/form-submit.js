@@ -15,6 +15,7 @@
     formElement: formElement,
     formSubmitHandler: function (evt) {
       evt.preventDefault();
+      console.log(evt);
       window.backend.save(new FormData(formElement), successSaveHandler, errorSaveHandler);
     }
   };

@@ -33,7 +33,7 @@
   };
 
   var checkIfStartsWithHashSymbol = function (hashtag) {
-    if (hashtag.match(/(^#)/) === null) {
+    if (hashtag.match(/(^#)|(^$)/) === null) {
       hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
     }
   };
