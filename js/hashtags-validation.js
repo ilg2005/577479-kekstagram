@@ -58,6 +58,12 @@
     }
   };
 
+  var addRedBorderOnError = function () {
+    if (!hashtagsElement.validity.valid) {
+      hashtagsElement.classList.add('text__invalid');
+    }
+  };
+
   var hashtagsValidation = function () {
     var hashtags = getHashtagsArray();
 
@@ -72,15 +78,17 @@
     });
   };
 
-  var hastagsElementKeypressHandler = function () {
+  var hastagsElementKeydownHandler = function () {
     hashtagsElement.setCustomValidity('');
+    hashtagsElement.classList.remove('text__invalid');
   };
 
   var hastagsElementBlurHandler = function () {
     hashtagsElement.setCustomValidity('');
     hashtagsValidation();
+    addRedBorderOnError();
   };
 
-  hashtagsElement.addEventListener('keypress', hastagsElementKeypressHandler);
+  hashtagsElement.addEventListener('keydown', hastagsElementKeydownHandler);
   hashtagsElement.addEventListener('blur', hastagsElementBlurHandler);
 })();
