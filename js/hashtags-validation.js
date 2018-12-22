@@ -58,12 +58,6 @@
     }
   };
 
-  var addRedBorderOnError = function () {
-    if (!hashtagsElement.validity.valid) {
-      hashtagsElement.classList.add('text__invalid');
-    }
-  };
-
   var hashtagsValidation = function () {
     var hashtags = getHashtagsArray();
 
@@ -78,6 +72,12 @@
     });
   };
 
+  var addRedBorderIfInvalid = function () {
+    if (!hashtagsElement.validity.valid) {
+      hashtagsElement.classList.add('text__invalid');
+    }
+  };
+
   var hastagsElementKeydownHandler = function () {
     hashtagsElement.setCustomValidity('');
     hashtagsElement.classList.remove('text__invalid');
@@ -86,7 +86,7 @@
   var hastagsElementBlurHandler = function () {
     hashtagsElement.setCustomValidity('');
     hashtagsValidation();
-    addRedBorderOnError();
+    addRedBorderIfInvalid();
   };
 
   hashtagsElement.addEventListener('keydown', hastagsElementKeydownHandler);
