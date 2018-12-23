@@ -12,6 +12,14 @@
 
   var renderSuccessSaveElement = function () {
     document.querySelector('main').appendChild(successSaveTemplateElement);
+    var successSaveElement = document.querySelector('.success');
+    var successButtonElement = successSaveElement.querySelector('.success__button');
+
+    var successButtonElementClickHandler = function () {
+      successSaveElement.remove();
+    };
+
+    successButtonElement.addEventListener('click', successButtonElementClickHandler);
   };
 
   var successSaveHandler = function () {
