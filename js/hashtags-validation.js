@@ -10,8 +10,15 @@
   var getHashtagsArray = function () {
     var hashtagsString = hashtagsElement.value;
     hashtagsString = hashtagsString.trim();
+    hashtagsString = hashtagsString.replace(/\s\s+/, ' ');
     var hashtagsArray = hashtagsString.split(' ');
     return hashtagsArray;
+  };
+
+  var checkIfStartsWithHashSymbol = function (hashtag) {
+    if ((hashtag.match(/(^#.+)|(^$)/) === null) || (hashtagsElement.value.charAt(0) === ' ')) {
+      hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
+    }
   };
 
   var checkIfTooMuchHashtags = function (hashtagsArray) {
@@ -30,13 +37,6 @@
         hashtagsElement.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды. #ХэшТег и #хэштег считаются одним и тем же тегом');
       }
     });
-  };
-
-  var checkIfStartsWithHashSymbol = function (hashtag) {
-    var hashtagChars = hashtag.split('');
-    if (hashtagChars[0] !== '#') {
-      hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
-    }
   };
 
   var checkIfContainsOtherSymbols = function (hashtag) {
@@ -85,7 +85,6 @@
   };
 
   var hastagsElementBlurHandler = function () {
-    hashtagsElement.setCustomValidity('');
     hashtagsValidation();
     addRedBorderIfInvalid();
   };
