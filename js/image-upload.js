@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
   var DEFAULT_SCALE_VALUE = '100%';
 
   var pictureEditingElement = document.querySelector('.img-upload__overlay');
@@ -19,22 +18,15 @@
     window.imageEffects.imgPreviewElement.style.filter = '';
   };
 
-  var cancelImageEditing = function () {
-    window.utilities.hideElement(pictureEditingElement);
-    document.removeEventListener('keydown', documentKeydownEscHandler);
-    uploadFileElement.value = '';
-    restoreDefault();
-  };
-
   var documentKeydownEscHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
-      cancelImageEditing();
+    if (window.utilities.isEscEvent(evt) && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
+      window.imageUpload.cancelImageEditing();
       restoreDefault();
     }
   };
 
   var cancelEditingElementClickHandler = function () {
-    cancelImageEditing();
+    window.imageUpload.cancelImageEditing();
   };
 
   var uploadFileElementChangeHandler = function () {
@@ -42,12 +34,19 @@
     window.utilities.hideElement(window.imageEffects.effectLevelElement);
     cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
     document.addEventListener('keydown', documentKeydownEscHandler);
+    window.formSubmit.formElement.addEventListener('submit', window.formSubmit.formSubmitHandler);
   };
 
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
 
   window.imageUpload = {
     pictureEditingElement: pictureEditingElement,
-    uploadPreviewElement: uploadPreviewElement
+    uploadPreviewElement: uploadPreviewElement,
+    cancelImageEditing: function () {
+      window.utilities.hideElement(pictureEditingElement);
+      document.removeEventListener('keydown', documentKeydownEscHandler);
+      uploadFileElement.value = '';
+      restoreDefault();
+    }
   };
 })();
