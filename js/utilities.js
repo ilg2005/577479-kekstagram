@@ -2,6 +2,7 @@
 
 (function () {
   var MESSAGE_TIMEOUT = 1000;
+  var ESC_KEYCODE = 27;
 
   var createArrayFromRange = function (min, max) {
     var numbers = [];
@@ -27,6 +28,9 @@
 
   window.utilities = {
     MULTIPLICAND: 100,
+    isEscEvent: function (evt) {
+      return (evt.keyCode === ESC_KEYCODE);
+    },
     showElement: function (element) {
       element.classList.remove('hidden');
     },

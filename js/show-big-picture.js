@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
   var bigPictureElement = document.querySelector('.big-picture');
   var cancelPreviewElement = bigPictureElement.querySelector('#picture-cancel');
   var inputCommentElement = bigPictureElement.querySelector('.social__footer-text');
@@ -57,7 +56,7 @@
   };
 
   var documentKeydownEscHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== inputCommentElement) {
+    if (window.utilities.isEscEvent(evt) && evt.target !== inputCommentElement) {
       cancelPreview();
       document.removeEventListener('keydown', documentKeydownEscHandler);
     }
