@@ -28,8 +28,8 @@
     renderSuccessSaveElement();
   };
 
-  var errorSaveHandler = function (message) {
-    // console.log(message);
+  var errorSaveHandler = function () {
+    return;
   };
 
   window.formSubmit = {
