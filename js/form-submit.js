@@ -11,7 +11,7 @@
   var formEffectValueElement = document.querySelector('.effect-level__value');
 
   var clearForm = function () {
-    formDefaultEffectElement.click();
+    formDefaultEffectElement.checked = true;
     formEffectValueElement.value = '';
     window.hashtagsElement.value = '';
     commentsElement.value = '';
