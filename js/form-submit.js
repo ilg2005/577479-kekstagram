@@ -7,9 +7,11 @@
   var commentsElement = formElement.querySelector('.text__description');
   var successSaveTemplateElement = document.querySelector('#success').content;
   var errorSaveTemplateElement = document.querySelector('#error').content;
+  var formDefaultEffectElement = document.querySelector('#effect-none');
   var formEffectValueElement = document.querySelector('.effect-level__value');
 
   var clearForm = function () {
+    formDefaultEffectElement.click();
     formEffectValueElement.value = '';
     window.hashtagsElement.value = '';
     commentsElement.value = '';
