@@ -2,7 +2,6 @@
 
 (function () {
   var ENTER_KEYCODE = 18;
-  var ESC_KEYCODE = 27;
 
   var formElement = document.querySelector('.img-upload__form');
   var commentsElement = formElement.querySelector('.text__description');
@@ -32,7 +31,7 @@
     };
 
     var documentKeydownEscHandler = function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
+      if (window.utilities.isEscEvent(evt)) {
         window.utilities.hideElement(errorSaveElement);
       }
       document.removeEventListener('keydown', documentKeydownEscHandler);
@@ -61,7 +60,7 @@
     };
 
     var documentKeydownEscHandler = function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
+      if (window.utilities.isEscEvent(evt)) {
         window.utilities.hideElement(successSaveElement);
       }
       document.removeEventListener('keydown', documentKeydownEscHandler);

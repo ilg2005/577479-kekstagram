@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
   var DEFAULT_SCALE_VALUE = '100%';
 
   var pictureEditingElement = document.querySelector('.img-upload__overlay');
@@ -20,7 +19,7 @@
   };
 
   var documentKeydownEscHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
+    if (window.utilities.isEscEvent(evt) && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
       window.imageUpload.cancelImageEditing();
       restoreDefault();
     }
