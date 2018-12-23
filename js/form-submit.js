@@ -3,6 +3,7 @@
 (function () {
   var formElement = document.querySelector('.img-upload__form');
   var commentsElement = formElement.querySelector('.text__description');
+  var saveSuccessElement = document.querySelector('#success').content;
 
   var clearTextFields = function () {
     window.hashtagsElement.value = '';
@@ -12,6 +13,7 @@
   var successSaveHandler = function () {
     window.imageUpload.cancelImageEditing();
     clearTextFields();
+    document.querySelector('main').appendChild(saveSuccessElement);
   };
 
   var errorSaveHandler = function (message) {

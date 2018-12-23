@@ -37,24 +37,6 @@
       var array = createArrayFromRange(min, max);
       return getRandomValue(array);
     },
-    renderSuccessMessage: function (message) {
-      var successMessageElement = document.createElement('div');
-      successMessageElement.style = 'z-index: 100; width: 300px; min-height: 50px; border-radius: 50px; margin: auto; text-align: center; background-color: green';
-      successMessageElement.style.display = 'inline-flex';
-      successMessageElement.style.justifyContent = 'center';
-      successMessageElement.style.alignItems = 'center';
-      successMessageElement.style.position = 'fixed';
-      successMessageElement.style.top = '50%';
-      successMessageElement.style.bottom = '50%';
-      successMessageElement.style.left = 0;
-      successMessageElement.style.right = 0;
-      successMessageElement.style.fontSize = '18px';
-
-      successMessageElement.textContent = message;
-      document.body.insertAdjacentElement('afterbegin', successMessageElement);
-
-      removeServerMessage(successMessageElement, MESSAGE_TIMEOUT);
-    },
     renderErrorMessage: function (message) {
       var errorMessageElement = document.createElement('p');
       errorMessageElement.style = 'z-index: 100; width: 1200px; min-height: 60px; margin: 20px auto; padding-top: 20px; text-align: center; background-color: rgb(255, 0, 0);';
