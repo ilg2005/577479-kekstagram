@@ -17,21 +17,22 @@
     document.querySelector('main').appendChild(successSaveTemplateElement);
     var successSaveElement = document.querySelector('.success');
     var successButtonElement = successSaveElement.querySelector('.success__button');
+    window.utilities.showElement(successSaveElement);
 
     var documentClickHandler = function () {
-      successSaveElement.remove();
+      window.utilities.hideElement(successSaveElement);
       document.removeEventListener('click', documentClickHandler);
     };
 
     var successButtonElementKeypressEnterHandler = function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
-        successSaveElement.remove();
+        window.utilities.hideElement(successSaveElement);
       }
     };
 
     var documentKeydownEscHandler = function (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        successSaveElement.remove();
+        window.utilities.hideElement(successSaveElement);
       }
       document.removeEventListener('keydown', documentKeydownEscHandler);
     };
