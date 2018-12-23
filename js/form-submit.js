@@ -4,7 +4,7 @@
   var formElement = document.querySelector('.img-upload__form');
 
   var successSaveHandler = function () {
-    console.log('Сохранено успешно!');
+    window.utilities.hideElement(window.imageUpload.pictureEditingElement);
   };
 
   var errorSaveHandler = function (message) {
