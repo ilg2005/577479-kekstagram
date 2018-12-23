@@ -19,22 +19,15 @@
     window.imageEffects.imgPreviewElement.style.filter = '';
   };
 
-  var cancelImageEditing = function () {
-    window.utilities.hideElement(pictureEditingElement);
-    document.removeEventListener('keydown', documentKeydownEscHandler);
-    uploadFileElement.value = '';
-    restoreDefault();
-  };
-
   var documentKeydownEscHandler = function (evt) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
-      cancelImageEditing();
+      window.imageUpload.cancelImageEditing();
       restoreDefault();
     }
   };
 
   var cancelEditingElementClickHandler = function () {
-    cancelImageEditing();
+    window.imageUpload.cancelImageEditing();
   };
 
   var uploadFileElementChangeHandler = function () {
@@ -49,6 +42,12 @@
 
   window.imageUpload = {
     pictureEditingElement: pictureEditingElement,
-    uploadPreviewElement: uploadPreviewElement
+    uploadPreviewElement: uploadPreviewElement,
+    cancelImageEditing: function () {
+      window.utilities.hideElement(pictureEditingElement);
+      document.removeEventListener('keydown', documentKeydownEscHandler);
+      uploadFileElement.value = '';
+      restoreDefault();
+    }
   };
 })();

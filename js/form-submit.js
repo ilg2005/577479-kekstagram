@@ -2,9 +2,16 @@
 
 (function () {
   var formElement = document.querySelector('.img-upload__form');
+  var commentsElement = formElement.querySelector('.text__description');
+
+  var clearTextFields = function () {
+    window.hashtagsElement.value = '';
+    commentsElement.value = '';
+  };
 
   var successSaveHandler = function () {
-    window.utilities.hideElement(window.imageUpload.pictureEditingElement);
+    window.imageUpload.cancelImageEditing();
+    clearTextFields();
   };
 
   var errorSaveHandler = function (message) {
