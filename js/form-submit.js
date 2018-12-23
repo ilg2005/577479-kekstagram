@@ -32,6 +32,7 @@
       if (evt.keyCode === ENTER_KEYCODE) {
         window.utilities.hideElement(errorSaveElement);
       }
+      errorButtonElement.removeEventListener('keypress', errorButtonElementKeypressEnterHandler);
     };
 
     var documentKeydownEscHandler = function (evt) {
@@ -61,6 +62,7 @@
       if (evt.keyCode === ENTER_KEYCODE) {
         window.utilities.hideElement(successSaveElement);
       }
+      successButtonElement.removeEventListener('keypress', successButtonElementKeypressEnterHandler);
     };
 
     var documentKeydownEscHandler = function (evt) {
