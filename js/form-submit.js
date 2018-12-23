@@ -4,6 +4,7 @@
   var formElement = document.querySelector('.img-upload__form');
   var commentsElement = formElement.querySelector('.text__description');
   var saveSuccessElement = document.querySelector('#success').content;
+  var successButtonElement = document.querySelector('.success__button');
 
   var clearTextFields = function () {
     window.hashtagsElement.value = '';
@@ -17,7 +18,7 @@
   };
 
   var errorSaveHandler = function (message) {
-    console.log(message);
+   // console.log(message);
   };
 
   window.formSubmit = {
