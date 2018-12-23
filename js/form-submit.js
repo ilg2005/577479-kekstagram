@@ -7,8 +7,10 @@
   var commentsElement = formElement.querySelector('.text__description');
   var successSaveTemplateElement = document.querySelector('#success').content;
   var errorSaveTemplateElement = document.querySelector('#error').content;
+  var formEffectValueElement = document.querySelector('.effect-level__value');
 
-  var clearTextFields = function () {
+  var clearForm = function () {
+    formEffectValueElement.value = '';
     window.hashtagsElement.value = '';
     commentsElement.value = '';
   };
@@ -73,7 +75,7 @@
 
   var successSaveHandler = function () {
     window.imageUpload.cancelImageEditing();
-    clearTextFields();
+    clearForm();
     renderSuccessSaveElement();
   };
 
