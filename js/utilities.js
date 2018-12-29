@@ -3,6 +3,7 @@
 (function () {
   var MESSAGE_TIMEOUT = 1000;
   var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 18;
 
   var removeServerMessage = function (element, timeout) {
     setTimeout(function () {
@@ -12,6 +13,9 @@
 
   window.utilities = {
     MULTIPLICAND: 100,
+    isEnterEvent: function (evt) {
+      return (evt.keyCode === ENTER_KEYCODE);
+    },
     isEscEvent: function (evt) {
       return (evt.keyCode === ESC_KEYCODE);
     },
