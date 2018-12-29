@@ -14,7 +14,7 @@
 
       var newImg = document.createElement('img');
       newImg.classList.add('social__picture');
-      newImg.src = 'img/avatar-' + window.utilities.getRandomInRange(window.consts.MIN_AVATAR_NUM, window.consts.MAX_AVATAR_NUM) + '.svg';
+      newImg.src = comment.avatar;
       newImg.alt = 'Аватар комментатора фотографии';
       newImg.width = '35';
       newImg.height = '35';
@@ -22,7 +22,7 @@
 
       var newP = document.createElement('p');
       newP.classList.add('social__text');
-      newP.textContent = comment;
+      newP.textContent = comment.message;
       newLi.appendChild(newP);
 
       commentsFragment.appendChild(newLi);
@@ -32,6 +32,7 @@
 
   var generateBigPictureData = function (picture) {
     bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
+    bigPictureElement.querySelector('.big-picture__img img').alt = 'Фотография из галереи';
     bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
     bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
     bigPictureElement.querySelector('.social__caption').textContent = picture.description;
@@ -50,15 +51,18 @@
   var documentClickHandler = function (evt) {
     console.log(window.pictures);
     console.log(evt.target.src);
+    console.log(evt.target.id);
 
-    window.pictures.forEach(function (picture) {
-      generateBigPictureData(picture);
-    });
+    generateBigPictureData(window.pictures[evt.target.id]);
     window.utilities.showElement(bigPictureElement);
+
     document.addEventListener('keydown', documentKeydownEscHandler);
-    if (evt.target === cancelPreviewElement) {
-      cancelPreview();
-    }
+    cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+  };
+
+  var cancelPreviewElementClickHandler = function () {
+    cancelPreview();
+    cancelPreviewElement.removeEventListener('click', cancelPreviewElementClickHandler);
   };
 
   var documentKeydownEscHandler = function (evt) {
@@ -68,12 +72,5 @@
     }
   };
 
-  var init = function () {
-    document.addEventListener('click', documentClickHandler);
-    /* window.pictures.forEach(function (picture) {
-      generateBigPictureData(picture);
-    });*/
-  };
-
-  init();
+  document.addEventListener('click', documentClickHandler);
 })();
