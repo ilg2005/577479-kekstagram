@@ -50,7 +50,8 @@
 
   var documentClickHandler = function (evt) {
     if (evt.target.className === 'picture__img') {
-      generateBigPictureData(window.pictures[evt.target.id]);
+      window.selectedPicture = window.pictures[evt.target.id];
+      generateBigPictureData(window.selectedPicture);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
