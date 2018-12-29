@@ -49,8 +49,7 @@
   };
 
   var documentClickHandler = function (evt) {
-    console.log(evt.target.class);
-    if (evt.target.class === 'picture') {
+    if (evt.target.className === 'picture__img') {
       generateBigPictureData(window.pictures[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
