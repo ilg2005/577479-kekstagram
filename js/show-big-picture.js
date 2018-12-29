@@ -49,15 +49,15 @@
   };
 
   var documentClickHandler = function (evt) {
-    console.log(window.pictures);
-    console.log(evt.target.src);
-    console.log(evt.target.id);
+    try {
+      generateBigPictureData(window.pictures[evt.target.id]);
+      window.utilities.showElement(bigPictureElement);
 
-    generateBigPictureData(window.pictures[evt.target.id]);
-    window.utilities.showElement(bigPictureElement);
-
-    document.addEventListener('keydown', documentKeydownEscHandler);
-    cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+      document.addEventListener('keydown', documentKeydownEscHandler);
+      cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+    } finally {
+      return;
+    }
   };
 
   var cancelPreviewElementClickHandler = function () {
