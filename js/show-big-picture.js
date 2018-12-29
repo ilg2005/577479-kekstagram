@@ -49,15 +49,14 @@
   };
 
   var documentClickHandler = function (evt) {
-    try {
+    console.log(evt.target.class);
+    if (evt.target.class === 'picture') {
       generateBigPictureData(window.pictures[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
       document.addEventListener('keydown', documentKeydownEscHandler);
       cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
-    } finally {
-      return;
     }
   };
 
