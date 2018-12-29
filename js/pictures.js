@@ -17,6 +17,7 @@
   var renderPictures = function (picturesArray) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < picturesArray.length; i++) {
+      pictureTemplateElement.querySelector('.picture__img').id = i;
       fragment.appendChild(renderPicture(picturesArray[i]));
     }
     picturesElement.appendChild(fragment);

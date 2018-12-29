@@ -48,6 +48,12 @@
   };
 
   var documentClickHandler = function (evt) {
+    console.log(window.pictures);
+    console.log(evt.target.src);
+
+    window.pictures.forEach(function (picture) {
+      generateBigPictureData(picture);
+    });
     window.utilities.showElement(bigPictureElement);
     document.addEventListener('keydown', documentKeydownEscHandler);
     if (evt.target === cancelPreviewElement) {
@@ -64,9 +70,9 @@
 
   var init = function () {
     document.addEventListener('click', documentClickHandler);
-    window.pictures.forEach(function (picture) {
+    /* window.pictures.forEach(function (picture) {
       generateBigPictureData(picture);
-    });
+    });*/
   };
 
   init();
