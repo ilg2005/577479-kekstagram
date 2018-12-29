@@ -40,8 +40,8 @@
     bigPictureElement.querySelector('.social__comments').innerHTML = '';
     bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
 
-    window.utilities.hideElement(bigPictureElement.querySelector('.social__comment-count'));
-    window.utilities.hideElement(bigPictureElement.querySelector('.comments-loader'));
+    // window.utilities.hideElement(bigPictureElement.querySelector('.social__comment-count'));
+    // window.utilities.hideElement(bigPictureElement.querySelector('.comments-loader'));
   };
 
   var cancelPreview = function () {
