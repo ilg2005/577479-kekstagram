@@ -51,6 +51,7 @@
   var documentClickHandler = function (evt) {
     try {
       generateBigPictureData(window.pictures[evt.target.id]);
+      document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
       document.addEventListener('keydown', documentKeydownEscHandler);
