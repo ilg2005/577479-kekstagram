@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 18;
-
   var formElement = document.querySelector('.img-upload__form');
   var commentsElement = formElement.querySelector('.text__description');
   var successSaveTemplateElement = document.querySelector('#success').content;
@@ -28,8 +26,8 @@
       document.removeEventListener('click', documentClickHandler);
     };
 
-    var errorButtonElementKeypressEnterHandler = function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
+    var errorButtonElementKeypressEnterHandler = function () {
+      if (window.utilities.isEnterEvent) {
         window.utilities.hideElement(errorSaveElement);
       }
       errorButtonElement.removeEventListener('keypress', errorButtonElementKeypressEnterHandler);
@@ -58,8 +56,8 @@
       document.removeEventListener('click', documentClickHandler);
     };
 
-    var successButtonElementKeypressEnterHandler = function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
+    var successButtonElementKeypressEnterHandler = function () {
+      if (window.utilities.isEnterEvent) {
         window.utilities.hideElement(successSaveElement);
       }
       successButtonElement.removeEventListener('keypress', successButtonElementKeypressEnterHandler);

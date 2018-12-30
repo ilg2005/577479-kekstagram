@@ -17,13 +17,14 @@
   var renderPictures = function (picturesArray) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < picturesArray.length; i++) {
+      pictureTemplateElement.querySelector('.picture__img').id = i;
       fragment.appendChild(renderPicture(picturesArray[i]));
     }
     picturesElement.appendChild(fragment);
   };
 
   var successLoadHandler = function (data) {
-    window.pictures = data;
+    window.pictures.data = data;
     renderPictures(data);
   };
 
@@ -32,4 +33,9 @@
   };
 
   window.backend.load(successLoadHandler, errorLoadHandler);
+
+  window.pictures = {
+    data: [],
+    picturesElement: picturesElement
+  };
 })();
