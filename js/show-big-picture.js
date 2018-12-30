@@ -63,8 +63,8 @@
     }
   };
 
-  var picturesElementKeypressEnterHandler = function (evt) {
-    if (window.utilities.isEnterEvent(evt) /* && evt.target.className === 'picture'*/) {
+  var picturesElementKeydownEnterHandler = function (evt) {
+    if (window.utilities.isEnterEvent(evt) && evt.target.className === 'picture') {
       console.log('enter');
       generateBigPictureData(window.pictures[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
@@ -88,5 +88,5 @@
   };
 
   picturesElement.addEventListener('click', picturesElementClickHandler);
-  picturesElement.addEventListener('keypress', picturesElementKeypressEnterHandler);
+  picturesElement.addEventListener('keydown', picturesElementKeydownEnterHandler);
 })();
