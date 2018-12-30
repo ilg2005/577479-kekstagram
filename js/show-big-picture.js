@@ -42,11 +42,21 @@
     bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
     bigPictureElement.querySelector('.social__comments').innerHTML = '';
-    if (picture.comments.length > COMMENTS_NUMBER_TO_SHOW) {
-      var commentsToLoad = picture.comments.splice(COMMENTS_NUMBER_TO_SHOW);
+
+    var commentsLoaderElementClickHandler = function () {
+      window.utilities.hideElement(commentsCounterElement);
+      window.utilities.hideElement(commentsLoaderElement);
       bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
+      commentsLoaderElement.removeEventListener('click', commentsLoaderElementClickHandler);
+    };
+
+    var commentsCopy = picture.comments.slice();
+    if (picture.comments.length > COMMENTS_NUMBER_TO_SHOW) {
+      commentsCopy.splice(COMMENTS_NUMBER_TO_SHOW);
+      bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(commentsCopy));
       window.utilities.showElement(commentsCounterElement);
       window.utilities.showElement(commentsLoaderElement);
+      commentsLoaderElement.addEventListener('click', commentsLoaderElementClickHandler);
     } else {
       bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
       window.utilities.hideElement(commentsCounterElement);
