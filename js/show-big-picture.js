@@ -64,7 +64,8 @@
   };
 
   var picturesElementKeypressEnterHandler = function (evt) {
-    if (window.utilities.isEnterEvent(evt) && evt.target.className === 'picture__img') {
+    if (window.utilities.isEnterEvent(evt) /* && evt.target.className === 'picture'*/) {
+      console.log('enter');
       generateBigPictureData(window.pictures[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
