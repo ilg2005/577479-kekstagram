@@ -6,6 +6,7 @@
   var bigPictureElement = document.querySelector('.big-picture');
   var cancelPreviewElement = bigPictureElement.querySelector('#picture-cancel');
   var inputCommentElement = bigPictureElement.querySelector('.social__footer-text');
+  var commentsElement = bigPictureElement.querySelector('.social__comments');
   var commentsCounterElement = bigPictureElement.querySelector('.social__comment-count');
   var commentsLoaderElement = bigPictureElement.querySelector('.comments-loader');
 
@@ -41,24 +42,24 @@
     bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
     bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
-    bigPictureElement.querySelector('.social__comments').innerHTML = '';
+    commentsElement.innerHTML = '';
 
     var commentsLoaderElementClickHandler = function () {
       window.utilities.hideElement(commentsCounterElement);
       window.utilities.hideElement(commentsLoaderElement);
-      bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
+      commentsElement.appendChild(generateCommentsFragment(picture.comments));
       commentsLoaderElement.removeEventListener('click', commentsLoaderElementClickHandler);
     };
 
     var commentsCopy = picture.comments.slice();
     if (picture.comments.length > COMMENTS_NUMBER_TO_SHOW) {
       commentsCopy.splice(COMMENTS_NUMBER_TO_SHOW);
-      bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(commentsCopy));
+      commentsElement.appendChild(generateCommentsFragment(commentsCopy));
       window.utilities.showElement(commentsCounterElement);
       window.utilities.showElement(commentsLoaderElement);
       commentsLoaderElement.addEventListener('click', commentsLoaderElementClickHandler);
     } else {
-      bigPictureElement.querySelector('.social__comments').appendChild(generateCommentsFragment(picture.comments));
+      commentsElement.appendChild(generateCommentsFragment(picture.comments));
       window.utilities.hideElement(commentsCounterElement);
       window.utilities.hideElement(commentsLoaderElement);
     }
