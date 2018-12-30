@@ -24,7 +24,7 @@
   };
 
   var successLoadHandler = function (data) {
-    window.pictures = data;
+    window.pictures.data = data;
     renderPictures(data);
   };
 
@@ -33,4 +33,9 @@
   };
 
   window.backend.load(successLoadHandler, errorLoadHandler);
+
+  window.pictures = {
+    data: [],
+    picturesElement: picturesElement
+  };
 })();

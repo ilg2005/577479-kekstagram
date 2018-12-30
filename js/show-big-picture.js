@@ -3,7 +3,6 @@
 (function () {
   var COMMENTS_NUMBER_TO_SHOW = 5;
 
-  var picturesElement = document.querySelector('.pictures');
   var bigPictureElement = document.querySelector('.big-picture');
   var cancelPreviewElement = bigPictureElement.querySelector('#picture-cancel');
   var inputCommentElement = bigPictureElement.querySelector('.social__footer-text');
@@ -61,7 +60,7 @@
 
   var picturesElementClickHandler = function (evt) {
     if (evt.target.className === 'picture__img') {
-      generateBigPictureData(window.pictures[evt.target.id]);
+      generateBigPictureData(window.pictures.data[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
@@ -72,7 +71,7 @@
 
   var picturesElementKeydownEnterHandler = function (evt) {
     if (window.utilities.isEnterEvent(evt) && evt.target.className === 'picture') {
-      generateBigPictureData(window.pictures[evt.target.firstElementChild.id]);
+      generateBigPictureData(window.pictures.data[evt.target.firstElementChild.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
@@ -93,6 +92,6 @@
     }
   };
 
-  picturesElement.addEventListener('click', picturesElementClickHandler);
-  picturesElement.addEventListener('keydown', picturesElementKeydownEnterHandler);
+  window.pictures.picturesElement.addEventListener('click', picturesElementClickHandler);
+  window.pictures.picturesElement.addEventListener('keydown', picturesElementKeydownEnterHandler);
 })();
