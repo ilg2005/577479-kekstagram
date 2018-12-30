@@ -26,7 +26,7 @@
       document.removeEventListener('click', documentClickHandler);
     };
 
-    var errorButtonElementKeypressEnterHandler = function (evt) {
+    var errorButtonElementKeypressEnterHandler = function () {
       if (window.utilities.isEnterEvent) {
         window.utilities.hideElement(errorSaveElement);
       }
@@ -56,7 +56,7 @@
       document.removeEventListener('click', documentClickHandler);
     };
 
-    var successButtonElementKeypressEnterHandler = function (evt) {
+    var successButtonElementKeypressEnterHandler = function () {
       if (window.utilities.isEnterEvent) {
         window.utilities.hideElement(successSaveElement);
       }
