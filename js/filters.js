@@ -11,26 +11,14 @@
   var filterNewElement = window.filtersElement.querySelector('#filter-new');
   var filterDiscussedElement = window.filtersElement.querySelector('#filter-discussed');
 
-  var getRandomIndex = function (array) {
-    return Math.round(Math.random() * (array.length - 1));
-  };
-
-  var getRandomValue = function (array) {
-    return array[getRandomIndex(array)];
-  };
-
-  var getUniqueRandomValue = function (array) {
-    var uniqueRandomValue = getRandomValue(array);
-    array.splice(array.indexOf(uniqueRandomValue), 1);
-    return uniqueRandomValue;
-  };
-
-  var getUniqueRandomArray = function (sourceArray, targetArrayLength) {
-    var targetArray = [];
-    for (var i = 0; i < targetArrayLength; i++) {
-      targetArray.push(getUniqueRandomValue(sourceArray));
+  var shuffleArray = function (array) {
+    for (var i = 0; i < array.length; i++) {
+      var randomIndex = Math.round(Math.random() * (array.length - 1));
+      var temp = array[i];
+      array[i] = array[randomIndex];
+      array[randomIndex] = temp;
     }
-    return targetArray;
+    return array;
   };
 
   var setNewActiveFilter = function (filterElement) {
@@ -63,7 +51,7 @@
   var filterNewElementClickHandler = function () {
     setNewActiveFilter(filterNewElement);
     var dataCopy = window.pictures.initialData.slice();
-    window.currentData = getUniqueRandomArray(dataCopy, NEW_PICTURES_AMOUNT);
+    window.currentData = shuffleArray(dataCopy).splice(NEW_PICTURES_AMOUNT);
     updateData(window.currentData);
   };
 
