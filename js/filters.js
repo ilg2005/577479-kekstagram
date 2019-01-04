@@ -2,6 +2,9 @@
 
 (function () {
   var NEW_PICTURES_AMOUNT = 10;
+  var DEBOUNCE_INTERVAL = 500;
+
+  var timerID;
 
   window.filtersElement = document.querySelector('.img-filters');
   var filterPopularElement = window.filtersElement.querySelector('#filter-popular');
@@ -40,9 +43,14 @@
       activeFilterElement.classList.remove('img-filters__button--active');
     }
     var renderedPictures = document.querySelectorAll('.picture');
-    renderedPictures.forEach(function (node) {
-      node.remove();
-    });
+    if (timerID) {
+      clearTimeout(timerID);
+    }
+    timerID = setTimeout(function () {
+      renderedPictures.forEach(function (node) {
+        node.remove();
+      });
+    }, DEBOUNCE_INTERVAL);
   };
 
   var filterPopularElementClickHandler = function () {
