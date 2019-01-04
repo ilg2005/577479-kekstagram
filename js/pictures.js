@@ -37,6 +37,7 @@
 
   window.pictures = {
     data: [],
-    picturesElement: picturesElement
+    picturesElement: picturesElement,
+    renderPictures: renderPictures
   };
 })();
