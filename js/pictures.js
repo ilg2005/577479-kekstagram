@@ -25,6 +25,7 @@
 
   var successLoadHandler = function (data) {
     window.pictures.data = data;
+    window.filtersElement.classList.remove('img-filters--inactive');
     renderPictures(data);
   };
 
