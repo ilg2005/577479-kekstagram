@@ -33,15 +33,15 @@
     return targetArray;
   };
 
-  var setActiveFilter = function (element) {
-    element.classList.add('img-filters__button--active');
-  };
-
-  var resetFilters = function () {
+  var setNewActiveFilter = function (filterElement) {
     var activeFilterElement = window.filtersElement.querySelector('.img-filters__button--active');
     if (activeFilterElement) {
       activeFilterElement.classList.remove('img-filters__button--active');
     }
+    filterElement.classList.add('img-filters__button--active');
+  };
+
+  var updateData = function (newDataArray) {
     var renderedPictures = document.querySelectorAll('.picture');
     if (timerID) {
       clearTimeout(timerID);
@@ -50,27 +50,25 @@
       renderedPictures.forEach(function (node) {
         node.remove();
       });
+      window.pictures.renderPictures(newDataArray);
     }, DEBOUNCE_INTERVAL);
   };
 
   var filterPopularElementClickHandler = function () {
-    resetFilters();
-    setActiveFilter(filterPopularElement);
+    setNewActiveFilter(filterPopularElement);
     window.currentData = window.pictures.initialData.slice();
-    window.pictures.renderPictures(window.currentData);
+    updateData(window.currentData);
   };
 
   var filterNewElementClickHandler = function () {
-    resetFilters();
-    setActiveFilter(filterNewElement);
+    setNewActiveFilter(filterNewElement);
     var dataCopy = window.pictures.initialData.slice();
     window.currentData = getUniqueRandomArray(dataCopy, NEW_PICTURES_AMOUNT);
-    window.pictures.renderPictures(window.currentData);
+    updateData(window.currentData);
   };
 
   var filterDiscussedElementClickHandler = function () {
-    resetFilters();
-    setActiveFilter(filterDiscussedElement);
+    setNewActiveFilter(filterDiscussedElement);
     var dataCopy = window.pictures.initialData.slice();
     window.currentData = dataCopy.sort(function (picture1, picture2) {
       if (picture1.comments.length < picture2.comments.length) {
@@ -81,8 +79,7 @@
         return 0;
       }
     });
-    window.pictures.renderPictures(window.currentData);
-
+    updateData(window.currentData);
   };
 
   filterPopularElement.addEventListener('click', filterPopularElementClickHandler);
