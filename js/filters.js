@@ -29,30 +29,40 @@
     filterElement.classList.add('img-filters__button--active');
   };
 
-  var updateData = function (newDataArray) {
-    var renderedPictures = document.querySelectorAll('.picture');
+  var removeFormerPictures = function () {
+    var formerPictures = document.querySelectorAll('.picture');
+    formerPictures.forEach(function (node) {
+      node.remove();
+    });
+  };
+
+  var updatePictures = function (newDataArray) {
     if (timerID) {
       clearTimeout(timerID);
     }
     timerID = setTimeout(function () {
-      renderedPictures.forEach(function (node) {
-        node.remove();
-      });
+      removeFormerPictures();
       window.pictures.renderPictures(newDataArray);
     }, DEBOUNCE_INTERVAL);
   };
 
   var filterPopularElementClickHandler = function () {
     setNewActiveFilter(filterPopularElement);
-    window.currentData = window.pictures.initialData.slice();
-    updateData(window.currentData);
+    window.currentData = window.pictures.initialData;
+    updatePictures(window.currentData);
   };
 
   var filterNewElementClickHandler = function () {
     setNewActiveFilter(filterNewElement);
     var dataCopy = window.pictures.initialData.slice();
-    window.currentData = shuffleArray(dataCopy).splice(0, NEW_PICTURES_AMOUNT);
-    updateData(window.currentData);
+    if (timerID) {
+      clearTimeout(timerID);
+    }
+    timerID = setTimeout(function () {
+      removeFormerPictures();
+      window.currentData = shuffleArray(dataCopy).splice(0, NEW_PICTURES_AMOUNT);
+      window.pictures.renderPictures(window.currentData);
+    }, DEBOUNCE_INTERVAL);
   };
 
   var filterDiscussedElementClickHandler = function () {
@@ -67,7 +77,7 @@
         return 0;
       }
     });
-    updateData(window.currentData);
+    updatePictures(window.currentData);
   };
 
   filterPopularElement.addEventListener('click', filterPopularElementClickHandler);
