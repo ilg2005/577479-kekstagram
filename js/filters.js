@@ -51,7 +51,7 @@
   var filterNewElementClickHandler = function () {
     setNewActiveFilter(filterNewElement);
     var dataCopy = window.pictures.initialData.slice();
-    window.currentData = shuffleArray(dataCopy).splice(NEW_PICTURES_AMOUNT);
+    window.currentData = shuffleArray(dataCopy).splice(0, NEW_PICTURES_AMOUNT);
     updateData(window.currentData);
   };
 
