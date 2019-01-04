@@ -3,8 +3,6 @@
 (function () {
   var NEW_PICTURES_AMOUNT = 10;
 
-  var initialData;
-
   window.filtersElement = document.querySelector('.img-filters');
   var filterPopularElement = window.filtersElement.querySelector('#filter-popular');
   var filterNewElement = window.filtersElement.querySelector('#filter-new');
@@ -50,23 +48,23 @@
   var filterPopularElementClickHandler = function () {
     resetFilters();
     setActiveFilter(filterPopularElement);
-    window.pictures.data = initialData;
-    window.pictures.renderPictures(window.pictures.data);
+    window.currentData = window.pictures.initialData.slice();
+    window.pictures.renderPictures(window.currentData);
   };
 
   var filterNewElementClickHandler = function () {
     resetFilters();
     setActiveFilter(filterNewElement);
-    initialData = window.pictures.data;
-    window.pictures.data = getUniqueRandomArray(initialData.slice(), NEW_PICTURES_AMOUNT);
-    window.pictures.renderPictures(window.pictures.data);
+    var dataCopy = window.pictures.initialData.slice();
+    window.currentData = getUniqueRandomArray(dataCopy, NEW_PICTURES_AMOUNT);
+    window.pictures.renderPictures(window.currentData);
   };
 
   var filterDiscussedElementClickHandler = function () {
     resetFilters();
     setActiveFilter(filterDiscussedElement);
-    initialData = window.pictures.data;
-    window.pictures.data = window.pictures.data.slice().sort(function (picture1, picture2) {
+    var dataCopy = window.pictures.initialData.slice();
+    window.currentData = dataCopy.sort(function (picture1, picture2) {
       if (picture1.comments.length < picture2.comments.length) {
         return 1;
       } else if (picture1.comments.length > picture2.comments.length) {
@@ -75,7 +73,7 @@
         return 0;
       }
     });
-    window.pictures.renderPictures(window.pictures.data);
+    window.pictures.renderPictures(window.currentData);
 
   };
 

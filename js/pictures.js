@@ -24,7 +24,8 @@
   };
 
   var successLoadHandler = function (data) {
-    window.pictures.data = data;
+    window.pictures.initialData = data;
+    window.currentData = data;
     window.filtersElement.classList.remove('img-filters--inactive');
     renderPictures(data);
   };
