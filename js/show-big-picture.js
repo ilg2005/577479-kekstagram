@@ -47,13 +47,13 @@
     var commentsLoaderElementClickHandler = function () {
       window.utilities.hideElement(commentsCounterElement);
       window.utilities.hideElement(commentsLoaderElement);
-      commentsElement.appendChild(generateCommentsFragment(picture.comments));
+      commentsElement.appendChild(generateCommentsFragment(commentsForLoader));
       commentsLoaderElement.removeEventListener('click', commentsLoaderElementClickHandler);
     };
 
     var commentsCopy = picture.comments.slice();
     if (picture.comments.length > COMMENTS_NUMBER_TO_SHOW) {
-      commentsCopy.splice(COMMENTS_NUMBER_TO_SHOW);
+      var commentsForLoader = commentsCopy.splice(COMMENTS_NUMBER_TO_SHOW);
       commentsElement.appendChild(generateCommentsFragment(commentsCopy));
       window.utilities.showElement(commentsCounterElement);
       window.utilities.showElement(commentsLoaderElement);
