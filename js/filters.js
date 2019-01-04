@@ -3,6 +3,8 @@
 (function () {
   var NEW_PICTURES_AMOUNT = 10;
 
+  var initialData;
+
   window.filtersElement = document.querySelector('.img-filters');
   var filterPopularElement = window.filtersElement.querySelector('#filter-popular');
   var filterNewElement = window.filtersElement.querySelector('#filter-new');
@@ -48,21 +50,22 @@
   var filterPopularElementClickHandler = function () {
     resetFilters();
     setActiveFilter(filterPopularElement);
-
-
+    window.pictures.data = initialData;
+    window.pictures.renderPictures(window.pictures.data);
   };
 
   var filterNewElementClickHandler = function () {
     resetFilters();
     setActiveFilter(filterNewElement);
-    window.pictures.data = getUniqueRandomArray(window.pictures.data.slice(), NEW_PICTURES_AMOUNT);
+    initialData = window.pictures.data;
+    window.pictures.data = getUniqueRandomArray(initialData.slice(), NEW_PICTURES_AMOUNT);
     window.pictures.renderPictures(window.pictures.data);
-
   };
 
   var filterDiscussedElementClickHandler = function () {
     resetFilters();
     setActiveFilter(filterDiscussedElement);
+    initialData = window.pictures.data;
 
   };
 
