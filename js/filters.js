@@ -66,6 +66,16 @@
     resetFilters();
     setActiveFilter(filterDiscussedElement);
     initialData = window.pictures.data;
+    window.pictures.data = window.pictures.data.slice().sort(function (picture1, picture2) {
+      if (picture1.comments.length < picture2.comments.length) {
+        return 1;
+      } else if (picture1.comments.length > picture2.comments.length) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    window.pictures.renderPictures(window.pictures.data);
 
   };
 
