@@ -2,6 +2,8 @@
 
 (function () {
   var COMMENTS_NUMBER_TO_SHOW = 5;
+  var selectedPicture;
+  var restComments;
 
   var bigPictureElement = document.querySelector('.big-picture');
   var cancelPreviewElement = bigPictureElement.querySelector('#picture-cancel');
@@ -35,34 +37,38 @@
     return commentsFragment;
   };
 
-  var generateBigPictureData = function (picture) {
-    bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
-    bigPictureElement.querySelector('.big-picture__img img').alt = 'Фотография из галереи';
-    bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
-    bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
-    bigPictureElement.querySelector('.social__caption').textContent = picture.description;
+  var commentsLoaderElementClickHandler = function () {
+    show5Comments(restComments, selectedPicture);
+  };
 
-    commentsElement.innerHTML = '';
-
-    var commentsLoaderElementClickHandler = function () {
-      window.utilities.hideElement(commentsCounterElement);
-      window.utilities.hideElement(commentsLoaderElement);
-      commentsElement.appendChild(generateCommentsFragment(commentsForLoader));
-      commentsLoaderElement.removeEventListener('click', commentsLoaderElementClickHandler);
-    };
-
-    var commentsCopy = picture.comments.slice();
-    if (picture.comments.length > COMMENTS_NUMBER_TO_SHOW) {
-      var commentsForLoader = commentsCopy.splice(COMMENTS_NUMBER_TO_SHOW);
-      commentsElement.appendChild(generateCommentsFragment(commentsCopy));
+  var show5Comments = function (currentCommentsArray, currentPicture) {
+    if (currentCommentsArray.length > COMMENTS_NUMBER_TO_SHOW) {
+      restComments = currentCommentsArray.splice(COMMENTS_NUMBER_TO_SHOW);
+      commentsElement.appendChild(generateCommentsFragment(currentCommentsArray));
+      commentsCounterElement.innerHTML = '';
+      commentsCounterElement.innerText = (currentPicture.comments.length - restComments.length) + ' из ' + currentPicture.comments.length + ' комментариев';
       window.utilities.showElement(commentsCounterElement);
       window.utilities.showElement(commentsLoaderElement);
       commentsLoaderElement.addEventListener('click', commentsLoaderElementClickHandler);
     } else {
-      commentsElement.appendChild(generateCommentsFragment(picture.comments));
-      window.utilities.hideElement(commentsCounterElement);
+      commentsCounterElement.innerHTML = '';
+      commentsCounterElement.innerText = currentPicture.comments.length + ' из ' + currentPicture.comments.length + ' комментариев';
+      commentsElement.appendChild(generateCommentsFragment(currentCommentsArray));
       window.utilities.hideElement(commentsLoaderElement);
     }
+  };
+
+  var generateBigPictureData = function (picture) {
+    selectedPicture = picture;
+    bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
+    bigPictureElement.querySelector('.big-picture__img img').alt = 'Фотография из галереи';
+    bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
+    bigPictureElement.querySelector('.social__caption').textContent = picture.description;
+
+    commentsElement.innerHTML = '';
+
+    restComments = picture.comments.slice();
+    show5Comments(restComments, picture);
   };
 
   var cancelPreview = function () {
