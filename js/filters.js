@@ -79,7 +79,7 @@
   filterDiscussedElement.addEventListener('click', filterDiscussedElementClickHandler);
 
   window.filters = {
-    element: filtersElement,
+    filtersElement: filtersElement,
     currentData: {}
   };
 })();
