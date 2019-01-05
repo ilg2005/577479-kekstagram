@@ -69,13 +69,7 @@
     setNewActiveFilter(filterDiscussedElement);
     var dataCopy = window.pictures.initialData.slice();
     window.currentData = dataCopy.sort(function (picture1, picture2) {
-      if (picture1.comments.length < picture2.comments.length) {
-        return 1;
-      } else if (picture1.comments.length > picture2.comments.length) {
-        return -1;
-      } else {
-        return 0;
-      }
+      return (picture2.comments.length - picture1.comments.length);
     });
     updatePictures(window.currentData);
   };
