@@ -80,6 +80,6 @@
 
   window.filters = {
     filtersElement: filtersElement,
-    currentData: {}
+    currentData: []
   };
 })();
