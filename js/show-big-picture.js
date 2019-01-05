@@ -73,6 +73,7 @@
 
   var cancelPreview = function () {
     window.utilities.hideElement(bigPictureElement);
+    inputCommentElement.value = '';
   };
 
   var picturesElementClickHandler = function (evt) {
