@@ -48,8 +48,8 @@
 
   var filterPopularElementClickHandler = function () {
     setNewActiveFilter(filterPopularElement);
-    window.currentData = window.pictures.initialData;
-    updatePictures(window.currentData);
+    window.filters.currentData = window.pictures.initialData;
+    updatePictures(window.filters.currentData);
   };
 
   var filterNewElementClickHandler = function () {
@@ -60,23 +60,26 @@
     }
     timerID = setTimeout(function () {
       removeFormerPictures();
-      window.currentData = shuffleArray(dataCopy).splice(0, NEW_PICTURES_AMOUNT);
-      window.pictures.renderPictures(window.currentData);
+      window.filters.currentData = shuffleArray(dataCopy).splice(0, NEW_PICTURES_AMOUNT);
+      window.pictures.renderPictures(window.filters.currentData);
     }, DEBOUNCE_INTERVAL);
   };
 
   var filterDiscussedElementClickHandler = function () {
     setNewActiveFilter(filterDiscussedElement);
     var dataCopy = window.pictures.initialData.slice();
-    window.currentData = dataCopy.sort(function (picture1, picture2) {
+    window.filters.currentData = dataCopy.sort(function (picture1, picture2) {
       return (picture2.comments.length - picture1.comments.length);
     });
-    updatePictures(window.currentData);
+    updatePictures(window.filters.currentData);
   };
 
   filterPopularElement.addEventListener('click', filterPopularElementClickHandler);
   filterNewElement.addEventListener('click', filterNewElementClickHandler);
   filterDiscussedElement.addEventListener('click', filterDiscussedElementClickHandler);
 
-  window.filtersElement = filtersElement;
+  window.filters = {
+    element: filtersElement,
+    currentData: {}
+  };
 })();

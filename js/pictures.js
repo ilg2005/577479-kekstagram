@@ -25,8 +25,8 @@
 
   var successLoadHandler = function (data) {
     window.pictures.initialData = data;
-    window.currentData = data;
-    window.filtersElement.classList.remove('img-filters--inactive');
+    window.filters.currentData = data;
+    window.filters.element.classList.remove('img-filters--inactive');
     renderPictures(data);
   };
 
@@ -37,7 +37,7 @@
   window.backend.load(successLoadHandler, errorLoadHandler);
 
   window.pictures = {
-    data: [],
+    initialData: [],
     picturesElement: picturesElement,
     renderPictures: renderPictures
   };

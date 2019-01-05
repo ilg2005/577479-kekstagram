@@ -78,7 +78,7 @@
 
   var picturesElementClickHandler = function (evt) {
     if (evt.target.className === 'picture__img') {
-      generateBigPictureData(window.currentData[evt.target.id]);
+      generateBigPictureData(window.filters.currentData[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
@@ -89,7 +89,7 @@
 
   var picturesElementKeydownEnterHandler = function (evt) {
     if (window.utilities.isEnterEvent(evt) && evt.target.className === 'picture') {
-      generateBigPictureData(window.currentData[evt.target.firstElementChild.id]);
+      generateBigPictureData(window.filters.currentData[evt.target.firstElementChild.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
 
