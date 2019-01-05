@@ -6,10 +6,10 @@
 
   var timerID;
 
-  window.filtersElement = document.querySelector('.img-filters');
-  var filterPopularElement = window.filtersElement.querySelector('#filter-popular');
-  var filterNewElement = window.filtersElement.querySelector('#filter-new');
-  var filterDiscussedElement = window.filtersElement.querySelector('#filter-discussed');
+  var filtersElement = document.querySelector('.img-filters');
+  var filterPopularElement = filtersElement.querySelector('#filter-popular');
+  var filterNewElement = filtersElement.querySelector('#filter-new');
+  var filterDiscussedElement = filtersElement.querySelector('#filter-discussed');
 
   var shuffleArray = function (array) {
     for (var i = 0; i < array.length; i++) {
@@ -22,7 +22,7 @@
   };
 
   var setNewActiveFilter = function (filterElement) {
-    var activeFilterElement = window.filtersElement.querySelector('.img-filters__button--active');
+    var activeFilterElement = filtersElement.querySelector('.img-filters__button--active');
     if (activeFilterElement) {
       activeFilterElement.classList.remove('img-filters__button--active');
     }
@@ -77,4 +77,6 @@
   filterPopularElement.addEventListener('click', filterPopularElementClickHandler);
   filterNewElement.addEventListener('click', filterNewElementClickHandler);
   filterDiscussedElement.addEventListener('click', filterDiscussedElementClickHandler);
+
+  window.filtersElement = filtersElement;
 })();
