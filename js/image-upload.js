@@ -7,9 +7,12 @@
   var uploadFileElement = document.querySelector('#upload-file');
   var pictureEditingElement = document.querySelector('.img-upload__overlay');
   var uploadPreviewElement = document.querySelector('.img-upload__preview');
+  var effectsPreviewElements = document.querySelectorAll('.effects__preview');
   var imgPreviewElement = uploadPreviewElement.firstElementChild;
   var cancelEditingElement = document.querySelector('#upload-cancel');
   var commentsElement = document.querySelector('.text__description');
+
+  var defaultImgSrc = imgPreviewElement.src;
 
   var readFile = function (fileToRead) {
     var fileName = fileToRead.name.toLowerCase();
@@ -23,6 +26,10 @@
 
       reader.addEventListener('load', function () {
         imgPreviewElement.src = reader.result;
+        effectsPreviewElements.forEach(function (element) {
+          element.style.backgroundImage = 'url(' + reader.result + ')';
+        });
+
       });
 
       reader.readAsDataURL(fileToRead);
@@ -35,6 +42,10 @@
     uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
     imgPreviewElement.className = '';
     imgPreviewElement.style.filter = '';
+    imgPreviewElement.src = defaultImgSrc;
+    effectsPreviewElements.forEach(function (element) {
+      element.style.backgroundImage = 'url(' + defaultImgSrc + ')';
+    });
   };
 
   var documentKeydownEscHandler = function (evt) {
