@@ -24,7 +24,9 @@
   };
 
   var successLoadHandler = function (data) {
-    window.pictures.data = data;
+    window.pictures.initialData = data;
+    window.filters.currentData = data;
+    window.filters.filtersElement.classList.remove('img-filters--inactive');
     renderPictures(data);
   };
 
@@ -35,7 +37,8 @@
   window.backend.load(successLoadHandler, errorLoadHandler);
 
   window.pictures = {
-    data: [],
-    picturesElement: picturesElement
+    initialData: [],
+    picturesElement: picturesElement,
+    renderPictures: renderPictures
   };
 })();
