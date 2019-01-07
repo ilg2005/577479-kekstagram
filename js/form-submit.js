@@ -45,7 +45,7 @@
         window.utilities.hideElement(errorSaveElement);
         window.imageUpload.cancelImageEditing();
       }
-      errorButton1Element.removeEventListener('keypress', errorButton2ElementKeydownEnterHandler);
+      errorButton2Element.removeEventListener('keypress', errorButton2ElementKeydownEnterHandler);
     };
 
     var documentKeydownEscHandler = function (evt) {
