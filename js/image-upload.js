@@ -12,23 +12,15 @@
   var cancelEditingElement = document.querySelector('#upload-cancel');
   var commentsElement = document.querySelector('.text__description');
 
-  var defaultImgSrc = imgPreviewElement.src;
-
   var readFile = function (fileToRead) {
-    var fileName = fileToRead.name.toLowerCase();
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
-    });
-    if (matches) {
-      var reader = new FileReader();
-      reader.addEventListener('load', function () {
-        imgPreviewElement.src = reader.result;
-        effectsPreviewElements.forEach(function (element) {
-          element.style.backgroundImage = 'url(' + reader.result + ')';
-        });
+    var reader = new FileReader();
+    reader.addEventListener('load', function () {
+      imgPreviewElement.src = reader.result;
+      effectsPreviewElements.forEach(function (element) {
+        element.style.backgroundImage = 'url(' + reader.result + ')';
       });
-      reader.readAsDataURL(fileToRead);
-    }
+    });
+    reader.readAsDataURL(fileToRead);
   };
 
   var restoreDefault = function () {
@@ -37,10 +29,6 @@
     uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
     imgPreviewElement.className = '';
     imgPreviewElement.style.filter = '';
-    imgPreviewElement.src = defaultImgSrc;
-    effectsPreviewElements.forEach(function (element) {
-      element.style.backgroundImage = 'url(' + defaultImgSrc + ')';
-    });
   };
 
   var documentKeydownEscHandler = function (evt) {
@@ -53,15 +41,28 @@
     window.imageUpload.cancelImageEditing();
   };
 
-  var uploadFileElementChangeHandler = function () {
+
+  var uploadFileElementChangeHandler = function (evt) {
     var selectedFile = uploadFileElement.files[0];
-    readFile(selectedFile);
-    window.utilities.showElement(pictureEditingElement);
-    window.utilities.hideElement(window.imageEffects.effectLevelElement);
-    cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
-    document.addEventListener('keydown', documentKeydownEscHandler);
-    window.formSubmit.formElement.addEventListener('submit', window.formSubmit.formSubmitHandler);
+
+    var fileName = selectedFile.name.toLowerCase();
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+    if (!matches) {
+      evt.preventDefault();
+      var errorFileMessage = 'Можно загружать только файлы с расширениями ' + FILE_TYPES.join(', ');
+      window.utilities.renderErrorMessage(errorFileMessage);
+    } else {
+      readFile(selectedFile);
+      window.utilities.showElement(pictureEditingElement);
+      window.utilities.hideElement(window.imageEffects.effectLevelElement);
+      cancelEditingElement.addEventListener('click', cancelEditingElementClickHandler);
+      document.addEventListener('keydown', documentKeydownEscHandler);
+      window.formSubmit.formElement.addEventListener('submit', window.formSubmit.formSubmitHandler);
+    }
   };
+
 
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
 

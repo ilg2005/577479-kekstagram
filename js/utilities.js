@@ -1,13 +1,13 @@
 'use strict';
 
 (function () {
-  var MESSAGE_TIMEOUT = 1000;
+  var MESSAGE_TIMEOUT = 3000;
   var Keycode = {
     ENTER: 13,
     ESC: 27
   };
 
-  var removeServerMessage = function (element, timeout) {
+  var removeMessage = function (element, timeout) {
     setTimeout(function () {
       element.remove();
     }, timeout);
@@ -34,7 +34,7 @@
 
       errorMessageElement.textContent = message;
       document.querySelector('.page-footer').insertAdjacentElement('beforebegin', errorMessageElement);
-      removeServerMessage(errorMessageElement, MESSAGE_TIMEOUT);
+      removeMessage(errorMessageElement, MESSAGE_TIMEOUT);
     }
   };
 })();
