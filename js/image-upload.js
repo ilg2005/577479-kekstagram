@@ -46,7 +46,6 @@
   var documentKeydownEscHandler = function (evt) {
     if (window.utilities.isEscEvent(evt) && evt.target !== window.hashtagsElement && evt.target !== commentsElement) {
       window.imageUpload.cancelImageEditing();
-      restoreDefault();
     }
   };
 
