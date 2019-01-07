@@ -41,7 +41,6 @@
     window.imageUpload.cancelImageEditing();
   };
 
-
   var uploadFileElementChangeHandler = function (evt) {
     var selectedFile = uploadFileElement.files[0];
 
@@ -62,7 +61,6 @@
       window.formSubmit.formElement.addEventListener('submit', window.formSubmit.formSubmitHandler);
     }
   };
-
 
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
 
