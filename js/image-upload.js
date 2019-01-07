@@ -74,7 +74,7 @@
     cancelImageEditing: function () {
       window.utilities.hideElement(pictureEditingElement);
       document.removeEventListener('keydown', documentKeydownEscHandler);
-      uploadFileElement.value = '';
+      window.formSubmit.formElement.reset();
       restoreDefault();
     }
   };
