@@ -29,11 +29,11 @@
     },
     renderErrorMessage: function (message) {
       var errorMessageElement = document.createElement('p');
-      errorMessageElement.style = 'z-index: 100; width: 1200px; min-height: 60px; margin: 20px auto; padding-top: 20px; text-align: center; background-color: rgb(255, 0, 0);';
-      errorMessageElement.style.fontSize = '20px';
-
+      errorMessageElement.classList.add('error');
+      errorMessageElement.classList.add('error__inner');
+      errorMessageElement.style = 'zIndex: 100; width: 550px; margin: 220px auto; padding-top: 40px; text-align: center; background-color: rgb(255, 0, 0); fontSize: 20px; color: rgb(255, 255, 255);';
       errorMessageElement.textContent = message;
-      document.querySelector('.page-footer').insertAdjacentElement('beforebegin', errorMessageElement);
+      document.querySelector('.img-upload__start').insertAdjacentElement('beforeend', errorMessageElement);
       removeMessage(errorMessageElement, MESSAGE_TIMEOUT);
     }
   };

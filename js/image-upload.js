@@ -51,7 +51,7 @@
     });
     if (!matches) {
       evt.preventDefault();
-      var errorFileMessage = 'Можно загружать только файлы с расширениями ' + FILE_TYPES.join(', ');
+      var errorFileMessage = 'Разрешается загружать изображения с расширениями ' + FILE_TYPES.join(', ');
       window.utilities.renderErrorMessage(errorFileMessage);
     } else {
       readFile(selectedFile);
