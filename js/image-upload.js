@@ -16,22 +16,17 @@
 
   var readFile = function (fileToRead) {
     var fileName = fileToRead.name.toLowerCase();
-
     var matches = FILE_TYPES.some(function (it) {
       return fileName.endsWith(it);
     });
-
     if (matches) {
       var reader = new FileReader();
-
       reader.addEventListener('load', function () {
         imgPreviewElement.src = reader.result;
         effectsPreviewElements.forEach(function (element) {
           element.style.backgroundImage = 'url(' + reader.result + ')';
         });
-
       });
-
       reader.readAsDataURL(fileToRead);
     }
   };
@@ -73,6 +68,7 @@
 
   window.imageUpload = {
     pictureEditingElement: pictureEditingElement,
+    uploadFileElement: uploadFileElement,
     uploadPreviewElement: uploadPreviewElement,
     imgPreviewElement: imgPreviewElement,
     cancelImageEditing: function () {

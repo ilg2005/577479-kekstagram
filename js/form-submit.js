@@ -29,6 +29,7 @@
       } else {
         window.utilities.hideElement(errorSaveElement);
         window.imageUpload.cancelImageEditing();
+        window.imageUpload.uploadFileElement.click();
         document.removeEventListener('click', documentClickHandler);
       }
     };
@@ -44,6 +45,7 @@
       if (window.utilities.isEnterEvent) {
         window.utilities.hideElement(errorSaveElement);
         window.imageUpload.cancelImageEditing();
+        window.imageUpload.uploadFileElement.click();
       }
       errorButton2Element.removeEventListener('keypress', errorButton2ElementKeydownEnterHandler);
     };
