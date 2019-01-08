@@ -3,39 +3,38 @@
 (function () {
   var DEFAULT_EFFECT_LEVEL = '100%';
 
-  var EFFECT_CHROME = {
-    filterType: 'grayscale',
-    min: 0,
-    max: 1,
-    unit: ''
-  };
-
-  var EFFECT_SEPIA = {
-    filterType: 'sepia',
-    min: 0,
-    max: 1,
-    unit: ''
-  };
-
-  var EFFECT_MARVIN = {
-    filterType: 'invert',
-    min: 0,
-    max: 100,
-    unit: '%'
-  };
-
-  var EFFECT_PHOBOS = {
-    filterType: 'blur',
-    min: 0,
-    max: 3,
-    unit: 'px'
-  };
-
-  var EFFECT_HEAT = {
-    filterType: 'brightness',
-    min: 1,
-    max: 3,
-    unit: ''
+  var effectTypeMap = {
+    'chrome': {
+      filterType: 'grayscale',
+      min: 0,
+      max: 1,
+      unit: ''
+    },
+    'sepia': {
+      filterType: 'sepia',
+      min: 0,
+      max: 1,
+      unit: ''
+    },
+    'marvin': {
+      filterType: 'invert',
+      min: 0,
+      max: 100,
+      unit: '%'
+    },
+    'phobos': {
+      filterType: 'blur',
+      min: 0,
+      max: 3,
+      unit: 'px'
+    },
+    'heat': {
+      filterType: 'brightness',
+      min: 1,
+      max: 3,
+      unit: ''
+    },
+    'none': {}
   };
 
   var currentEffect = {};
@@ -62,25 +61,10 @@
 
   var effectsListElementClickHandler = function (evt) {
     var effectTypeName = evt.target.value;
-    switch (effectTypeName) {
-      case 'chrome':
-        currentEffect = EFFECT_CHROME;
-        break;
-      case 'sepia':
-        currentEffect = EFFECT_SEPIA;
-        break;
-      case 'marvin':
-        currentEffect = EFFECT_MARVIN;
-        break;
-      case 'phobos':
-        currentEffect = EFFECT_PHOBOS;
-        break;
-      case 'heat':
-        currentEffect = EFFECT_HEAT;
-        break;
-      case 'none':
-        window.utilities.hideElement(effectLevelElement);
-        break;
+    if (effectTypeName !== 'none') {
+      currentEffect = effectTypeMap[effectTypeName];
+    } else {
+      window.utilities.hideElement(effectLevelElement);
     }
     changeEffectType(effectTypeName);
   };
