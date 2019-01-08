@@ -54,6 +54,8 @@
     resetSliderSettingsToDefault();
     if (effect !== 'none') {
       window.utilities.showElement(effectLevelElement);
+    } else {
+      window.utilities.hideElement(effectLevelElement);
     }
     var effectClass = 'effects__preview--' + effect;
     window.imageUpload.imgPreviewElement.classList.add(effectClass);
@@ -61,11 +63,7 @@
 
   var effectsListElementClickHandler = function (evt) {
     var effectTypeName = evt.target.value;
-    if (effectTypeName !== 'none') {
-      currentEffect = effectTypeMap[effectTypeName];
-    } else {
-      window.utilities.hideElement(effectLevelElement);
-    }
+    currentEffect = effectTypeMap[effectTypeName];
     changeEffectType(effectTypeName);
   };
 
