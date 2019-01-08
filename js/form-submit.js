@@ -2,35 +2,42 @@
 
 (function () {
   var formElement = document.querySelector('.img-upload__form');
-  var commentsElement = formElement.querySelector('.text__description');
   var successSaveTemplateElement = document.querySelector('#success').content;
   var errorSaveTemplateElement = document.querySelector('#error').content;
-  var formDefaultEffectElement = document.querySelector('#effect-none');
-  var formEffectValueElement = document.querySelector('.effect-level__value');
-
-  var clearForm = function () {
-    formDefaultEffectElement.checked = true;
-    formEffectValueElement.value = '';
-    window.hashtagsElement.value = '';
-    commentsElement.value = '';
-  };
 
   var renderErrorSaveElement = function () {
     document.querySelector('main').appendChild(errorSaveTemplateElement);
     var errorSaveElement = document.querySelector('.error');
-    var errorButtonElement = errorSaveElement.querySelector('.error__button');
+    var errorButton1Element = errorSaveElement.querySelectorAll('.error__button')[0];
+    var errorButton2Element = errorSaveElement.querySelectorAll('.error__button')[1];
     window.utilities.showElement(errorSaveElement);
 
-    var documentClickHandler = function () {
-      window.utilities.hideElement(errorSaveElement);
-      document.removeEventListener('click', documentClickHandler);
+    var documentClickHandler = function (evt) {
+      if (evt.target !== errorButton2Element) {
+        window.utilities.hideElement(errorSaveElement);
+        document.removeEventListener('click', documentClickHandler);
+      } else {
+        window.utilities.hideElement(errorSaveElement);
+        window.imageUpload.cancelImageEditing();
+        window.imageUpload.uploadFileElement.click();
+        document.removeEventListener('click', documentClickHandler);
+      }
     };
 
-    var errorButtonElementKeypressEnterHandler = function () {
+    var errorButton1ElementKeydownEnterHandler = function () {
       if (window.utilities.isEnterEvent) {
         window.utilities.hideElement(errorSaveElement);
       }
-      errorButtonElement.removeEventListener('keypress', errorButtonElementKeypressEnterHandler);
+      errorButton1Element.removeEventListener('keypress', errorButton1ElementKeydownEnterHandler);
+    };
+
+    var errorButton2ElementKeydownEnterHandler = function () {
+      if (window.utilities.isEnterEvent) {
+        window.utilities.hideElement(errorSaveElement);
+        window.imageUpload.cancelImageEditing();
+        window.imageUpload.uploadFileElement.click();
+      }
+      errorButton2Element.removeEventListener('keypress', errorButton2ElementKeydownEnterHandler);
     };
 
     var documentKeydownEscHandler = function (evt) {
@@ -41,7 +48,8 @@
     };
 
     document.addEventListener('click', documentClickHandler);
-    errorButtonElement.addEventListener('keypress', errorButtonElementKeypressEnterHandler);
+    errorButton1Element.addEventListener('keydown', errorButton1ElementKeydownEnterHandler);
+    errorButton2Element.addEventListener('keydown', errorButton2ElementKeydownEnterHandler);
     document.addEventListener('keydown', documentKeydownEscHandler);
   };
 
@@ -77,7 +85,7 @@
 
   var successSaveHandler = function () {
     window.imageUpload.cancelImageEditing();
-    clearForm();
+    formElement.reset();
     renderSuccessSaveElement();
   };
 
