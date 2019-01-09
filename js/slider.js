@@ -2,6 +2,7 @@
 
 (function () {
   var SLIDER_PIN_WIDTH = 18;
+  var PIN_POSITION_CHANGE_STEP = 1;
 
   var sliderElement = document.querySelector('.img-upload__effect-level');
   var pinElement = sliderElement.querySelector('.effect-level__pin');
@@ -41,15 +42,15 @@
   var pinElementKeydownArrowHandler = function (evt) {
     if (window.utilities.isArrowLeftEvent(evt) && parseInt(pinElement.style.left) > 0) {
       console.log(pinElement.style.left);
-      console.log(parseInt(pinElement.style.left) - 1 + '%');
-      window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) - 1 + '%';
+      console.log(parseInt(pinElement.style.left) - PIN_POSITION_CHANGE_STEP + '%');
+      window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) - PIN_POSITION_CHANGE_STEP + '%';
       window.imageEffects.changeEffectLevel();
       pinElement.style.left = window.slider.currentPinPositionInPercent;
       console.log(pinElement.style.left);
     } else if (window.utilities.isArrowRightEvent(evt) && parseInt(pinElement.style.left) < window.utilities.MULTIPLICAND) {
       console.log(pinElement.style.left);
-      console.log(parseInt(pinElement.style.left) + 1 + '%');
-      window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) + 1 + '%';
+      console.log(parseInt(pinElement.style.left) + PIN_POSITION_CHANGE_STEP + '%');
+      window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) + PIN_POSITION_CHANGE_STEP + '%';
       window.imageEffects.changeEffectLevel();
       pinElement.style.left = window.slider.currentPinPositionInPercent;
       console.log(pinElement.style.left);
