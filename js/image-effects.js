@@ -54,6 +54,7 @@
     resetSliderSettingsToDefault();
     if (effect !== 'none') {
       window.utilities.showElement(effectLevelElement);
+      window.slider.pinElement.focus();
     } else {
       window.utilities.hideElement(effectLevelElement);
     }
