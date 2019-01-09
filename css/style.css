@@ -607,6 +607,11 @@ main {
   cursor: move;
 }
 
+.effect-level__pin:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px red;
+}
+
 .effect-level__depth {
   position: absolute;
 
