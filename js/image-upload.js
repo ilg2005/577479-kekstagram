@@ -41,6 +41,12 @@
     window.imageUpload.cancelImageEditing();
   };
 
+  var cancelEditingElementBlurHandler = function () {
+    if (window.utilities.isTabEvent) {
+      pictureEditingElement.querySelector('[tabindex="1"]').focus();
+    }
+  };
+
   var uploadFileElementChangeHandler = function (evt) {
     var selectedFile = uploadFileElement.files[0];
 
@@ -63,6 +69,7 @@
   };
 
   uploadFileElement.addEventListener('change', uploadFileElementChangeHandler);
+  cancelEditingElement.addEventListener('blur', cancelEditingElementBlurHandler);
 
   window.imageUpload = {
     pictureEditingElement: pictureEditingElement,

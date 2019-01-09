@@ -4,7 +4,8 @@
   var MESSAGE_TIMEOUT = 3000;
   var Keycode = {
     ENTER: 13,
-    ESC: 27
+    ESC: 27,
+    TAB: 9
   };
 
   var removeMessage = function (element, timeout) {
@@ -20,6 +21,9 @@
     },
     isEscEvent: function (evt) {
       return (evt.keyCode === Keycode.ESC);
+    },
+    isTabEvent: function (evt) {
+      return (evt.keyCode === Keycode.TAB);
     },
     showElement: function (element) {
       element.classList.remove('hidden');
