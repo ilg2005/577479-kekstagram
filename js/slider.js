@@ -39,22 +39,20 @@
   };
 
   var pinElementKeydownArrowHandler = function (evt) {
-    if (parseInt(pinElement.style.left) <= window.utilities.MULTIPLICAND && parseInt(pinElement.style.left) >= 0) {
-      if (window.utilities.isArrowLeftEvent(evt)) {
-        console.log(pinElement.style.left);
-        console.log(parseInt(pinElement.style.left) - 1 + '%');
-        window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) - 1 + '%';
-        window.imageEffects.changeEffectLevel();
-        pinElement.style.left = window.slider.currentPinPositionInPercent;
-        console.log(pinElement.style.left);
-      } else if (window.utilities.isArrowRightEvent(evt)) {
-        console.log(pinElement.style.left);
-        console.log(parseInt(pinElement.style.left) + 1 + '%');
-        window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) + 1 + '%';
-        window.imageEffects.changeEffectLevel();
-        pinElement.style.left = window.slider.currentPinPositionInPercent;
-        console.log(pinElement.style.left);
-      }
+    if (window.utilities.isArrowLeftEvent(evt) && parseInt(pinElement.style.left) > 0) {
+      console.log(pinElement.style.left);
+      console.log(parseInt(pinElement.style.left) - 1 + '%');
+      window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) - 1 + '%';
+      window.imageEffects.changeEffectLevel();
+      pinElement.style.left = window.slider.currentPinPositionInPercent;
+      console.log(pinElement.style.left);
+    } else if (window.utilities.isArrowRightEvent(evt) && parseInt(pinElement.style.left) < window.utilities.MULTIPLICAND) {
+      console.log(pinElement.style.left);
+      console.log(parseInt(pinElement.style.left) + 1 + '%');
+      window.slider.currentPinPositionInPercent = parseInt(pinElement.style.left) + 1 + '%';
+      window.imageEffects.changeEffectLevel();
+      pinElement.style.left = window.slider.currentPinPositionInPercent;
+      console.log(pinElement.style.left);
     }
   };
 
