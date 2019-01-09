@@ -52,11 +52,11 @@
 
   var changeEffectType = function (effect) {
     resetSliderSettingsToDefault();
-    if (effect !== 'none') {
+    if (effect === 'none' || effect === undefined) {
+      window.utilities.hideElement(effectLevelElement);
+    } else {
       window.utilities.showElement(effectLevelElement);
       window.slider.pinElement.focus();
-    } else {
-      window.utilities.hideElement(effectLevelElement);
     }
     var effectClass = 'effects__preview--' + effect;
     window.imageUpload.imgPreviewElement.classList.add(effectClass);
