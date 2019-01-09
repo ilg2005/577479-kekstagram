@@ -38,7 +38,20 @@
     document.addEventListener('mouseup', documentMouseUpHandler);
   };
 
+  var pinElementKeydownArrowHandler = function (evt) {
+    if (window.utilities.isArrowLeftEvent(evt)) {
+      console.log('left');
+    } else if (window.utilities.isArrowRightEvent(evt)) {
+      console.log('right');
+    }
+  };
+
+  var pinElementFocusHandler = function () {
+    pinElement.addEventListener('keydown', pinElementKeydownArrowHandler);
+  };
+
   pinElement.addEventListener('mousedown', pinElementMouseDownHandler);
+  pinElement.addEventListener('focus', pinElementFocusHandler);
 
   window.slider = {
     pinElement: pinElement,
