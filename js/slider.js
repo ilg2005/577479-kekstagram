@@ -2,10 +2,16 @@
 
 (function () {
   var SLIDER_PIN_WIDTH = 18;
+  var PIN_POSITION_CHANGE_STEP = 1;
 
   var sliderElement = document.querySelector('.img-upload__effect-level');
   var pinElement = sliderElement.querySelector('.effect-level__pin');
   var lineElement = sliderElement.querySelector('.effect-level__depth');
+
+  var movePinToNewPosition = function (newPosition) {
+    pinElement.style.left = newPosition + '%';
+    window.slider.currentPinPositionInPercent = pinElement.style.left;
+  };
 
   var pinElementMouseDownHandler = function (evtMouseDown) {
     evtMouseDown.preventDefault();
@@ -22,8 +28,7 @@
       var newPinPositionInPercent = Math.round(newPinPositionInPx * window.utilities.MULTIPLICAND / sliderLineWidthInPx);
 
       if (newPinPositionInPercent <= window.utilities.MULTIPLICAND && newPinPositionInPercent >= 0) {
-        pinElement.style.left = newPinPositionInPercent + '%';
-        window.slider.currentPinPositionInPercent = newPinPositionInPercent + '%';
+        movePinToNewPosition(newPinPositionInPercent);
         window.imageEffects.changeEffectLevel();
       }
     };
@@ -38,7 +43,29 @@
     document.addEventListener('mouseup', documentMouseUpHandler);
   };
 
+  var pinElementKeydownArrowHandler = function (evt) {
+    if (window.utilities.isArrowLeftEvent(evt) && parseInt(pinElement.style.left, 10) > 0) {
+      var newPinPositionInPercent = parseInt(pinElement.style.left, 10) - PIN_POSITION_CHANGE_STEP;
+      movePinToNewPosition(newPinPositionInPercent);
+      window.imageEffects.changeEffectLevel();
+    } else if (window.utilities.isArrowRightEvent(evt) && parseInt(pinElement.style.left, 10) < window.utilities.MULTIPLICAND) {
+      newPinPositionInPercent = parseInt(pinElement.style.left, 10) + PIN_POSITION_CHANGE_STEP;
+      movePinToNewPosition(newPinPositionInPercent);
+      window.imageEffects.changeEffectLevel();
+    }
+  };
+
+  var pinElementFocusHandler = function () {
+    pinElement.addEventListener('keydown', pinElementKeydownArrowHandler);
+  };
+
+  var pinElementBlurHandler = function () {
+    pinElement.removeEventListener('focus', pinElementFocusHandler);
+  };
+
   pinElement.addEventListener('mousedown', pinElementMouseDownHandler);
+  pinElement.addEventListener('focus', pinElementFocusHandler);
+  pinElement.addEventListener('blur', pinElementBlurHandler);
 
   window.slider = {
     pinElement: pinElement,

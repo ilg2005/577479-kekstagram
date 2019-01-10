@@ -26,6 +26,10 @@
           box-sizing: border-box;
 }
 
+:focus {
+  outline: 3px solid yellow;
+}
+
 body {
   font-family: "Open Sans", "Arial", sans-serif;
   font-weight: 400;
@@ -335,19 +339,14 @@ main {
 
 .img-upload__label {
   position: absolute;
-
   top: 194px;
   left: 203px;
-
   width: 180px;
   height: 181px;
-
   font-size: 0;
-
   background-image: url("../img/upload-button-bg.png");
   background-repeat: no-repeat;
   background-position: center;
-
   cursor: pointer;
 }
 
@@ -380,7 +379,7 @@ main {
 }
 
 .img-upload__input:focus + .img-upload__label {
-  outline: auto 5px highlight;
+  outline: 3px solid yellow;
 }
 
 
@@ -606,6 +605,11 @@ main {
           transform: translateX(-50%);
 
   cursor: move;
+}
+
+.effect-level__pin:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px red;
 }
 
 .effect-level__depth {
