@@ -59,8 +59,13 @@
     pinElement.addEventListener('keydown', pinElementKeydownArrowHandler);
   };
 
+  var pinElementBlurHandler = function () {
+    pinElement.removeEventListener('focus', pinElementFocusHandler);
+  };
+
   pinElement.addEventListener('mousedown', pinElementMouseDownHandler);
   pinElement.addEventListener('focus', pinElementFocusHandler);
+  pinElement.addEventListener('blur', pinElementBlurHandler);
 
   window.slider = {
     pinElement: pinElement,
