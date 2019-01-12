@@ -29,6 +29,8 @@
     uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
     imagePreviewElement.className = '';
     imagePreviewElement.style.filter = '';
+    window.hashtagsElement.setCustomValidity('');
+    window.hashtagsElement.classList.remove('text__invalid');
   };
 
   var documentKeydownEscHandler = function (evt) {
