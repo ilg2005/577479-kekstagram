@@ -44,10 +44,10 @@
   var effectLevelElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level');
 
   var resetSliderSettingsToDefault = function () {
-    window.imageUpload.imgPreviewElement.className = '';
+    window.imageUpload.imagePreviewElement.className = '';
     window.slider.pinElement.style.left = DEFAULT_EFFECT_LEVEL;
     window.slider.lineElement.style.width = DEFAULT_EFFECT_LEVEL;
-    window.imageUpload.imgPreviewElement.style.filter = '';
+    window.imageUpload.imagePreviewElement.style.filter = '';
   };
 
   var changeEffectType = function (effect) {
@@ -58,7 +58,7 @@
       window.utilities.showElement(effectLevelElement);
     }
     var effectClass = 'effects__preview--' + effect;
-    window.imageUpload.imgPreviewElement.classList.add(effectClass);
+    window.imageUpload.imagePreviewElement.classList.add(effectClass);
   };
 
   var effectsListElementClickHandler = function (evt) {
@@ -90,7 +90,7 @@
   };
 
   var applyEffectLevel = function (type, level, unit) {
-    window.imageUpload.imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+    window.imageUpload.imagePreviewElement.style.filter = type + '(' + level + unit + ')';
   };
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
