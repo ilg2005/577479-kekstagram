@@ -73,18 +73,9 @@
       if (evt.target.value !== 'none' && evt.target.value !== undefined) {
         window.slider.pinElement.focus();
       } else {
-        effectsListElement.classList.remove('effects__list_tabfocus');
         window.hashtagsElement.focus();
       }
     }
-  };
-
-  var effectsListElementFocusinHandler = function () {
-    effectsListElement.classList.add('effects__list_tabfocus');
-  };
-
-  var effectsListElementBlurHandler = function () {
-    effectsListElement.classList.remove('effects__list_tabfocus');
   };
 
   var convertPinPositionToEffectLevel = function () {
@@ -99,8 +90,6 @@
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
   effectsListElement.addEventListener('keydown', effectsListElementKeydownTabHandler);
-  effectsListElement.addEventListener('focusin', effectsListElementFocusinHandler);
-  effectsListElement.addEventListener('blur', effectsListElementBlurHandler);
 
   window.imageEffects = {
     effectLevelElement: effectLevelElement,

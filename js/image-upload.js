@@ -31,7 +31,6 @@
     imagePreviewElement.style.filter = '';
     window.hashtagsElement.setCustomValidity('');
     window.hashtagsElement.classList.remove('text__invalid');
-    window.imageEffects.effectsListElement.classList.remove('effects__list_tabfocus');
   };
 
   var documentKeydownEscHandler = function (evt) {

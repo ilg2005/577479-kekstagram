@@ -649,10 +649,6 @@ main {
   text-align: center;
 }
 
-.effects__list_tabfocus {
-  border: 2px yellow solid;
-}
-
 .effects__item {
   margin-right: 5px;
 }
