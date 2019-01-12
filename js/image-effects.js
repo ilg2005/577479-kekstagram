@@ -70,7 +70,7 @@
   var effectsListElementKeydownTabHandler = function (evt) {
     if (window.utilities.isTabEvent(evt)) {
       evt.preventDefault();
-      if (evt.target.value !== 'none') {
+      if (evt.target.value !== 'none' && evt.target.value !== undefined) {
         window.slider.pinElement.focus();
       } else {
         effectsListElement.classList.remove('effects__list_tabfocus');
