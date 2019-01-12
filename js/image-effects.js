@@ -56,7 +56,6 @@
       window.utilities.hideElement(effectLevelElement);
     } else {
       window.utilities.showElement(effectLevelElement);
-      window.slider.pinElement.focus();
     }
     var effectClass = 'effects__preview--' + effect;
     window.imageUpload.imgPreviewElement.classList.add(effectClass);
@@ -66,6 +65,13 @@
     var effectTypeName = evt.target.value;
     currentEffect = effectTypeMap[effectTypeName];
     changeEffectType(effectTypeName);
+  };
+
+  var effectsListElementKeydownTabHandler = function (evt) {
+    if (window.utilities.isTabEvent(evt)) {
+      evt.preventDefault();
+      window.slider.pinElement.focus();
+    }
   };
 
   var convertPinPositionToEffectLevel = function () {
@@ -79,6 +85,7 @@
   };
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
+  effectsListElement.addEventListener('keydown', effectsListElementKeydownTabHandler);
 
   window.imageEffects = {
     effectLevelElement: effectLevelElement,
