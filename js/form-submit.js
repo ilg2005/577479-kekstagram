@@ -28,9 +28,7 @@
 
     var errorButton1ElementKeydownHandler = function (evt) {
       if (window.utilities.isEnterEvent(evt)) {
-/*
         evt.preventDefault();
-*/
         window.utilities.hideElement(errorSaveElement);
         formSubmitElement.focus();
       } else if (window.utilities.isTabEvent(evt)) {
