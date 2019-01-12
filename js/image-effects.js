@@ -83,6 +83,10 @@
     effectsListElement.classList.add('effects__list_tabfocus');
   };
 
+  var effectsListElementBlurHandler = function () {
+    effectsListElement.classList.remove('effects__list_tabfocus');
+  };
+
   var convertPinPositionToEffectLevel = function () {
     sliderEffectLevelValueElement.value = parseInt(window.slider.currentPinPositionInPercent, 10);
     var effectLevel = ((currentEffect.max - currentEffect.min) * sliderEffectLevelValueElement.value / window.utilities.MULTIPLICAND) + currentEffect.min;
@@ -96,6 +100,7 @@
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
   effectsListElement.addEventListener('keydown', effectsListElementKeydownTabHandler);
   effectsListElement.addEventListener('focusin', effectsListElementFocusinHandler);
+  effectsListElement.addEventListener('blur', effectsListElementBlurHandler);
 
   window.imageEffects = {
     effectLevelElement: effectLevelElement,
