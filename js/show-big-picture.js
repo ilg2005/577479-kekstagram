@@ -78,15 +78,22 @@
   };
 
   var documentKeydownTabHandler = function (evt) {
-    if (window.utilities.isTabEvent(evt) && cancelPreviewElement) {
+    if (window.utilities.isTabEvent(evt)) {
       evt.preventDefault();
       cancelPreviewElement.focus();
+      document.removeEventListener('keydown', documentKeydownTabHandler);
     }
-    document.removeEventListener('keydown', documentKeydownTabHandler);
   };
 
   var buttonSendCommentElementBlurHandler = function () {
     cancelPreviewElement.focus();
+  };
+
+  var setListenersOnBigPictureShow = function () {
+    document.addEventListener('keydown', documentKeydownEscHandler);
+    document.addEventListener('keydown', documentKeydownTabHandler);
+    cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+    buttonSendCommentElement.addEventListener('blur', buttonSendCommentElementBlurHandler);
   };
 
   var picturesElementClickHandler = function (evt) {
@@ -94,11 +101,7 @@
       generateBigPictureData(window.filters.currentData[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
-
-      document.addEventListener('keydown', documentKeydownEscHandler);
-      document.addEventListener('keydown', documentKeydownTabHandler);
-      cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
-      buttonSendCommentElement.addEventListener('blur', buttonSendCommentElementBlurHandler);
+      setListenersOnBigPictureShow();
     }
   };
 
@@ -107,9 +110,7 @@
       generateBigPictureData(window.filters.currentData[evt.target.firstElementChild.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
-
-      document.addEventListener('keydown', documentKeydownEscHandler);
-      cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+      setListenersOnBigPictureShow();
     }
   };
 
