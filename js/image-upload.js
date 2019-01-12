@@ -8,14 +8,14 @@
   var pictureEditingElement = document.querySelector('.img-upload__overlay');
   var uploadPreviewElement = document.querySelector('.img-upload__preview');
   var effectsPreviewElements = document.querySelectorAll('.effects__preview');
-  var imgPreviewElement = uploadPreviewElement.firstElementChild;
+  var imagePreviewElement = uploadPreviewElement.firstElementChild;
   var cancelEditingElement = document.querySelector('#upload-cancel');
   var commentsElement = document.querySelector('.text__description');
 
   var readFile = function (fileToRead) {
     var reader = new FileReader();
     reader.addEventListener('load', function () {
-      imgPreviewElement.src = reader.result;
+      imagePreviewElement.src = reader.result;
       effectsPreviewElements.forEach(function (element) {
         element.style.backgroundImage = 'url(' + reader.result + ')';
       });
@@ -27,8 +27,8 @@
     window.scaleValueElement.value = DEFAULT_SCALE_VALUE;
     var decimalValueOfPercent = parseInt(DEFAULT_SCALE_VALUE, 10) / window.utilities.MULTIPLICAND;
     uploadPreviewElement.style.transform = 'scale(' + decimalValueOfPercent + ')';
-    imgPreviewElement.className = '';
-    imgPreviewElement.style.filter = '';
+    imagePreviewElement.className = '';
+    imagePreviewElement.style.filter = '';
   };
 
   var documentKeydownEscHandler = function (evt) {
@@ -75,7 +75,7 @@
     pictureEditingElement: pictureEditingElement,
     uploadFileElement: uploadFileElement,
     uploadPreviewElement: uploadPreviewElement,
-    imgPreviewElement: imgPreviewElement,
+    imagePreviewElement: imagePreviewElement,
     cancelImageEditing: function () {
       window.utilities.hideElement(pictureEditingElement);
       document.removeEventListener('keydown', documentKeydownEscHandler);
