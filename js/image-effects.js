@@ -70,8 +70,17 @@
   var effectsListElementKeydownTabHandler = function (evt) {
     if (window.utilities.isTabEvent(evt)) {
       evt.preventDefault();
-      window.slider.pinElement.focus();
+      if (evt.target.value !== 'none') {
+        window.slider.pinElement.focus();
+      } else {
+        effectsListElement.classList.remove('effects__list_tabfocus');
+        window.hashtagsElement.focus();
+      }
     }
+  };
+
+  var effectsListElementFocusinHandler = function () {
+    effectsListElement.classList.add('effects__list_tabfocus');
   };
 
   var convertPinPositionToEffectLevel = function () {
@@ -86,9 +95,11 @@
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
   effectsListElement.addEventListener('keydown', effectsListElementKeydownTabHandler);
+  effectsListElement.addEventListener('focusin', effectsListElementFocusinHandler);
 
   window.imageEffects = {
     effectLevelElement: effectLevelElement,
+    effectsListElement: effectsListElement,
     changeEffectLevel: function () {
       applyEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
     }

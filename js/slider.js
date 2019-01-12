@@ -69,6 +69,7 @@
 
   var pinElementBlurHandler = function () {
     pinElement.removeEventListener('focus', pinElementFocusHandler);
+    window.imageEffects.effectsListElement.classList.remove('effects__list_tabfocus');
   };
 
   pinElement.addEventListener('mousedown', pinElementMouseDownHandler);
