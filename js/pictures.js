@@ -9,7 +9,7 @@
 
     pictureElement.querySelector('.picture__img').src = picture.url;
     pictureElement.querySelector('.picture__likes').textContent = picture.likes;
-    pictureElement.querySelector('.picture__stat--comments').textContent = picture.comments.length;
+    pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
 
     return pictureElement;
   };
