@@ -995,6 +995,7 @@ main {
 
   background: none;
   border: none;
+
 }
 
 .comments-loader {
@@ -1003,6 +1004,12 @@ main {
 
   background: none;
   border: none;
+}
+
+.social__comments-loader:focus {
+  background-color: #fff2ac;
+  margin: 3px;
+  font-size: 20px;
 }
 
 .social__text {
@@ -1099,6 +1106,10 @@ main {
   border: none;
 }
 
+.social__footer-text:focus {
+  outline-color: blue;
+}
+
 .social__footer-btn {
   position: absolute;
   right: 15px;
@@ -1125,6 +1136,7 @@ main {
 .social__footer-btn:hover,
 .social__footer-btn:focus {
   opacity: 1;
+  outline-color: blue;
 }
 
 .social__footer-btn:active,

@@ -2,6 +2,7 @@
 
 (function () {
   var formElement = document.querySelector('.img-upload__form');
+  var formSubmitElement = formElement.querySelector('#upload-submit');
   var successSaveTemplateElement = document.querySelector('#success').content;
   var errorSaveTemplateElement = document.querySelector('#error').content;
 
@@ -11,6 +12,7 @@
     var errorButton1Element = errorSaveElement.querySelectorAll('.error__button')[0];
     var errorButton2Element = errorSaveElement.querySelectorAll('.error__button')[1];
     window.utilities.showElement(errorSaveElement);
+    errorButton1Element.focus();
 
     var documentClickHandler = function (evt) {
       if (evt.target !== errorButton2Element) {
@@ -24,20 +26,28 @@
       }
     };
 
-    var errorButton1ElementKeydownEnterHandler = function () {
-      if (window.utilities.isEnterEvent) {
+    var errorButton1ElementKeydownHandler = function (evt) {
+      if (window.utilities.isEnterEvent(evt)) {
+        evt.preventDefault();
         window.utilities.hideElement(errorSaveElement);
+        formSubmitElement.focus();
+      } else if (window.utilities.isTabEvent(evt)) {
+        evt.preventDefault();
+        errorButton2Element.focus();
       }
-      errorButton1Element.removeEventListener('keypress', errorButton1ElementKeydownEnterHandler);
+      errorButton1Element.removeEventListener('keypress', errorButton1ElementKeydownHandler);
     };
 
-    var errorButton2ElementKeydownEnterHandler = function () {
-      if (window.utilities.isEnterEvent) {
+    var errorButton2ElementKeydownHandler = function (evt) {
+      if (window.utilities.isEnterEvent(evt)) {
         window.utilities.hideElement(errorSaveElement);
         window.imageUpload.cancelImageEditing();
         window.imageUpload.uploadFileElement.click();
+      } else if (window.utilities.isTabEvent(evt)) {
+        evt.preventDefault();
+        errorButton1Element.focus();
       }
-      errorButton2Element.removeEventListener('keypress', errorButton2ElementKeydownEnterHandler);
+      errorButton2Element.removeEventListener('keypress', errorButton2ElementKeydownHandler);
     };
 
     var documentKeydownEscHandler = function (evt) {
@@ -48,8 +58,8 @@
     };
 
     document.addEventListener('click', documentClickHandler);
-    errorButton1Element.addEventListener('keydown', errorButton1ElementKeydownEnterHandler);
-    errorButton2Element.addEventListener('keydown', errorButton2ElementKeydownEnterHandler);
+    errorButton1Element.addEventListener('keydown', errorButton1ElementKeydownHandler);
+    errorButton2Element.addEventListener('keydown', errorButton2ElementKeydownHandler);
     document.addEventListener('keydown', documentKeydownEscHandler);
   };
 
