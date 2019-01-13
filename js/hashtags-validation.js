@@ -15,13 +15,13 @@
     return hashtagsArray;
   };
 
-  var checkIfStartsWithHashSymbol = function (hashtag) {
+  var checkStartsWithHashSymbol = function (hashtag) {
     if ((hashtag.match(/(^#.+)|(^$)/) === null) || (hashtagsElement.value.charAt(0) === ' ')) {
       hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
     }
   };
 
-  var checkIfTooMuchHashtags = function (hashtagsArray) {
+  var checkTooMuchHashtags = function (hashtagsArray) {
     if (hashtagsArray.length > MAX_HASHTAGS_NUMBER) {
       hashtagsElement.setCustomValidity('Нельзя указывать более пяти хэш-тегов');
     }
@@ -39,20 +39,20 @@
     });
   };
 
-  var checkIfContainsOtherSymbols = function (hashtag) {
+  var checkOtherSymbolsPresence = function (hashtag) {
     if (hashtag === '#') {
       hashtagsElement.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
     }
   };
 
-  var checkIfContainsAnotherHashSymbol = function (hashtag) {
+  var checkAnotherHashSymbolPresence = function (hashtag) {
     var hashtagChars = hashtag.split('');
     if (hashtagChars.indexOf('#', 1) > 0) {
       hashtagsElement.setCustomValidity('Хэш-теги должны разделяться пробелами');
     }
   };
 
-  var checkIfTooLong = function (hashtag) {
+  var checkTooLong = function (hashtag) {
     var hashtagChars = hashtag.split('');
     if (hashtagChars.length > MAX_HASHTAG_LENGTH) {
       hashtagsElement.setCustomValidity('Максимальная длина одного хэш-тега должна быть 20 символов, включая решётку');
@@ -62,18 +62,18 @@
   var hashtagsValidation = function () {
     var hashtags = getHashtagsArray();
 
-    checkIfTooMuchHashtags(hashtags);
+    checkTooMuchHashtags(hashtags);
     checkDoubleOccurrence(hashtags);
 
     hashtags.forEach(function (hashtag) {
-      checkIfStartsWithHashSymbol(hashtag);
-      checkIfContainsOtherSymbols(hashtag);
-      checkIfContainsAnotherHashSymbol(hashtag);
-      checkIfTooLong(hashtag);
+      checkStartsWithHashSymbol(hashtag);
+      checkOtherSymbolsPresence(hashtag);
+      checkAnotherHashSymbolPresence(hashtag);
+      checkTooLong(hashtag);
     });
   };
 
-  var addRedBorderIfInvalid = function () {
+  var addRedBorderToInvalid = function () {
     if (!hashtagsElement.validity.valid) {
       hashtagsElement.classList.add('text__invalid');
     }
@@ -86,7 +86,7 @@
 
   var hastagsElementBlurHandler = function () {
     hashtagsValidation();
-    addRedBorderIfInvalid();
+    addRedBorderToInvalid();
   };
 
   hashtagsElement.addEventListener('keydown', hastagsElementKeydownHandler);

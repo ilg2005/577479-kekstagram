@@ -44,10 +44,10 @@
   var effectLevelElement = window.imageUpload.pictureEditingElement.querySelector('.effect-level');
 
   var resetSliderSettingsToDefault = function () {
-    window.imageUpload.imgPreviewElement.className = '';
+    window.imageUpload.imagePreviewElement.className = '';
     window.slider.pinElement.style.left = DEFAULT_EFFECT_LEVEL;
     window.slider.lineElement.style.width = DEFAULT_EFFECT_LEVEL;
-    window.imageUpload.imgPreviewElement.style.filter = '';
+    window.imageUpload.imagePreviewElement.style.filter = '';
   };
 
   var changeEffectType = function (effect) {
@@ -56,16 +56,26 @@
       window.utilities.hideElement(effectLevelElement);
     } else {
       window.utilities.showElement(effectLevelElement);
-      window.slider.pinElement.focus();
     }
     var effectClass = 'effects__preview--' + effect;
-    window.imageUpload.imgPreviewElement.classList.add(effectClass);
+    window.imageUpload.imagePreviewElement.classList.add(effectClass);
   };
 
   var effectsListElementClickHandler = function (evt) {
     var effectTypeName = evt.target.value;
     currentEffect = effectTypeMap[effectTypeName];
     changeEffectType(effectTypeName);
+  };
+
+  var effectsListElementKeydownTabHandler = function (evt) {
+    if (window.utilities.isTabEvent(evt)) {
+      evt.preventDefault();
+      if (evt.target.value !== 'none' && evt.target.value !== undefined) {
+        window.slider.pinElement.focus();
+      } else {
+        window.hashtagsElement.focus();
+      }
+    }
   };
 
   var convertPinPositionToEffectLevel = function () {
@@ -75,13 +85,15 @@
   };
 
   var applyEffectLevel = function (type, level, unit) {
-    window.imageUpload.imgPreviewElement.style.filter = type + '(' + level + unit + ')';
+    window.imageUpload.imagePreviewElement.style.filter = type + '(' + level + unit + ')';
   };
 
   effectsListElement.addEventListener('click', effectsListElementClickHandler);
+  effectsListElement.addEventListener('keydown', effectsListElementKeydownTabHandler);
 
   window.imageEffects = {
     effectLevelElement: effectLevelElement,
+    effectsListElement: effectsListElement,
     changeEffectLevel: function () {
       applyEffectLevel(currentEffect.filterType, convertPinPositionToEffectLevel(), currentEffect.unit);
     }

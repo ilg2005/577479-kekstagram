@@ -55,8 +55,16 @@
     }
   };
 
+  var pinElementKeydownTabHandler = function (evt) {
+    if (window.utilities.isTabEvent(evt)) {
+      evt.preventDefault();
+      window.hashtagsElement.focus();
+    }
+  };
+
   var pinElementFocusHandler = function () {
     pinElement.addEventListener('keydown', pinElementKeydownArrowHandler);
+    pinElement.addEventListener('keydown', pinElementKeydownTabHandler);
   };
 
   var pinElementBlurHandler = function () {

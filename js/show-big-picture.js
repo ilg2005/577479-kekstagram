@@ -8,6 +8,7 @@
   var bigPictureElement = document.querySelector('.big-picture');
   var cancelPreviewElement = bigPictureElement.querySelector('#picture-cancel');
   var inputCommentElement = bigPictureElement.querySelector('.social__footer-text');
+  var buttonSendCommentElement = bigPictureElement.querySelector('.social__footer-btn');
   var commentsElement = bigPictureElement.querySelector('.social__comments');
   var commentsCounterElement = bigPictureElement.querySelector('.social__comment-count');
   var commentsLoaderElement = bigPictureElement.querySelector('.comments-loader');
@@ -76,14 +77,31 @@
     inputCommentElement.value = '';
   };
 
+  var documentKeydownTabHandler = function (evt) {
+    if (window.utilities.isTabEvent(evt)) {
+      evt.preventDefault();
+      cancelPreviewElement.focus();
+      document.removeEventListener('keydown', documentKeydownTabHandler);
+    }
+  };
+
+  var buttonSendCommentElementBlurHandler = function () {
+    cancelPreviewElement.focus();
+  };
+
+  var setListenersOnBigPictureShow = function () {
+    document.addEventListener('keydown', documentKeydownEscHandler);
+    document.addEventListener('keydown', documentKeydownTabHandler);
+    cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+    buttonSendCommentElement.addEventListener('blur', buttonSendCommentElementBlurHandler);
+  };
+
   var picturesElementClickHandler = function (evt) {
     if (evt.target.className === 'picture__img') {
       generateBigPictureData(window.filters.currentData[evt.target.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
-
-      document.addEventListener('keydown', documentKeydownEscHandler);
-      cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+      setListenersOnBigPictureShow();
     }
   };
 
@@ -92,9 +110,7 @@
       generateBigPictureData(window.filters.currentData[evt.target.firstElementChild.id]);
       document.querySelector('body').classList.add('modal-open');
       window.utilities.showElement(bigPictureElement);
-
-      document.addEventListener('keydown', documentKeydownEscHandler);
-      cancelPreviewElement.addEventListener('click', cancelPreviewElementClickHandler);
+      setListenersOnBigPictureShow();
     }
   };
 
