@@ -11,6 +11,7 @@
     var hashtagsString = hashtagsElement.value;
     hashtagsString = hashtagsString.trim();
     hashtagsString = hashtagsString.replace(/\s\s+/, ' ');
+    hashtagsElement.value = hashtagsString;
     var hashtagsArray = hashtagsString.split(' ');
     return hashtagsArray;
   };
