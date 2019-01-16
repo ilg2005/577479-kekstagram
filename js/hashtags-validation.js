@@ -11,12 +11,13 @@
     var hashtagsString = hashtagsElement.value;
     hashtagsString = hashtagsString.trim();
     hashtagsString = hashtagsString.replace(/\s\s+/, ' ');
+    hashtagsElement.value = hashtagsString;
     var hashtagsArray = hashtagsString.split(' ');
     return hashtagsArray;
   };
 
   var checkStartsWithHashSymbol = function (hashtag) {
-    if ((hashtag.match(/(^#.+)|(^$)/) === null) || (hashtagsElement.value.charAt(0) === ' ')) {
+    if (hashtag.match(/(^#.+)|(^$)/) === null) {
       hashtagsElement.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка)');
     }
   };
@@ -47,7 +48,7 @@
 
   var checkAnotherHashSymbolPresence = function (hashtag) {
     var hashtagChars = hashtag.split('');
-    if (hashtagChars.indexOf('#', 1) > 0) {
+    if ((hashtagChars.indexOf('#', 1) > 0) && !hashtag.match(/^##+/)) {
       hashtagsElement.setCustomValidity('Хэш-теги должны разделяться пробелами');
     }
   };
