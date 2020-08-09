@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var URL = 'https://javascript.pages.academy/kekstagram/data';
+  var URL = 'https://javascript.pages.academy/kekstagram';
   var SERVER_RESPONSE_OK = 200;
   var LOADING_TIMEOUT = 10000;
 
